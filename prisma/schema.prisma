@@ -1,0 +1,269 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ── Enums ────────────────────────────────────────────────────────────────────
+
+enum Discipline {
+  triathlon
+  cyclisme
+  course_a_pied
+  autre
+}
+
+enum AthleteStatut {
+  actif
+  pause
+  archive
+  en_attente
+}
+
+enum Service {
+  basic
+  performance
+  pro
+  gratuit
+  autre
+}
+
+enum LeadStatut {
+  a_contacter
+  appel_effectue
+  coaching_demarre
+  demarches_admin
+  en_reflexion
+  acompte_recu
+  perdu
+}
+
+enum LeadSource {
+  instagram
+  site_web
+  bouche_a_oreille
+  autre
+}
+
+enum EventType {
+  competition
+  stage
+  academy
+  structure
+  autre
+}
+
+enum EventSource {
+  manual
+  nolio
+  objectif
+  academy
+}
+
+enum TacheStatut {
+  a_faire
+  en_cours
+  termine
+}
+
+enum TachePriorite {
+  basse
+  moyenne
+  haute
+}
+
+enum TodoStatut {
+  a_faire
+  en_cours
+  fait
+}
+
+enum InvitationStatut {
+  pending
+  completed
+  expired
+}
+
+// ── Models ───────────────────────────────────────────────────────────────────
+
+model Coach {
+  id        String @id
+  nom       String
+  prenom    String
+  email     String @default("")
+  telephone String @default("")
+  couleur   String @default("#7c1d35")
+  role      String @default("")
+
+  athletes        Athlete[]
+  academySessions AcademySession[]
+  invitations     OnboardingInvitation[]
+}
+
+model Athlete {
+  id             String        @id
+  nom            String
+  prenom         String
+  email          String?
+  telephone      String        @default("")
+  adresse        String        @default("")
+  discipline     Discipline    @default(triathlon)
+  coachId        String
+  coach          Coach         @relation(fields: [coachId], references: [id])
+  statut         AthleteStatut @default(actif)
+  objectif       String        @default("")
+  planJusquAu    String        @default("")
+  offreSouscrite String        @default("")
+  lienNolio      String        @default("")
+  notes          String        @default("")
+  createdAt      DateTime      @default(now())
+  service        Service       @default(performance)
+  prixMensuel    Int           @default(0)
+  nolioId        Int?          @unique
+  /// Array of Objectif — { id, titre, date, distance, source? }
+  objectifs      Json?
+  /// Performances record — { natation, cyclisme, cap, triathlon, custom? }
+  performances   Json?
+
+  events      CalendarEvent[]
+  taches      Tache[]
+  invitations OnboardingInvitation[]
+}
+
+model Lead {
+  id                String     @id
+  nom               String
+  prenom            String
+  email             String?
+  telephone         String     @default("")
+  source            LeadSource @default(instagram)
+  discipline        Discipline @default(triathlon)
+  statut            LeadStatut @default(a_contacter)
+  notes             String     @default("")
+  createdAt         DateTime   @default(now())
+  coachId           String?
+  dateDebutCoaching String?
+  converti          Boolean    @default(false)
+}
+
+model Projet {
+  id          String @id
+  nom         String
+  responsable String
+  deadline    String
+  progression Int    @default(0)
+  statut      String @default("en_cours")
+  description String @default("")
+
+  taches Tache[]
+}
+
+model Tache {
+  id          String        @id
+  titre       String
+  projetId    String?
+  projet      Projet?       @relation(fields: [projetId], references: [id])
+  athleteId   String?
+  athlete     Athlete?      @relation(fields: [athleteId], references: [id])
+  responsable String
+  deadline    String
+  statut      TacheStatut   @default(a_faire)
+  priorite    TachePriorite @default(moyenne)
+}
+
+model Todo {
+  id          String        @id
+  titre       String
+  responsable String        @default("")
+  priorite    TachePriorite @default(moyenne)
+  deadline    String        @default("")
+  statut      TodoStatut    @default(a_faire)
+  projetId    String?
+  notes       String?
+  createdAt   DateTime      @default(now())
+}
+
+model YoungAthlete {
+  id              String     @id
+  prenom          String
+  nom             String
+  dateNaissance   String
+  discipline      Discipline @default(triathlon)
+  contactParent   String     @default("")
+  telephoneParent String     @default("")
+  emailParent     String?
+  urgence         String     @default("")
+  statut          String     @default("actif")
+  createdAt       DateTime   @default(now())
+}
+
+model AcademySession {
+  id           String     @id
+  date         String
+  entraineurId String
+  entraineur   Coach      @relation(fields: [entraineurId], references: [id])
+  discipline   Discipline @default(triathlon)
+  lieu         String     @default("")
+  notes        String?
+  /// Array of youngAthlete IDs present at this session
+  presents     Json       @default("[]")
+}
+
+model CalendarEvent {
+  id           String      @id
+  titre        String
+  type         EventType
+  dateDebut    String
+  dateFin      String?
+  responsable  String?
+  description  String?
+  source       EventSource @default(manual)
+  refId        String?
+  athleteId    String?
+  athlete      Athlete?    @relation(fields: [athleteId], references: [id])
+  /// Optional array of participant IDs (coachIds or athleteIds)
+  participants Json?
+
+  @@index([source, refId])
+  @@index([athleteId])
+  @@index([dateDebut])
+}
+
+model Licencie {
+  id            String     @id
+  prenom        String
+  nom           String
+  email         String?
+  telephone     String     @default("")
+  adresse       String     @default("")
+  dateLicence   String
+  numeroLicence String     @default("")
+  discipline    Discipline @default(triathlon)
+  statut        String     @default("actif")
+  createdAt     DateTime   @default(now())
+}
+
+model OnboardingInvitation {
+  token       String           @id
+  athleteId   String
+  athlete     Athlete          @relation(fields: [athleteId], references: [id])
+  prenom      String
+  nom         String
+  email       String
+  coachId     String
+  coach       Coach            @relation(fields: [coachId], references: [id])
+  createdAt   DateTime         @default(now())
+  expiresAt   DateTime
+  completedAt DateTime?
+  statut      InvitationStatut @default(pending)
+}
+
+/// Generic key→JSON store — used for nolioCoachToken and future app-level config
+model AppConfig {
+  key   String @id
+  value Json
+
+  @@map("app_config")
+}
