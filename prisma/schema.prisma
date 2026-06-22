@@ -18,6 +18,7 @@ enum Discipline {
 enum AthleteStatut {
   actif
   pause
+  arret
   archive
   en_attente
 }

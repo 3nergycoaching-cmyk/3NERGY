@@ -102,11 +102,16 @@ export default function AcquisitionClient({ leads: initialLeads, coaches }: Prop
   const handleMarkPerdu = async (lead: Lead) => {
     setLeads((prev) => prev.map((l) => (l.id === lead.id ? { ...l, statut: "perdu" } : l)));
     setMenuOpen(null);
-    await fetch(`/api/leads/${lead.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ statut: "perdu" }),
-    });
+    try {
+      await fetch(`/api/leads/${lead.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ statut: "perdu" }),
+      });
+      router.refresh();
+    } catch {
+      setLeads((prev) => prev.map((l) => (l.id === lead.id ? { ...l, statut: lead.statut } : l)));
+    }
   };
 
   const handleDelete = async (id: string) => {
@@ -558,6 +563,7 @@ function EditLeadModal({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+      if (!res.ok) return;
       const updated = await res.json();
       onUpdated(updated);
     } finally {

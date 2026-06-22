@@ -104,11 +104,11 @@ export default function AthletesClient({ athletes, coaches }: Props) {
     return c ? `${c.prenom} ${c.nom}` : "—";
   };
 
-  // Toggle actif ↔ pause
+  // Toggle actif ↔ pause (badge click)
   const handleToggleStatut = async (e: React.MouseEvent, athlete: Athlete) => {
     e.stopPropagation();
     const current = localStatuts[athlete.id] ?? athlete.statut;
-    if (current === "archive" || current === "en_attente") return;
+    if (current === "archive" || current === "en_attente" || current === "arret") return;
     const next: StatutAthlete = current === "actif" ? "pause" : "actif";
     setLocalStatuts((prev) => ({ ...prev, [athlete.id]: next }));
     setTogglingId(athlete.id);
@@ -119,10 +119,26 @@ export default function AthletesClient({ athletes, coaches }: Props) {
         body: JSON.stringify({ statut: next }),
       });
     } catch {
-      // revert
       setLocalStatuts((prev) => ({ ...prev, [athlete.id]: current }));
     } finally {
       setTogglingId(null);
+    }
+  };
+
+  // Set statut explicitly (from "..." menu)
+  const handleSetStatut = async (e: React.MouseEvent, athlete: Athlete, next: StatutAthlete) => {
+    e.stopPropagation();
+    const current = localStatuts[athlete.id] ?? athlete.statut;
+    setLocalStatuts((prev) => ({ ...prev, [athlete.id]: next }));
+    setOpenMenuId(null);
+    try {
+      await fetch(`/api/athletes/${athlete.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ statut: next }),
+      });
+    } catch {
+      setLocalStatuts((prev) => ({ ...prev, [athlete.id]: current }));
     }
   };
 
@@ -141,6 +157,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
 
   const toggleMenu = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation(); // prevent document click listener from closing immediately
     setOpenMenuId((prev) => (prev === id ? null : id));
   };
 
@@ -219,6 +236,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
             <option value="">Tous les statuts</option>
             <option value="actif">Actif</option>
             <option value="pause">En pause</option>
+            <option value="arret">Arrêt</option>
             <option value="archive">Archivé</option>
             <option value="en_attente">En attente</option>
           </select>
@@ -298,13 +316,14 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                         ) : (
                           <button
                             onClick={(e) => handleToggleStatut(e, athlete)}
-                            disabled={isToggling || currentStatut === "archive"}
+                            disabled={isToggling || currentStatut === "archive" || currentStatut === "arret"}
                             title={
                               currentStatut === "archive" ? "Archivé"
+                                : currentStatut === "arret" ? "Arrêt — utiliser le menu (...) pour changer"
                                 : currentStatut === "actif" ? "Cliquer pour mettre en pause"
                                 : "Cliquer pour réactiver"
                             }
-                            className={`rounded transition-opacity ${isToggling ? "opacity-40" : "hover:opacity-75"} ${currentStatut !== "archive" ? "cursor-pointer" : "cursor-default"}`}
+                            className={`rounded transition-opacity ${isToggling ? "opacity-40" : "hover:opacity-75"} ${currentStatut !== "archive" && currentStatut !== "arret" ? "cursor-pointer" : "cursor-default"}`}
                           >
                             <Badge value={currentStatut} type="statut_athlete" />
                           </button>
@@ -317,6 +336,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
+                              e.nativeEvent.stopImmediatePropagation();
                               setOpenServiceMenuId((prev) => prev === athlete.id ? null : athlete.id);
                             }}
                             className="rounded hover:opacity-75 transition-opacity cursor-pointer"
@@ -380,16 +400,32 @@ export default function AthletesClient({ athletes, coaches }: Props) {
 
                               {/* Changer le statut */}
                               {currentStatut !== "archive" && currentStatut !== "en_attente" && (
-                                <button
-                                  onClick={(e) => { handleToggleStatut(e, athlete); setOpenMenuId(null); }}
-                                  className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                                >
-                                  {currentStatut === "actif" ? (
-                                    <><PauseCircle size={14} className="text-amber-500 flex-shrink-0" /> Mettre en pause</>
-                                  ) : (
-                                    <><PlayCircle size={14} className="text-emerald-500 flex-shrink-0" /> Réactiver</>
+                                <>
+                                  {currentStatut !== "pause" && (
+                                    <button
+                                      onClick={(e) => handleSetStatut(e, athlete, "pause")}
+                                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                    >
+                                      <PauseCircle size={14} className="text-amber-500 flex-shrink-0" /> Mettre en pause
+                                    </button>
                                   )}
-                                </button>
+                                  {currentStatut !== "arret" && (
+                                    <button
+                                      onClick={(e) => handleSetStatut(e, athlete, "arret")}
+                                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                    >
+                                      <PauseCircle size={14} className="text-red-500 flex-shrink-0" /> Arrêt
+                                    </button>
+                                  )}
+                                  {currentStatut !== "actif" && (
+                                    <button
+                                      onClick={(e) => handleSetStatut(e, athlete, "actif")}
+                                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                    >
+                                      <PlayCircle size={14} className="text-emerald-500 flex-shrink-0" /> Réactiver
+                                    </button>
+                                  )}
+                                </>
                               )}
 
                               <div className="my-1 border-t border-gray-100" />

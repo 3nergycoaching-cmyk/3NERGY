@@ -13,6 +13,7 @@ const disciplineMap: Record<Discipline, { label: string; class: string }> = {
 const statutAthleteMap: Record<StatutAthlete, { label: string; class: string }> = {
   actif:      { label: "Actif",       class: "bg-emerald-100 text-emerald-800" },
   pause:      { label: "Pause",       class: "bg-yellow-100 text-yellow-800" },
+  arret:      { label: "Arrêt",       class: "bg-red-100 text-red-700" },
   archive:    { label: "Archivé",     class: "bg-gray-100 text-gray-600" },
   en_attente: { label: "En attente",  class: "bg-amber-100 text-amber-700" },
 };

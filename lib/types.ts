@@ -9,7 +9,7 @@ export interface Coach {
 }
 
 export type Discipline = "triathlon" | "cyclisme" | "course_a_pied" | "autre";
-export type StatutAthlete = "actif" | "pause" | "archive" | "en_attente";
+export type StatutAthlete = "actif" | "pause" | "arret" | "archive" | "en_attente";
 export type Service = "basic" | "performance" | "pro" | "gratuit" | "autre";
 
 // ── Objectifs ──────────────────────────────────────────────────────────────
