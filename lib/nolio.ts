@@ -12,18 +12,51 @@ const REDIRECT_URI  = process.env.NOLIO_REDIRECT_URI!;
 
 // ── Authorization URL ───────────────────────────────────────────────────────
 
-export function buildAuthUrl(athleteId: string): string {
+export interface AuthStatePayload {
+  /** CRM athlete ID (if starting from an athlete profile). Optional for coach-level flows. */
+  athleteId?: string;
+  /** Where to redirect after successful OAuth (default: /equipe/nolio). */
+  returnTo: string;
+}
+
+/**
+ * Build the Nolio OAuth2 authorization URL.
+ * State carries JSON { athleteId?, returnTo } encoded as base64url.
+ */
+export function buildAuthUrl(options: { athleteId?: string; returnTo?: string }): string {
+  const payload: AuthStatePayload = {
+    athleteId: options.athleteId,
+    returnTo: options.returnTo ?? (options.athleteId ? `/athletes/${options.athleteId}` : "/equipe/nolio"),
+  };
+  const state = Buffer.from(JSON.stringify(payload)).toString("base64url");
   const params = new URLSearchParams({
     response_type: "code",
     client_id: CLIENT_ID,
     redirect_uri: REDIRECT_URI,
-    state: Buffer.from(athleteId).toString("base64url"),
+    state,
   });
   return `${NOLIO_BASE}/authorize/?${params.toString()}`;
 }
 
-export function decodeState(state: string): string {
-  return Buffer.from(state, "base64url").toString("utf-8");
+/**
+ * Decode the OAuth state parameter.
+ * Supports both the new JSON format and legacy plain-athleteId base64url.
+ */
+export function decodeState(state: string): AuthStatePayload {
+  const raw = Buffer.from(state, "base64url").toString("utf-8");
+  try {
+    const parsed = JSON.parse(raw);
+    if (typeof parsed === "object" && parsed !== null) {
+      return {
+        athleteId: typeof parsed.athleteId === "string" ? parsed.athleteId : undefined,
+        returnTo:  typeof parsed.returnTo === "string"  ? parsed.returnTo  : "/equipe/nolio",
+      };
+    }
+  } catch {
+    // Legacy format: raw string = athleteId
+  }
+  // Legacy: plain base64url athleteId
+  return { athleteId: raw, returnTo: `/athletes/${raw}` };
 }
 
 // ── Token exchange ──────────────────────────────────────────────────────────

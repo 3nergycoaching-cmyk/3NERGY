@@ -14,6 +14,17 @@ interface SyncResult {
   objectifsUpdated: number;
 }
 
+function isAuthError(status: number, message: string): boolean {
+  const m = message.toLowerCase();
+  return (
+    (status === 400 && m.includes("token")) ||
+    m.includes("invalid_grant") ||
+    m.includes("refresh failed") ||
+    m.includes("non connecté") ||
+    m.includes("connectez")
+  );
+}
+
 export default function SyncNolioButton() {
   const router = useRouter();
   const [syncing, setSyncing] = useState(false);
@@ -28,7 +39,13 @@ export default function SyncNolioButton() {
       const res = await fetch("/api/nolio/sync", { method: "POST" });
       const json = await res.json();
       if (!res.ok) {
-        setError(json.error ?? "Erreur synchronisation");
+        const msg: string = json.error ?? "Erreur synchronisation";
+        if (isAuthError(res.status, msg)) {
+          // Token expiré ou absent → relancer le flux OAuth depuis /courses
+          window.location.href = "/api/auth/nolio?returnTo=/courses";
+          return;
+        }
+        setError(msg);
         return;
       }
       setResult(json);
