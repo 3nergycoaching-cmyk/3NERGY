@@ -205,6 +205,7 @@ function mapAcademySession(p: {
 function mapCalendarEvent(p: {
   id: string; titre: string; type: string; dateDebut: string;
   dateFin: string | null; responsable: string | null; description: string | null;
+  sport?: string | null;
   source: string; refId: string | null; athleteId: string | null;
   participants: unknown;
 }): CalendarEvent {
@@ -216,6 +217,7 @@ function mapCalendarEvent(p: {
     dateFin: p.dateFin ?? undefined,
     responsable: p.responsable ?? undefined,
     description: p.description ?? undefined,
+    sport: p.sport ?? undefined,
     source: p.source as CalendarEvent["source"],
     refId: p.refId ?? undefined,
     athleteId: p.athleteId ?? undefined,

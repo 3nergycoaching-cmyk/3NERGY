@@ -220,6 +220,7 @@ model CalendarEvent {
   dateFin      String?
   responsable  String?
   description  String?
+  sport        String?     // raw sport name from Nolio (e.g. "Triathlon", "Vélo - Route")
   source       EventSource @default(manual)
   refId        String?
   athleteId    String?

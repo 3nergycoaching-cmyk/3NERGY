@@ -209,6 +209,7 @@ export interface CalendarEvent {
   source?: "manual" | "objectif" | "academy" | "nolio";
   refId?: string; // ID of source object (or nolio training ID)
   athleteId?: string; // CRM athlete ID for Nolio events
+  sport?: string; // raw Nolio sport name (e.g. "Triathlon", "Vélo - Route")
 }
 
 // ── Nolio OAuth token ──────────────────────────────────────────────────────

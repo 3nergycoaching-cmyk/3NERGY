@@ -108,6 +108,7 @@ export async function POST() {
               dateDebut:   ev.dateDebut,
               dateFin:     ev.dateFin   ?? null,
               description: ev.description ?? null,
+              sport:       (ev as { sport?: string }).sport ?? null,
               athleteId:   ownerCrmId,
             },
           });
@@ -121,6 +122,7 @@ export async function POST() {
               dateDebut:   ev.dateDebut,
               dateFin:     ev.dateFin   ?? null,
               description: ev.description ?? null,
+              sport:       (ev as { sport?: string }).sport ?? null,
               source:      "nolio",
               refId:       ev.refId,
               athleteId:   ownerCrmId,

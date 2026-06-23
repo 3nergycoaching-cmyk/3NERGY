@@ -11,7 +11,8 @@ interface Competition {
   dateDebut: string;
   athleteId: string | null;
   athleteNom: string | null;
-  discipline: string | null;
+  sport: string | null;       // raw Nolio sport name
+  discipline: string | null;  // CRM key derived from sport
 }
 
 interface SelectedResult {

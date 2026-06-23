@@ -263,10 +263,10 @@ function trainingToEvent(t: NolioTraining, crmAthleteId: string): Omit<CalendarE
     dateFin: (t.date_end && t.date_end !== "") ? t.date_end : undefined,
     description: [
       t.description && t.description.trim() !== "" ? t.description.trim() : null,
-      t.sport ? `Sport : ${t.sport}` : null,
       t.distance ? `Distance : ${t.distance} km` : null,
       t.duration ? `Durée : ${Math.round(t.duration / 60)} min` : null,
     ].filter(Boolean).join(" · ") || undefined,
+    sport: t.sport ?? undefined,
     source: "nolio" as const,
     refId: `nolio_${t.nolio_id}`,
     athleteId: crmAthleteId,

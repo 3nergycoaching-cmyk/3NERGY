@@ -12,9 +12,23 @@ export interface ResultRow {
   recordPerso: boolean;
 }
 
+interface AthleteResult {
+  athleteNom: string | null;
+  temps: string;
+  classement: string;
+  recordPerso: boolean;
+}
+
+interface GroupedCourse {
+  courseNom: string;
+  dateDebut: string;
+  discipline: string | null;
+  athletes: AthleteResult[];
+}
+
 interface Props {
   rows: ResultRow[];
-  /** null → titre "COURSES", valeur → titre en discipline (si tous identiques) */
+  /** null → titre "COURSES", valeur → titre discipline si tous identiques */
   sharedDiscipline: string | null;
   posterRef: React.RefObject<HTMLDivElement>;
 }
@@ -30,18 +44,42 @@ function formatDate(iso: string): string {
 }
 
 const disciplineLabels: Record<string, string> = {
-  triathlon: "TRIATHLON",
-  cyclisme: "CYCLISME",
+  triathlon:     "TRIATHLON",
+  cyclisme:      "CYCLISME",
   course_a_pied: "COURSE À PIED",
-  autre: "MULTI-SPORT",
+  autre:         "MULTI-SPORT",
 };
 
 function disciplineLabel(d: string | null): string {
   return d ? (disciplineLabels[d] ?? d.toUpperCase()) : "MULTI-SPORT";
 }
 
+/** Group rows sharing the same courseNom + dateDebut under one banner */
+function groupRows(rows: ResultRow[]): GroupedCourse[] {
+  const map = new Map<string, GroupedCourse>();
+  for (const row of rows) {
+    const key = `${row.courseNom}||${row.dateDebut}`;
+    if (!map.has(key)) {
+      map.set(key, {
+        courseNom: row.courseNom,
+        dateDebut: row.dateDebut,
+        discipline: row.discipline,
+        athletes: [],
+      });
+    }
+    map.get(key)!.athletes.push({
+      athleteNom: row.athleteNom,
+      temps: row.temps,
+      classement: row.classement,
+      recordPerso: row.recordPerso,
+    });
+  }
+  return Array.from(map.values());
+}
+
 export default function PosterPreview({ rows, sharedDiscipline, posterRef }: Props) {
   const mainTitle = sharedDiscipline ? disciplineLabel(sharedDiscipline) : "COURSES";
+  const groups = groupRows(rows);
 
   return (
     <div
@@ -80,32 +118,29 @@ export default function PosterPreview({ rows, sharedDiscipline, posterRef }: Pro
       {/* Header */}
       <div style={{
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "28px 30px 0",
+        padding: "24px 28px 0",
         position: "relative", zIndex: 1,
       }}>
-        {/* Title */}
-        <div>
-          <div style={{
-            fontSize: 38, fontWeight: 900, color: "#ffffff",
-            letterSpacing: "0.06em", lineHeight: 1,
-            textTransform: "uppercase",
-          }}>
-            {mainTitle}
-          </div>
+        <div style={{
+          fontSize: 38, fontWeight: 900, color: "#ffffff",
+          letterSpacing: "0.06em", lineHeight: 1,
+          textTransform: "uppercase",
+        }}>
+          {mainTitle}
         </div>
 
-        {/* Logo image */}
+        {/* Logo — ~2.3× bigger than before (was h:44, now h:100) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo-3nergy-blanc.png"
           alt="3NERGY"
-          style={{ height: 44, objectFit: "contain", flexShrink: 0 }}
+          style={{ height: 100, objectFit: "contain", flexShrink: 0 }}
         />
       </div>
 
       {/* Divider */}
       <div style={{
-        margin: "14px 30px 12px",
+        margin: "12px 28px 10px",
         height: 2,
         background: `linear-gradient(90deg, ${ACCENT}, ${ACCENT}88, transparent)`,
         position: "relative", zIndex: 1,
@@ -114,22 +149,22 @@ export default function PosterPreview({ rows, sharedDiscipline, posterRef }: Pro
       {/* Results */}
       <div style={{
         flex: 1, overflowY: "hidden",
-        padding: "0 22px",
-        display: "flex", flexDirection: "column", gap: 10,
+        padding: "0 20px",
+        display: "flex", flexDirection: "column", gap: 9,
         position: "relative", zIndex: 1,
       }}>
-        {rows.map((row, i) => (
-          <ResultCard key={i} row={row} />
+        {groups.map((group, i) => (
+          <CourseGroup key={i} group={group} />
         ))}
       </div>
 
       {/* Footer */}
       <div style={{
-        padding: "10px 30px 16px",
+        padding: "8px 28px 14px",
         textAlign: "center",
         position: "relative", zIndex: 1,
       }}>
-        <div style={{ height: 1, background: "rgba(255,255,255,0.08)", marginBottom: 10 }} />
+        <div style={{ height: 1, background: "rgba(255,255,255,0.08)", marginBottom: 8 }} />
         <span style={{
           fontSize: 10, fontWeight: 600, color: "rgba(255,255,255,0.35)",
           letterSpacing: "0.18em", textTransform: "uppercase",
@@ -141,20 +176,17 @@ export default function PosterPreview({ rows, sharedDiscipline, posterRef }: Pro
   );
 }
 
-function ResultCard({ row }: { row: ResultRow }) {
-  const hasResult = row.temps || row.classement;
-  const result = [row.temps, row.classement].filter(Boolean).join("  •  ");
-  const discLabel = row.discipline ? disciplineLabels[row.discipline] ?? row.discipline.toUpperCase() : null;
+function CourseGroup({ group }: { group: GroupedCourse }) {
+  const discLabel = group.discipline ? disciplineLabels[group.discipline] ?? group.discipline.toUpperCase() : null;
 
   return (
     <div style={{ borderRadius: 8, overflow: "hidden" }}>
-      {/* Bandeau accent — discipline + nom course + date */}
+      {/* Bandeau rose — discipline (petit) + nom course + date */}
       <div style={{
         background: ACCENT,
         padding: "5px 14px 6px",
         display: "flex", flexDirection: "column", gap: 1,
       }}>
-        {/* Discipline en petit au-dessus */}
         {discLabel && (
           <span style={{
             fontSize: 8, fontWeight: 700, color: "rgba(255,255,255,0.75)",
@@ -163,7 +195,6 @@ function ResultCard({ row }: { row: ResultRow }) {
             {discLabel}
           </span>
         )}
-        {/* Course nom + date */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <span style={{
             fontSize: 11, fontWeight: 800, color: "#fff",
@@ -171,48 +202,64 @@ function ResultCard({ row }: { row: ResultRow }) {
             flex: 1, marginRight: 8,
             whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
           }}>
-            {row.courseNom}
+            {group.courseNom}
           </span>
           <span style={{
             fontSize: 9, fontWeight: 600, color: "rgba(255,255,255,0.80)",
             letterSpacing: "0.08em", flexShrink: 0,
           }}>
-            {formatDate(row.dateDebut)}
+            {formatDate(group.dateDebut)}
           </span>
         </div>
       </div>
 
-      {/* Bloc résultat sombre */}
-      <div style={{
-        background: "rgba(255,255,255,0.06)",
-        borderLeft: `2px solid ${ACCENT}`,
-        padding: "8px 14px",
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        gap: 8,
-      }}>
-        <span style={{
-          fontSize: 13, fontWeight: 700, color: "#ffffff",
-          flex: 1, minWidth: 0,
-          whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-        }}>
-          {row.athleteNom ?? "—"}
-        </span>
+      {/* Un bloc par athlète */}
+      {group.athletes.map((a, idx) => (
+        <AthleteRow
+          key={idx}
+          athlete={a}
+          isLast={idx === group.athletes.length - 1}
+        />
+      ))}
+    </div>
+  );
+}
 
-        <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
-          {hasResult && (
-            <span style={{
-              background: "#ffffff", color: "#1a1218",
-              fontSize: 11, fontWeight: 800,
-              padding: "3px 10px", borderRadius: 20,
-              letterSpacing: "0.04em",
-            }}>
-              {result}
-            </span>
-          )}
-          {row.recordPerso && (
-            <span style={{ fontSize: 16, lineHeight: 1 }}>🏅</span>
-          )}
-        </div>
+function AthleteRow({ athlete, isLast }: { athlete: AthleteResult; isLast: boolean }) {
+  const hasResult = athlete.temps || athlete.classement;
+  const result = [athlete.temps, athlete.classement].filter(Boolean).join("  •  ");
+
+  return (
+    <div style={{
+      background: "rgba(255,255,255,0.06)",
+      borderLeft: `2px solid ${ACCENT}`,
+      borderBottom: isLast ? "none" : "1px solid rgba(255,255,255,0.04)",
+      padding: "7px 14px",
+      display: "flex", alignItems: "center", justifyContent: "space-between",
+      gap: 8,
+    }}>
+      <span style={{
+        fontSize: 12, fontWeight: 700, color: "#ffffff",
+        flex: 1, minWidth: 0,
+        whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+      }}>
+        {athlete.athleteNom ?? "—"}
+      </span>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+        {hasResult && (
+          <span style={{
+            background: "#ffffff", color: "#1a1218",
+            fontSize: 11, fontWeight: 800,
+            padding: "3px 10px", borderRadius: 20,
+            letterSpacing: "0.04em",
+          }}>
+            {result}
+          </span>
+        )}
+        {athlete.recordPerso && (
+          <span style={{ fontSize: 16, lineHeight: 1 }}>🏅</span>
+        )}
       </div>
     </div>
   );

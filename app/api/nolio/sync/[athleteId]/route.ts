@@ -72,7 +72,11 @@ export async function POST(
       if (existing) {
         await prisma.calendarEvent.update({
           where: { id: existing.id },
-          data:  { titre: ev.titre, dateDebut: ev.dateDebut, dateFin: ev.dateFin ?? null, athleteId },
+          data:  {
+            titre: ev.titre, dateDebut: ev.dateDebut, dateFin: ev.dateFin ?? null,
+            sport: (ev as { sport?: string }).sport ?? null,
+            athleteId,
+          },
         });
         updated++;
       } else {
@@ -83,6 +87,7 @@ export async function POST(
             type:      (ev.type ?? "competition") as never,
             dateDebut: ev.dateDebut,
             dateFin:   ev.dateFin ?? null,
+            sport:     (ev as { sport?: string }).sport ?? null,
             source:    "nolio",
             refId:     ev.refId,
             athleteId,
