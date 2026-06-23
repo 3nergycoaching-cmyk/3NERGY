@@ -3,6 +3,25 @@
  * Used by /courses (server) and /posts-resultats/PosterPreview (client).
  */
 
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+export interface CourseGroupOverrides {
+  /** groupKey (normalizedName||date) → custom display name */
+  displayNames: Record<string, string>;
+  /** pairs of [normA, normB] that must NEVER be auto-merged */
+  forceSeparate: [string, string][];
+  /** pairs of [normA, normB] that must ALWAYS be merged */
+  forceMerge: [string, string][];
+}
+
+export const DEFAULT_COURSE_OVERRIDES: CourseGroupOverrides = {
+  displayNames: {},
+  forceSeparate: [],
+  forceMerge: [],
+};
+
+// ─── Normalisation ───────────────────────────────────────────────────────────
+
 /** Remove accents: "é" → "e", "ç" → "c", etc. */
 export function removeAccents(s: string): string {
   return s.normalize("NFD").replace(/[̀-ͯ]/g, "");
@@ -10,20 +29,21 @@ export function removeAccents(s: string): string {
 
 /**
  * Normalise a race name for fuzzy comparison:
- *  - lower-case + trim
- *  - remove accents
- *  - "20 km" | "20km" | "20kms" → "20km"
- *  - remove stopwords: de/du/des/d/les/la/le/l/en/au/aux/sur/à/a/et
+ *  - lower-case + trim + remove accents
+ *  - "20 km" | "20km" | "20kms" | "20 kil" | "20k" → "20km"
+ *  - remove articles/prepositions (de/du/des/le/la/les/en/à…)
+ *  - remove punctuation (keep digits, alpha, spaces, "." for "70.3")
  *  - collapse whitespace
- *  - remove punctuation (except digits)
  */
 export function normalizeRaceName(name: string): string {
   let s = removeAccents(name.toLowerCase().trim());
-  // Unify km variants: "20 km", "20kms", "20 kms" → "20km"
-  s = s.replace(/(\d+)\s*kms?\b/g, "$1km");
+  // Unify km variants: "20 km", "20kms", "20 kil", "20 kilomètr…" → "20km"
+  s = s.replace(/(\d+)\s*(?:kilomet(?:re|er)s?|kils?|kms?)\b/g, "$1km");
+  // "20k" word-boundary → "20km"
+  s = s.replace(/(\d+)k\b/g, "$1km");
   // Remove articles and prepositions
-  s = s.replace(/\b(de|du|des|d|les|la|le|l|en|au|aux|sur|à|a|et)\b/g, " ");
-  // Remove punctuation (keep alphanumeric, spaces, dots for "70.3")
+  s = s.replace(/\b(de|du|des|d|les|la|le|l|en|au|aux|sur|a|et)\b/g, " ");
+  // Remove punctuation (keep alphanumeric + "." for 70.3)
   s = s.replace(/[^\w\s.]/g, " ");
   // Collapse whitespace
   s = s.replace(/\s+/g, " ").trim();
@@ -39,7 +59,7 @@ export function bestRaceName(names: string[]): string {
 export function raceKeywords(name: string): Set<string> {
   const tokens = normalizeRaceName(name)
     .split(" ")
-    .filter((t) => t.length >= 3 || /^\d+/.test(t));
+    .filter((t) => t.length >= 3 || /^\d/.test(t));
   return new Set(tokens);
 }
 
@@ -60,27 +80,29 @@ export function levenshtein(a: string, b: string): number {
   return dp[m][n];
 }
 
+const SPECIFIC_DISTANCES = ["sprint", "olympic", "70.3", "ironman", "5km", "10km", "semi", "marathon"] as const;
+
 /**
  * Two race names are "similar" on the same date if:
+ *  - normalised forms are identical, OR
  *  - Levenshtein(norm(a), norm(b)) ≤ 4, OR
- *  - They share ≥ 2 significant keywords (catches "20km Bruxelles" vs "20 km de Bruxelles")
+ *  - They share ≥ 2 significant keywords
  *
  * Guards:
  *  - conflicting specific distances → not similar
- *  - generic names with ≤ 2 tokens → require exact normalised match
+ *  - ≤ 2 normalised tokens → require exact match (too generic to fuzzy-match)
  */
 export function raceNamesAreSimilar(a: string, b: string): boolean {
   const na = normalizeRaceName(a);
   const nb = normalizeRaceName(b);
   if (na === nb) return true;
 
-  // Guard: conflicting specific distances → definitely different races
-  const SPECIFIC = ["sprint", "olympic", "70.3", "ironman", "5km", "10km", "semi", "marathon"] as const;
-  const distA = SPECIFIC.find((d) => na.includes(d));
-  const distB = SPECIFIC.find((d) => nb.includes(d));
+  // Guard: conflicting specific distances
+  const distA = SPECIFIC_DISTANCES.find((d) => na.includes(d));
+  const distB = SPECIFIC_DISTANCES.find((d) => nb.includes(d));
   if (distA && distB && distA !== distB) return false;
 
-  // Guard: short / generic names → too risky to fuzzy-match
+  // Guard: short/generic names → too risky to fuzzy-match
   const tokA = na.split(" ").filter(Boolean);
   const tokB = nb.split(" ").filter(Boolean);
   if (tokA.length <= 2 || tokB.length <= 2) return false;
@@ -95,4 +117,31 @@ export function raceNamesAreSimilar(a: string, b: string): boolean {
   let shared = 0;
   ka.forEach((k) => { if (kb.has(k)) shared++; });
   return shared >= 2;
+}
+
+// ─── Override-aware similarity ────────────────────────────────────────────────
+
+/**
+ * Like raceNamesAreSimilar but respects manual forceMerge / forceSeparate overrides.
+ * forceMerge takes priority over forceSeparate (to allow un-splitting).
+ */
+export function raceNamesAreSimilarWithOverrides(
+  a: string,
+  b: string,
+  overrides: CourseGroupOverrides
+): boolean {
+  const na = normalizeRaceName(a);
+  const nb = normalizeRaceName(b);
+
+  const isForcedMerge = overrides.forceMerge.some(
+    ([x, y]) => (x === na && y === nb) || (x === nb && y === na)
+  );
+  if (isForcedMerge) return true;
+
+  const isForcedSep = overrides.forceSeparate.some(
+    ([x, y]) => (x === na && y === nb) || (x === nb && y === na)
+  );
+  if (isForcedSep) return false;
+
+  return raceNamesAreSimilar(a, b);
 }

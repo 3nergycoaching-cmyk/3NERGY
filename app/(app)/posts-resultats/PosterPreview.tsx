@@ -21,6 +21,7 @@ interface AthleteResult {
 }
 
 interface GroupedCourse {
+  groupKey: string;
   courseNom: string;
   dateDebut: string;
   discipline: string | null;
@@ -32,6 +33,8 @@ interface Props {
   /** null → titre "COURSES", valeur → titre discipline si tous identiques */
   sharedDiscipline: string | null;
   posterRef: React.RefObject<HTMLDivElement>;
+  /** groupKey → custom title override (optional, in-memory only) */
+  titleOverrides?: Record<string, string>;
 }
 
 const ACCENT = "#b02351";
@@ -56,11 +59,10 @@ function disciplineLabel(d: string | null): string {
 }
 
 /**
- * Group rows under one banner if their normalised name + date are identical.
- * Displays the most complete (longest) name from the group.
+ * Group rows by normalised name + date.
+ * Title priority: titleOverrides → bestRaceName of the group.
  */
-function groupRows(rows: ResultRow[]): GroupedCourse[] {
-  // Map from normalised key → accumulated group data
+function groupRows(rows: ResultRow[], titleOverrides: Record<string, string> = {}): GroupedCourse[] {
   const map = new Map<string, { names: string[]; dateDebut: string; discipline: string | null; athletes: AthleteResult[] }>();
 
   for (const row of rows) {
@@ -78,17 +80,18 @@ function groupRows(rows: ResultRow[]): GroupedCourse[] {
     });
   }
 
-  return Array.from(map.values()).map((g) => ({
-    courseNom: bestRaceName(g.names),
+  return Array.from(map.entries()).map(([key, g]) => ({
+    groupKey: key,
+    courseNom: titleOverrides[key] ?? bestRaceName(g.names),
     dateDebut: g.dateDebut,
     discipline: g.discipline,
     athletes: g.athletes,
   }));
 }
 
-export default function PosterPreview({ rows, sharedDiscipline, posterRef }: Props) {
+export default function PosterPreview({ rows, sharedDiscipline, posterRef, titleOverrides = {} }: Props) {
   const mainTitle = sharedDiscipline ? disciplineLabel(sharedDiscipline) : "COURSES";
-  const groups = groupRows(rows);
+  const groups = groupRows(rows, titleOverrides);
 
   return (
     <div
@@ -137,8 +140,6 @@ export default function PosterPreview({ rows, sharedDiscipline, posterRef }: Pro
         }}>
           {mainTitle}
         </div>
-
-        {/* Logo — ~2.3× bigger than before (was h:44, now h:100) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo-3nergy-blanc.png"
@@ -162,8 +163,8 @@ export default function PosterPreview({ rows, sharedDiscipline, posterRef }: Pro
         display: "flex", flexDirection: "column", gap: 9,
         position: "relative", zIndex: 1,
       }}>
-        {groups.map((group, i) => (
-          <CourseGroup key={i} group={group} />
+        {groups.map((group) => (
+          <CourseGroup key={group.groupKey} group={group} />
         ))}
       </div>
 
@@ -190,7 +191,6 @@ function CourseGroup({ group }: { group: GroupedCourse }) {
 
   return (
     <div style={{ borderRadius: 8, overflow: "hidden" }}>
-      {/* Bandeau rose — discipline (petit) + nom course + date */}
       <div style={{
         background: ACCENT,
         padding: "5px 14px 6px",
@@ -222,7 +222,6 @@ function CourseGroup({ group }: { group: GroupedCourse }) {
         </div>
       </div>
 
-      {/* Un bloc par athlète */}
       {group.athletes.map((a, idx) => (
         <AthleteRow
           key={idx}
@@ -254,7 +253,6 @@ function AthleteRow({ athlete, isLast }: { athlete: AthleteResult; isLast: boole
       }}>
         {athlete.athleteNom ?? "—"}
       </span>
-
       <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
         {hasResult && (
           <span style={{

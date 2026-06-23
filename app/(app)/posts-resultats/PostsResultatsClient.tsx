@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { toPng } from "html-to-image";
-import { Image as ImageIcon, Download, Eye, CheckSquare, Square, Sparkles } from "lucide-react";
+import { Image as ImageIcon, Download, Eye, CheckSquare, Square, Sparkles, Pencil } from "lucide-react";
 import PosterPreview, { ResultRow } from "./PosterPreview";
+import { normalizeRaceName, bestRaceName } from "@/lib/race-normalize";
 
 interface Competition {
   id: string;
@@ -11,8 +12,8 @@ interface Competition {
   dateDebut: string;
   athleteId: string | null;
   athleteNom: string | null;
-  sport: string | null;       // raw Nolio sport name
-  discipline: string | null;  // CRM key derived from sport
+  sport: string | null;
+  discipline: string | null;
 }
 
 interface SelectedResult {
@@ -57,6 +58,8 @@ export default function PostsResultatsClient({ competitions }: Props) {
   const [results, setResults] = useState<Record<string, SelectedResult>>({});
   const [showPreview, setShowPreview] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  /** in-memory title overrides per poster group (key = normalizedName||date) */
+  const [titleOverrides, setTitleOverrides] = useState<Record<string, string>>({});
   const posterRef = useRef<HTMLDivElement>(null!);
 
   const toggleSelect = (id: string) => {
@@ -79,6 +82,34 @@ export default function PostsResultatsClient({ competitions }: Props) {
   };
 
   const selectedCompetitions = competitions.filter((c) => selected.has(c.id));
+
+  // Compute which banner groups will form from the current selection
+  const bannerGroups = useMemo(() => {
+    const map = new Map<string, { key: string; names: string[]; dateDebut: string; athletes: string[] }>();
+    for (const c of selectedCompetitions) {
+      const key = `${normalizeRaceName(c.titre)}||${c.dateDebut}`;
+      if (!map.has(key)) map.set(key, { key, names: [], dateDebut: c.dateDebut, athletes: [] });
+      const g = map.get(key)!;
+      g.names.push(c.titre);
+      if (c.athleteNom) g.athletes.push(c.athleteNom);
+    }
+    return Array.from(map.values());
+  }, [selectedCompetitions]);
+
+  // Initialise title overrides for new groups (don't overwrite existing edits)
+  useEffect(() => {
+    setTitleOverrides((prev) => {
+      let changed = false;
+      const next = { ...prev };
+      for (const g of bannerGroups) {
+        if (!(g.key in next)) {
+          next[g.key] = bestRaceName(g.names);
+          changed = true;
+        }
+      }
+      return changed ? next : prev;
+    });
+  }, [bannerGroups]);
 
   // Titre unique si toutes les disciplines sélectionnées sont identiques
   const sharedDiscipline = (() => {
@@ -158,7 +189,6 @@ export default function PostsResultatsClient({ competitions }: Props) {
                   const res = results[comp.id] ?? { temps: "", classement: "", recordPerso: false };
                   return (
                     <div key={comp.id} className={`${idx > 0 ? "border-t border-gray-50" : ""}`}>
-                      {/* Row */}
                       <div
                         className={`flex items-center gap-4 px-4 py-3 cursor-pointer transition-colors ${isSel ? "bg-[#7c1d35]/5" : "hover:bg-gray-50"}`}
                         onClick={() => toggleSelect(comp.id)}
@@ -180,7 +210,6 @@ export default function PostsResultatsClient({ competitions }: Props) {
                         )}
                       </div>
 
-                      {/* Editable fields when selected */}
                       {isSel && (
                         <div
                           className="px-4 pb-3 flex flex-wrap gap-3 bg-[#7c1d35]/5 border-t border-[#7c1d35]/10"
@@ -223,6 +252,52 @@ export default function PostsResultatsClient({ competitions }: Props) {
               </div>
             </div>
           ))}
+
+          {/* Banner title overrides (shown when at least one competition is selected) */}
+          {bannerGroups.length > 0 && (
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div className="px-4 py-3 border-b border-gray-50 flex items-center gap-2">
+                <Pencil size={14} className="text-[#7c1d35]" />
+                <p className="text-sm font-semibold text-[#1a1218]">Titres des bandeaux</p>
+                <p className="text-xs text-gray-400 ml-1">Modifiables avant génération</p>
+              </div>
+              <div className="divide-y divide-gray-50">
+                {bannerGroups.map((g) => (
+                  <div key={g.key} className="px-4 py-3 flex items-center gap-3">
+                    <div className="flex-1 min-w-0">
+                      <input
+                        type="text"
+                        value={titleOverrides[g.key] ?? ""}
+                        onChange={(e) =>
+                          setTitleOverrides((prev) => ({ ...prev, [g.key]: e.target.value }))
+                        }
+                        className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-[#1a1218] focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                        placeholder="Titre du bandeau…"
+                      />
+                      {g.athletes.length > 0 && (
+                        <p className="text-xs text-gray-400 mt-1 ml-0.5">
+                          {g.athletes.join(", ")}
+                          {" · "}
+                          {formatDate(g.dateDebut)}
+                        </p>
+                      )}
+                    </div>
+                    {/* Reset button */}
+                    {titleOverrides[g.key] !== bestRaceName(g.names) && (
+                      <button
+                        onClick={() =>
+                          setTitleOverrides((prev) => ({ ...prev, [g.key]: bestRaceName(g.names) }))
+                        }
+                        className="text-xs text-gray-400 hover:text-gray-600 whitespace-nowrap"
+                      >
+                        Réinitialiser
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -249,12 +324,12 @@ export default function PostsResultatsClient({ competitions }: Props) {
               </button>
             </div>
 
-            {/* Poster at 540×540 (exported at ×2 = 1080×1080) */}
             <div className="rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10">
               <PosterPreview
                 rows={posterRows}
                 sharedDiscipline={sharedDiscipline}
                 posterRef={posterRef}
+                titleOverrides={titleOverrides}
               />
             </div>
 

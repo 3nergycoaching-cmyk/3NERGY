@@ -1,6 +1,13 @@
 import { readDB } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import { Athlete, Coach, DistanceObjectif } from "@/lib/types";
-import { normalizeRaceName, raceNamesAreSimilar, bestRaceName } from "@/lib/race-normalize";
+import {
+  normalizeRaceName,
+  raceNamesAreSimilarWithOverrides,
+  bestRaceName,
+  CourseGroupOverrides,
+  DEFAULT_COURSE_OVERRIDES,
+} from "@/lib/race-normalize";
 import CoursesClient from "./CoursesClient";
 
 export const dynamic = "force-dynamic";
@@ -24,7 +31,11 @@ function inferDistance(titre: string): DistanceObjectif {
 
 export interface CourseEntry {
   titre: string;
-  date: string;                 // ISO "YYYY-MM-DD"
+  /** normalizeRaceName(bestTitle)||date — used for override lookup */
+  groupKey: string;
+  /** original (raw) names that were merged into this group */
+  originalTitres: string[];
+  date: string;
   distance: DistanceObjectif;
   isNolio: boolean;
   participants: {
@@ -36,20 +47,32 @@ export interface CourseEntry {
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default async function CoursesPage() {
-  const db = await readDB();
+  const [db, overridesRow] = await Promise.all([
+    readDB(),
+    prisma.appConfig.findUnique({ where: { key: "courseGroupOverrides" } }),
+  ]);
+
+  const overrides: CourseGroupOverrides = overridesRow
+    ? { ...DEFAULT_COURSE_OVERRIDES, ...(overridesRow.value as unknown as Partial<CourseGroupOverrides>) }
+    : { ...DEFAULT_COURSE_OVERRIDES };
 
   const coachById   = Object.fromEntries(db.coaches.map((c) => [c.id, c]));
   const athleteById = Object.fromEntries(db.athletes.map((a) => [a.id, a]));
 
   // ── Pass 1: exact grouping (titre + date key) ─────────────────────────────
-  const exactMap = new Map<string, CourseEntry>();
+  type RawEntry = {
+    titre: string;
+    date: string;
+    distance: DistanceObjectif;
+    isNolio: boolean;
+    participants: CourseEntry["participants"];
+  };
 
-  // Source 1: db.events (type = "competition")
+  const exactMap = new Map<string, RawEntry>();
+
   for (const ev of db.events) {
     if (ev.type !== "competition") continue;
-
     const key = `${ev.titre.trim().toLowerCase()}__${ev.dateDebut}`;
-
     if (!exactMap.has(key)) {
       exactMap.set(key, {
         titre: ev.titre,
@@ -59,7 +82,6 @@ export default async function CoursesPage() {
         participants: [],
       });
     }
-
     if (ev.athleteId) {
       const athlete = athleteById[ev.athleteId];
       if (athlete) {
@@ -71,11 +93,9 @@ export default async function CoursesPage() {
     }
   }
 
-  // Source 2: athlete.objectifs (manual, non-nolio only)
   for (const athlete of db.athletes) {
     for (const obj of athlete.objectifs ?? []) {
       if (obj.source === "nolio") continue;
-
       const key = `${obj.titre.trim().toLowerCase()}__${obj.date}`;
       if (!exactMap.has(key)) {
         exactMap.set(key, {
@@ -93,16 +113,15 @@ export default async function CoursesPage() {
     }
   }
 
-  // ── Pass 2: fuzzy merge on same date ─────────────────────────────────────
-  // Group by date first to limit comparisons
-  const byDate = new Map<string, CourseEntry[]>();
-  Array.from(exactMap.values()).forEach((entry) => {
+  // ── Pass 2: fuzzy merge on same date (with override awareness) ────────────
+  const byDate = new Map<string, RawEntry[]>();
+  for (const entry of Array.from(exactMap.values())) {
     const bucket = byDate.get(entry.date) ?? [];
     bucket.push(entry);
     byDate.set(entry.date, bucket);
-  });
+  }
 
-  // Union-Find helpers (index-based)
+  // Union-Find
   function makeSets(n: number): number[] {
     return Array.from({ length: n }, (_, i) => i);
   }
@@ -116,25 +135,30 @@ export default async function CoursesPage() {
 
   const mergedEntries: CourseEntry[] = [];
 
-  Array.from(byDate.values()).forEach((bucket) => {
+  for (const bucket of Array.from(byDate.values())) {
     if (bucket.length === 1) {
-      mergedEntries.push(bucket[0]);
-      return;
+      const e = bucket[0];
+      const defaultTitle = e.titre;
+      const groupKey = `${normalizeRaceName(defaultTitle)}||${e.date}`;
+      mergedEntries.push({
+        ...e,
+        titre: overrides.displayNames[groupKey] ?? defaultTitle,
+        groupKey,
+        originalTitres: [e.titre],
+      });
+      continue;
     }
 
     const parent = makeSets(bucket.length);
-
-    // Compare every pair in the bucket
     for (let i = 0; i < bucket.length; i++) {
       for (let j = i + 1; j < bucket.length; j++) {
-        if (raceNamesAreSimilar(bucket[i].titre, bucket[j].titre)) {
+        if (raceNamesAreSimilarWithOverrides(bucket[i].titre, bucket[j].titre, overrides)) {
           union(parent, i, j);
         }
       }
     }
 
-    // Collect groups
-    const groups = new Map<number, CourseEntry[]>();
+    const groups = new Map<number, RawEntry[]>();
     for (let i = 0; i < bucket.length; i++) {
       const root = find(parent, i);
       const g = groups.get(root) ?? [];
@@ -142,46 +166,57 @@ export default async function CoursesPage() {
       groups.set(root, g);
     }
 
-    Array.from(groups.values()).forEach((group) => {
+    for (const group of Array.from(groups.values())) {
       if (group.length === 1) {
-        mergedEntries.push(group[0]);
-        return;
+        const e = group[0];
+        const defaultTitle = e.titre;
+        const groupKey = `${normalizeRaceName(defaultTitle)}||${e.date}`;
+        mergedEntries.push({
+          ...e,
+          titre: overrides.displayNames[groupKey] ?? defaultTitle,
+          groupKey,
+          originalTitres: [e.titre],
+        });
+        continue;
       }
 
-      // Merge the group into one CourseEntry
       const allParticipants: CourseEntry["participants"] = [];
-      const seenAthleteIds = new Set<string>();
+      const seenIds = new Set<string>();
       let hasNolio = false;
-      const distances: DistanceObjectif[] = group.map((e: CourseEntry) => e.distance);
+      const distances: DistanceObjectif[] = group.map((e: RawEntry) => e.distance);
 
-      group.forEach((entry: CourseEntry) => {
+      for (const entry of group) {
         if (entry.isNolio) hasNolio = true;
-        entry.participants.forEach((p) => {
-          if (!seenAthleteIds.has(p.athlete.id)) {
-            seenAthleteIds.add(p.athlete.id);
+        for (const p of entry.participants) {
+          if (!seenIds.has(p.athlete.id)) {
+            seenIds.add(p.athlete.id);
             allParticipants.push(p);
           }
-        });
-      });
+        }
+      }
 
-      // Best distance: prefer non-"Autre"
       const bestDist: DistanceObjectif =
         distances.find((d: DistanceObjectif) => d !== "Autre") ?? distances[0] ?? "Autre";
 
+      const defaultTitle = bestRaceName(group.map((e: RawEntry) => e.titre));
+      const groupKey = `${normalizeRaceName(defaultTitle)}||${group[0].date}`;
+      const originalTitres: string[] = Array.from(new Set<string>(group.map((e: RawEntry) => e.titre)));
+
       mergedEntries.push({
-        titre: bestRaceName(group.map((e: CourseEntry) => e.titre)),
+        titre: overrides.displayNames[groupKey] ?? defaultTitle,
+        groupKey,
+        originalTitres,
         date: group[0].date,
         distance: bestDist,
         isNolio: hasNolio,
         participants: allParticipants,
       });
-    });
-  });
+    }
+  }
 
-  // ── Sort ascending (closest first) ────────────────────────────────────────
   const events: CourseEntry[] = mergedEntries.sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  return <CoursesClient events={events} />;
+  return <CoursesClient events={events} overrides={overrides} />;
 }
