@@ -79,19 +79,17 @@ export default function PostsResultatsClient({ competitions }: Props) {
 
   const selectedCompetitions = competitions.filter((c) => selected.has(c.id));
 
-  // Derive dominant discipline from selected
-  const dominantDiscipline = (() => {
-    const counts: Record<string, number> = {};
-    for (const c of selectedCompetitions) {
-      if (c.discipline) counts[c.discipline] = (counts[c.discipline] ?? 0) + 1;
-    }
-    return Object.entries(counts).sort(([, a], [, b]) => b - a)[0]?.[0] ?? null;
+  // Titre unique si toutes les disciplines sélectionnées sont identiques
+  const sharedDiscipline = (() => {
+    const disciplines = Array.from(new Set(selectedCompetitions.map((c) => c.discipline).filter((d): d is string => !!d)));
+    return disciplines.length === 1 ? disciplines[0] : null;
   })();
 
   const posterRows: ResultRow[] = selectedCompetitions.map((c) => ({
     courseNom: c.titre,
     dateDebut: c.dateDebut,
     athleteNom: c.athleteNom,
+    discipline: c.discipline,
     temps: results[c.id]?.temps ?? "",
     classement: results[c.id]?.classement ?? "",
     recordPerso: results[c.id]?.recordPerso ?? false,
@@ -254,7 +252,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
             <div className="rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10">
               <PosterPreview
                 rows={posterRows}
-                discipline={dominantDiscipline}
+                sharedDiscipline={sharedDiscipline}
                 posterRef={posterRef}
               />
             </div>
