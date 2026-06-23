@@ -1,103 +1,9 @@
 import { readDB } from "@/lib/db";
 import { Athlete, Coach, DistanceObjectif } from "@/lib/types";
+import { normalizeRaceName, raceNamesAreSimilar, bestRaceName } from "@/lib/race-normalize";
 import CoursesClient from "./CoursesClient";
 
 export const dynamic = "force-dynamic";
-
-// ─── Normalisation ──────────────────────────────────────────────────────────
-
-/** Remove accents: "é" → "e", "ç" → "c", etc. */
-function removeAccents(s: string): string {
-  return s.normalize("NFD").replace(/[̀-ͯ]/g, "");
-}
-
-/**
- * Normalise a race name for fuzzy comparison:
- *  - lower-case
- *  - remove accents
- *  - "20 km" | "20km" | "20kms" → "20km"
- *  - remove stopwords: de/du/des/d'/les/la/le/l'/en/au/aux/sur/à
- *  - collapse whitespace
- */
-function normalise(name: string): string {
-  let s = removeAccents(name.toLowerCase().trim());
-  // Unify km variants: "20 km", "20kms", "20 kms" → "20km"
-  s = s.replace(/(\d+)\s*kms?\b/g, "$1km");
-  // Remove articles and prepositions
-  s = s.replace(/\b(de|du|des|d|les|la|le|l|en|au|aux|sur|à|a|et)\b/g, " ");
-  // Collapse whitespace
-  s = s.replace(/\s+/g, " ").trim();
-  return s;
-}
-
-/** Extract "significant" tokens: numbers, words ≥ 4 chars. */
-function keywords(name: string): Set<string> {
-  const tokens = normalise(name).split(" ").filter((t) => t.length >= 3 || /^\d+/.test(t));
-  return new Set(tokens);
-}
-
-/** Classic Levenshtein distance (O(n·m)). */
-function levenshtein(a: string, b: string): number {
-  const m = a.length, n = b.length;
-  const dp: number[][] = Array.from({ length: m + 1 }, (_, i) =>
-    Array.from({ length: n + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0))
-  );
-  for (let i = 1; i <= m; i++) {
-    for (let j = 1; j <= n; j++) {
-      dp[i][j] =
-        a[i - 1] === b[j - 1]
-          ? dp[i - 1][j - 1]
-          : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
-    }
-  }
-  return dp[m][n];
-}
-
-/** Distances considered "specific" — two different specific distances = different race. */
-const SPECIFIC_DISTANCES = new Set<DistanceObjectif>(["Sprint","Olympic","70.3","Ironman","5km","10km","Semi","Marathon"]);
-
-/**
- * Two race names are "similar" on the same date if:
- *  - Levenshtein(norm(a), norm(b)) ≤ 4, OR
- *  - They share ≥ 2 significant keywords (catches "20km Bruxelles" vs "20 km de Bruxelles")
- *
- * Guard: if both have specific but DIFFERENT inferred distances → not similar.
- */
-function areSimilar(a: string, b: string): boolean {
-  const na = normalise(a);
-  const nb = normalise(b);
-  if (na === nb) return true;
-
-  // Guard: conflicting specific distances → definitely different races
-  const da = inferDistance(a);
-  const db = inferDistance(b);
-  if (da !== db && SPECIFIC_DISTANCES.has(da) && SPECIFIC_DISTANCES.has(db)) return false;
-
-  // Guard: generic names with ≤ 2 tokens are too ambiguous to fuzzy-match
-  const tokensA = normalise(a).split(" ").filter(Boolean);
-  const tokensB = normalise(b).split(" ").filter(Boolean);
-  if (tokensA.length <= 2 || tokensB.length <= 2) {
-    // Only allow if they're literally equal after normalisation (already caught above)
-    return false;
-  }
-
-  // Levenshtein threshold
-  const maxLen = Math.max(na.length, nb.length);
-  if (maxLen <= 6) return levenshtein(na, nb) <= 1;   // short names: stricter
-  if (levenshtein(na, nb) <= 4) return true;
-
-  // Keyword overlap: at least 2 shared tokens
-  const ka = keywords(a);
-  const kb = keywords(b);
-  let shared = 0;
-  ka.forEach((k) => { if (kb.has(k)) shared++; });
-  return shared >= 2;
-}
-
-/** Pick the most descriptive name (longest after trimming). */
-function bestName(names: string[]): string {
-  return names.reduce((best, n) => (n.trim().length > best.trim().length ? n : best), names[0]);
-}
 
 // ─── Distance inference ──────────────────────────────────────────────────────
 
@@ -221,7 +127,7 @@ export default async function CoursesPage() {
     // Compare every pair in the bucket
     for (let i = 0; i < bucket.length; i++) {
       for (let j = i + 1; j < bucket.length; j++) {
-        if (areSimilar(bucket[i].titre, bucket[j].titre)) {
+        if (raceNamesAreSimilar(bucket[i].titre, bucket[j].titre)) {
           union(parent, i, j);
         }
       }
@@ -263,7 +169,7 @@ export default async function CoursesPage() {
         distances.find((d: DistanceObjectif) => d !== "Autre") ?? distances[0] ?? "Autre";
 
       mergedEntries.push({
-        titre: bestName(group.map((e: CourseEntry) => e.titre)),
+        titre: bestRaceName(group.map((e: CourseEntry) => e.titre)),
         date: group[0].date,
         distance: bestDist,
         isNolio: hasNolio,

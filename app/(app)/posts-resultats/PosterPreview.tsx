@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { normalizeRaceName, bestRaceName } from "@/lib/race-normalize";
 
 export interface ResultRow {
   courseNom: string;
@@ -54,27 +55,35 @@ function disciplineLabel(d: string | null): string {
   return d ? (disciplineLabels[d] ?? d.toUpperCase()) : "MULTI-SPORT";
 }
 
-/** Group rows sharing the same courseNom + dateDebut under one banner */
+/**
+ * Group rows under one banner if their normalised name + date are identical.
+ * Displays the most complete (longest) name from the group.
+ */
 function groupRows(rows: ResultRow[]): GroupedCourse[] {
-  const map = new Map<string, GroupedCourse>();
+  // Map from normalised key → accumulated group data
+  const map = new Map<string, { names: string[]; dateDebut: string; discipline: string | null; athletes: AthleteResult[] }>();
+
   for (const row of rows) {
-    const key = `${row.courseNom}||${row.dateDebut}`;
+    const key = `${normalizeRaceName(row.courseNom)}||${row.dateDebut}`;
     if (!map.has(key)) {
-      map.set(key, {
-        courseNom: row.courseNom,
-        dateDebut: row.dateDebut,
-        discipline: row.discipline,
-        athletes: [],
-      });
+      map.set(key, { names: [], dateDebut: row.dateDebut, discipline: row.discipline, athletes: [] });
     }
-    map.get(key)!.athletes.push({
+    const group = map.get(key)!;
+    group.names.push(row.courseNom);
+    group.athletes.push({
       athleteNom: row.athleteNom,
       temps: row.temps,
       classement: row.classement,
       recordPerso: row.recordPerso,
     });
   }
-  return Array.from(map.values());
+
+  return Array.from(map.values()).map((g) => ({
+    courseNom: bestRaceName(g.names),
+    dateDebut: g.dateDebut,
+    discipline: g.discipline,
+    athletes: g.athletes,
+  }));
 }
 
 export default function PosterPreview({ rows, sharedDiscipline, posterRef }: Props) {
