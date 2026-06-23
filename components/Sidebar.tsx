@@ -16,12 +16,14 @@ import {
   Calendar,
   Wifi,
   LogOut,
+  Image,
 } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/athletes", label: "Athlètes", icon: Users },
   { href: "/courses", label: "Courses", icon: Flag },
+  { href: "/posts-resultats", label: "Posts Résultats", icon: Image },
   { href: "/acquisition", label: "Acquisition", icon: TrendingUp },
   { href: "/academy", label: "Academy", icon: GraduationCap },
   { href: "/calendrier", label: "Calendrier", icon: Calendar },
