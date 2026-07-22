@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-import { createAthlete, createInvitation } from "@/lib/db";
-import { getCoachById } from "@/lib/db";
+import { createAthlete, createInvitation, getCoachById } from "@/lib/db";
 import { sendInvitationEmail } from "@/lib/resend";
 import { Athlete, OnboardingInvitation } from "@/lib/types";
 import { SERVICE_TARIFS } from "@/lib/config";
@@ -27,6 +26,12 @@ export async function POST(req: NextRequest) {
     if (!coach) {
       return NextResponse.json({ error: "Coach introuvable" }, { status: 404 });
     }
+
+    // Derive base URL: explicit env var → request origin (always correct in prod and local)
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL ??
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ??
+      new URL(req.url).origin;
 
     // Pre-create athlete with minimal data
     const athleteId = `ath-${Date.now()}`;
@@ -67,8 +72,6 @@ export async function POST(req: NextRequest) {
 
     await createInvitation(invitation);
 
-    // Send email
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3001";
     const formUrl = `${baseUrl}/onboarding/${token}`;
 
     try {
@@ -82,7 +85,7 @@ export async function POST(req: NextRequest) {
       });
     } catch (emailErr) {
       console.error("[Onboarding] Email send failed:", emailErr);
-      // Don't fail the whole request — invitation is created, email can be resent
+      // Don't fail the whole request — invitation is created, link can be shared manually
     }
 
     return NextResponse.json({
