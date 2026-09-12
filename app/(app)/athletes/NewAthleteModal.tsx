@@ -70,7 +70,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
     <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-[#1a1218]">Nouvel athlète</h2>
+          <h2 className="text-xl font-bold text-[#0A0A0A]">Nouvel athlète</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
             <X size={20} />
           </button>
@@ -87,7 +87,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
                 type="text"
                 value={form.prenom}
                 onChange={(e) => setForm({ ...form, prenom: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
               />
             </div>
             <div>
@@ -97,7 +97,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
                 type="text"
                 value={form.nom}
                 onChange={(e) => setForm({ ...form, nom: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
               />
             </div>
           </div>
@@ -109,7 +109,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
               />
             </div>
             <div>
@@ -118,7 +118,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
                 type="tel"
                 value={form.telephone}
                 onChange={(e) => setForm({ ...form, telephone: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
               />
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
                 required
                 value={form.discipline}
                 onChange={(e) => setForm({ ...form, discipline: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white"
               >
                 <option value="triathlon">Triathlon</option>
                 <option value="cyclisme">Cyclisme</option>
@@ -143,7 +143,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
                 required
                 value={form.coachId}
                 onChange={(e) => setForm({ ...form, coachId: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white"
               >
                 {coaches.map((c) => (
                   <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>
@@ -159,7 +159,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
               <select
                 value={form.service}
                 onChange={(e) => handleServiceChange(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white"
               >
                 {SERVICE_ORDER.map((svc) => (
                   <option key={svc} value={svc}>{SERVICE_LABELS[svc]}</option>
@@ -180,7 +180,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
                 value={form.prixMensuel}
                 disabled={form.service === "gratuit"}
                 onChange={(e) => setForm({ ...form, prixMensuel: parseFloat(e.target.value) || 0 })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] disabled:bg-gray-50 disabled:text-gray-400"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] disabled:bg-gray-50 disabled:text-gray-400"
               />
             </div>
           </div>
@@ -191,7 +191,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
               <select
                 value={form.statut}
                 onChange={(e) => setForm({ ...form, statut: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white"
               >
                 <option value="actif">Actif</option>
                 <option value="pause">Pause</option>
@@ -204,7 +204,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
                 type="text"
                 value={form.objectif}
                 onChange={(e) => setForm({ ...form, objectif: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
               />
             </div>
           </div>
@@ -214,7 +214,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
               value={form.notes}
               onChange={(e) => setForm({ ...form, notes: e.target.value })}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] resize-none"
+              className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] resize-none"
             />
           </div>
           <div className="flex gap-3 pt-2">
@@ -228,7 +228,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2.5 bg-[#7c1d35] hover:bg-[#9b2445] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+              className="flex-1 px-4 py-2.5 bg-[#E6007E] hover:bg-[#C00069] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
             >
               {loading ? "Création..." : "Créer l'athlète"}
             </button>

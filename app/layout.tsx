@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${bricolage.variable} font-sans antialiased bg-[#f7f5f3] text-[#1a1218]`}>
+      <body className={`${bricolage.variable} font-sans antialiased bg-[#FFFFFF] text-[#0A0A0A]`}>
         <ClerkProvider localization={frFR}>
           {children}
         </ClerkProvider>

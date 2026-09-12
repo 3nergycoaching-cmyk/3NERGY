@@ -14,7 +14,7 @@ export default async function OnboardingPage({
   params: { token: string };
 }) {
   return (
-    <div className="min-h-screen bg-[#fdf8f8]">
+    <div className="min-h-screen bg-[#FAFAFA]">
       <OnboardingForm token={params.token} />
     </div>
   );

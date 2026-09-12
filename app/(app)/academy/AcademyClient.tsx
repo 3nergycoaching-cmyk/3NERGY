@@ -212,8 +212,8 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
       <div className="px-8 pt-8 pb-4 border-b border-gray-100 bg-white flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#7c1d35]/10 rounded-xl flex items-center justify-center">
-              <GraduationCap className="w-5 h-5 text-[#7c1d35]" />
+            <div className="w-10 h-10 bg-[#E6007E]/10 rounded-xl flex items-center justify-center">
+              <GraduationCap className="w-5 h-5 text-[#E6007E]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Academy</h1>
@@ -227,7 +227,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
           {tab === "jeunes" && (
             <button
               onClick={() => setShowAddYA((v) => !v)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#7c1d35] text-white rounded-lg text-sm font-medium hover:bg-[#9b2445] transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white rounded-lg text-sm font-medium hover:bg-[#C00069] transition-colors"
             >
               <Plus size={16} />
               Nouveau jeune
@@ -236,7 +236,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
           {tab === "presences" && (
             <button
               onClick={() => setShowAddSession((v) => !v)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#7c1d35] text-white rounded-lg text-sm font-medium hover:bg-[#9b2445] transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white rounded-lg text-sm font-medium hover:bg-[#C00069] transition-colors"
             >
               <Plus size={16} />
               Nouvelle séance
@@ -256,7 +256,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
               onClick={() => setTab(key)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 tab === key
-                  ? "bg-[#7c1d35] text-white"
+                  ? "bg-[#E6007E] text-white"
                   : "text-gray-600 hover:bg-gray-100"
               }`}
             >
@@ -281,7 +281,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Prénom *</label>
                     <input
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.prenom}
                       onChange={(e) => setAddYAForm({ ...addYAForm, prenom: e.target.value })}
                       placeholder="Lucas"
@@ -290,7 +290,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Nom *</label>
                     <input
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.nom}
                       onChange={(e) => setAddYAForm({ ...addYAForm, nom: e.target.value })}
                       placeholder="Martin"
@@ -300,7 +300,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     <label className="block text-xs font-medium text-gray-500 mb-1">Date de naissance *</label>
                     <input
                       type="date"
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.dateNaissance}
                       onChange={(e) => setAddYAForm({ ...addYAForm, dateNaissance: e.target.value })}
                     />
@@ -308,7 +308,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
                     <select
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.discipline}
                       onChange={(e) => setAddYAForm({ ...addYAForm, discipline: e.target.value as Discipline })}
                     >
@@ -320,7 +320,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Contact parent</label>
                     <input
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.contactParent}
                       onChange={(e) => setAddYAForm({ ...addYAForm, contactParent: e.target.value })}
                       placeholder="Marie Martin"
@@ -329,7 +329,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Téléphone parent</label>
                     <input
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.telephoneParent}
                       onChange={(e) => setAddYAForm({ ...addYAForm, telephoneParent: e.target.value })}
                       placeholder="0476/000000"
@@ -339,7 +339,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     <label className="block text-xs font-medium text-gray-500 mb-1">Email parent</label>
                     <input
                       type="email"
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.emailParent ?? ""}
                       onChange={(e) => setAddYAForm({ ...addYAForm, emailParent: e.target.value })}
                       placeholder="parent@email.com"
@@ -348,7 +348,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Contact urgence</label>
                     <input
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.urgence ?? ""}
                       onChange={(e) => setAddYAForm({ ...addYAForm, urgence: e.target.value })}
                       placeholder="Nom 0476/000000"
@@ -357,7 +357,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
                     <select
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.statut}
                       onChange={(e) => setAddYAForm({ ...addYAForm, statut: e.target.value as "actif" | "inactif" })}
                     >
@@ -369,7 +369,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                 <div className="flex gap-2 mt-4">
                   <button
                     onClick={handleAddYA}
-                    className="flex items-center gap-2 px-4 py-2 bg-[#7c1d35] text-white rounded-lg text-sm font-medium hover:bg-[#9b2445]"
+                    className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white rounded-lg text-sm font-medium hover:bg-[#C00069]"
                   >
                     <Save size={14} /> Enregistrer
                   </button>
@@ -390,7 +390,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   key={s}
                   onClick={() => setFilterStatut(s)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                    filterStatut === s ? "bg-[#7c1d35] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                    filterStatut === s ? "bg-[#E6007E] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
                   }`}
                 >
                   {s === "tous" ? "Tous" : s === "actif" ? "Actifs" : "Inactifs"}
@@ -503,7 +503,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                       <tr key={ya.id} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-full bg-[#7c1d35]/10 flex items-center justify-center text-[#7c1d35] text-xs font-bold flex-shrink-0">
+                            <div className="w-8 h-8 rounded-full bg-[#E6007E]/10 flex items-center justify-center text-[#E6007E] text-xs font-bold flex-shrink-0">
                               {ya.prenom[0]}{ya.nom[0]}
                             </div>
                             <span className="font-medium text-gray-900">{ya.prenom} {ya.nom}</span>
@@ -569,7 +569,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     <label className="block text-xs font-medium text-gray-500 mb-1">Date *</label>
                     <input
                       type="date"
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addSessionForm.date}
                       onChange={(e) => setAddSessionForm({ ...addSessionForm, date: e.target.value })}
                     />
@@ -577,7 +577,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Entraîneur</label>
                     <select
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addSessionForm.entraineurId}
                       onChange={(e) => setAddSessionForm({ ...addSessionForm, entraineurId: e.target.value })}
                     >
@@ -589,7 +589,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
                     <select
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addSessionForm.discipline}
                       onChange={(e) => setAddSessionForm({ ...addSessionForm, discipline: e.target.value as Discipline })}
                     >
@@ -601,7 +601,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Lieu *</label>
                     <input
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addSessionForm.lieu}
                       onChange={(e) => setAddSessionForm({ ...addSessionForm, lieu: e.target.value })}
                       placeholder="Piscine Municipale"
@@ -618,7 +618,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                         onClick={() => togglePresent(ya.id, addSessionForm, setAddSessionForm)}
                         className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                           addSessionForm.presents.includes(ya.id)
-                            ? "bg-[#7c1d35] text-white"
+                            ? "bg-[#E6007E] text-white"
                             : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                         }`}
                       >
@@ -631,7 +631,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   <label className="block text-xs font-medium text-gray-500 mb-1">Notes</label>
                   <textarea
                     rows={2}
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 resize-none"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 resize-none"
                     value={addSessionForm.notes}
                     onChange={(e) => setAddSessionForm({ ...addSessionForm, notes: e.target.value })}
                     placeholder="Observations, points travaillés..."
@@ -640,7 +640,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                 <div className="flex gap-2">
                   <button
                     onClick={handleAddSession}
-                    className="flex items-center gap-2 px-4 py-2 bg-[#7c1d35] text-white rounded-lg text-sm font-medium hover:bg-[#9b2445]"
+                    className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white rounded-lg text-sm font-medium hover:bg-[#C00069]"
                   >
                     <Save size={14} /> Enregistrer
                   </button>
@@ -720,7 +720,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                                 onClick={() => togglePresent(ya.id, editSessionForm, setEditSessionForm)}
                                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                                   editSessionForm.presents.includes(ya.id)
-                                    ? "bg-[#7c1d35] text-white"
+                                    ? "bg-[#E6007E] text-white"
                                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                 }`}
                               >
@@ -741,7 +741,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                         <div className="flex gap-2">
                           <button
                             onClick={() => handleSaveSession(session.id)}
-                            className="flex items-center gap-2 px-4 py-2 bg-[#7c1d35] text-white rounded-lg text-sm font-medium"
+                            className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white rounded-lg text-sm font-medium"
                           >
                             <Save size={14} /> Enregistrer
                           </button>
@@ -762,7 +762,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                         >
                           <div className="flex items-center gap-4">
                             <div className="text-center">
-                              <div className="text-lg font-bold text-[#7c1d35]">
+                              <div className="text-lg font-bold text-[#E6007E]">
                                 {new Date(session.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "short" })}
                               </div>
                               <div className="text-xs text-gray-400">
@@ -802,7 +802,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                                   <div
                                     key={yaId}
                                     title={`${ya.prenom} ${ya.nom}`}
-                                    className="w-6 h-6 rounded-full bg-[#7c1d35]/10 border border-white flex items-center justify-center text-[#7c1d35] text-xs font-bold"
+                                    className="w-6 h-6 rounded-full bg-[#E6007E]/10 border border-white flex items-center justify-center text-[#E6007E] text-xs font-bold"
                                   >
                                     {ya.prenom[0]}
                                   </div>
@@ -847,7 +847,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                                       key={yaId}
                                       className="flex items-center gap-1.5 px-2.5 py-1 bg-white border border-gray-200 rounded-full text-xs text-gray-700"
                                     >
-                                      <span className="w-4 h-4 rounded-full bg-[#7c1d35]/10 flex items-center justify-center text-[#7c1d35] text-xs font-bold">
+                                      <span className="w-4 h-4 rounded-full bg-[#E6007E]/10 flex items-center justify-center text-[#E6007E] text-xs font-bold">
                                         {ya.prenom[0]}
                                       </span>
                                       {ya.prenom} {ya.nom}
@@ -902,11 +902,11 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                       </div>
                       <div className="grid grid-cols-2 gap-3 mb-4">
                         <div className="bg-gray-50 rounded-lg p-3 text-center">
-                          <div className="text-2xl font-bold text-[#7c1d35]">{coachSessions.length}</div>
+                          <div className="text-2xl font-bold text-[#E6007E]">{coachSessions.length}</div>
                           <div className="text-xs text-gray-500 mt-0.5">séances</div>
                         </div>
                         <div className="bg-gray-50 rounded-lg p-3 text-center">
-                          <div className="text-2xl font-bold text-[#7c1d35]">{totalPresences}</div>
+                          <div className="text-2xl font-bold text-[#E6007E]">{totalPresences}</div>
                           <div className="text-xs text-gray-500 mt-0.5">présences total</div>
                         </div>
                       </div>

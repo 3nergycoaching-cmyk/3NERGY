@@ -4,6 +4,16 @@
 
 :root {
   --font-bricolage: "Bricolage Grotesque", sans-serif;
+
+  /* Palette 3NERGY CRM */
+  --background:     #FFFFFF;
+  --surface:        #FAFAFA;
+  --foreground:     #0A0A0A;
+  --muted:          #71717A;
+  --border:         #E4E4E7;
+  --accent:         #E6007E;
+  --accent-hover:   #C00069;
+  --accent-subtle:  #FDF2F8;
 }
 
 html,
@@ -16,8 +26,8 @@ body {
 
 body {
   font-family: var(--font-bricolage), sans-serif;
-  background: #f7f5f3;
-  color: #1a1218;
+  background: var(--background);
+  color: var(--foreground);
 }
 
 * {
@@ -29,14 +39,14 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f0eded;
+  background: #F4F4F5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c5a8b0;
+  background: #E4E4E7;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #7c1d35;
+  background: #E6007E;
 }
 
 @layer utilities {

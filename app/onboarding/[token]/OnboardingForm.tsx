@@ -63,9 +63,9 @@ const emptyData = (): OnboardingData => ({
 
 function FieldLabel({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
-    <label className="block text-sm font-semibold text-[#1a1218] mb-1.5">
+    <label className="block text-sm font-semibold text-[#0A0A0A] mb-1.5">
       {children}
-      {required && <span className="text-[#e8648a] ml-0.5">*</span>}
+      {required && <span className="text-[#E6007E] ml-0.5">*</span>}
     </label>
   );
 }
@@ -93,7 +93,7 @@ function TextInput({
       placeholder={placeholder}
       required={required}
       disabled={disabled}
-      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white disabled:bg-gray-50 disabled:text-gray-400"
+      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white disabled:bg-gray-50 disabled:text-gray-400"
     />
   );
 }
@@ -115,7 +115,7 @@ function Textarea({
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       rows={rows}
-      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white resize-none"
+      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white resize-none"
     />
   );
 }
@@ -133,17 +133,17 @@ function RadioCard({
     <label
       className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
         checked
-          ? "border-[#7c1d35] bg-[#7c1d35]/5"
-          : "border-gray-200 bg-white hover:border-[#7c1d35]/40"
+          ? "border-[#E6007E] bg-[#E6007E]/5"
+          : "border-gray-200 bg-white hover:border-[#E6007E]/40"
       }`}
     >
       <div className={`mt-0.5 w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-colors ${
-        checked ? "border-[#7c1d35]" : "border-gray-300"
+        checked ? "border-[#E6007E]" : "border-gray-300"
       }`}>
-        {checked && <div className="w-2 h-2 rounded-full bg-[#7c1d35]" />}
+        {checked && <div className="w-2 h-2 rounded-full bg-[#E6007E]" />}
       </div>
       <input type="radio" checked={checked} onChange={onChange} className="sr-only" />
-      <span className="text-sm text-[#1a1218] leading-relaxed">{children}</span>
+      <span className="text-sm text-[#0A0A0A] leading-relaxed">{children}</span>
     </label>
   );
 }
@@ -163,13 +163,13 @@ function CheckCard({
     <label
       className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
         checked
-          ? "border-[#7c1d35] bg-[#7c1d35]/5"
-          : "border-gray-200 bg-white hover:border-[#7c1d35]/40"
+          ? "border-[#E6007E] bg-[#E6007E]/5"
+          : "border-gray-200 bg-white hover:border-[#E6007E]/40"
       }`}
     >
       <div
         className={`mt-0.5 w-5 h-5 rounded-md border-2 flex-shrink-0 flex items-center justify-center transition-colors ${
-          checked ? "bg-[#7c1d35] border-[#7c1d35]" : "border-gray-300"
+          checked ? "bg-[#E6007E] border-[#E6007E]" : "border-gray-300"
         }`}
       >
         {checked && (
@@ -180,8 +180,8 @@ function CheckCard({
       </div>
       <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="sr-only" />
       <div className="flex-1">
-        <span className="text-sm text-[#1a1218] leading-relaxed">{children}</span>
-        {note && <div className="mt-2 p-3 bg-[#fdf8f8] rounded-lg border border-[#f3e8eb] text-xs text-[#7c1d35] font-medium">{note}</div>}
+        <span className="text-sm text-[#0A0A0A] leading-relaxed">{children}</span>
+        {note && <div className="mt-2 p-3 bg-[#FAFAFA] rounded-lg border border-[#E4E4E7] text-xs text-[#E6007E] font-medium">{note}</div>}
       </div>
     </label>
   );
@@ -189,8 +189,8 @@ function CheckCard({
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-lg font-bold text-[#1a1218] mb-5 flex items-center gap-2">
-      <span className="w-1 h-5 bg-[#7c1d35] rounded-full inline-block" />
+    <h2 className="text-lg font-bold text-[#0A0A0A] mb-5 flex items-center gap-2">
+      <span className="w-1 h-5 bg-[#E6007E] rounded-full inline-block" />
       {children}
     </h2>
   );
@@ -331,7 +331,7 @@ export default function OnboardingForm({ token }: { token: string }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="w-8 h-8 text-[#7c1d35] animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#E6007E] animate-spin" />
       </div>
     );
   }
@@ -340,8 +340,8 @@ export default function OnboardingForm({ token }: { token: string }) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-6">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 max-w-md w-full text-center">
-          <AlertCircle className="w-12 h-12 text-[#7c1d35] mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-[#1a1218] mb-2">Lien invalide</h2>
+          <AlertCircle className="w-12 h-12 text-[#E6007E] mx-auto mb-4" />
+          <h2 className="text-xl font-bold text-[#0A0A0A] mb-2">Lien invalide</h2>
           <p className="text-gray-500 text-sm">{error}</p>
         </div>
       </div>
@@ -352,17 +352,17 @@ export default function OnboardingForm({ token }: { token: string }) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-6">
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-10 max-w-md w-full text-center">
-          <div className="w-16 h-16 bg-[#7c1d35]/10 rounded-full flex items-center justify-center mx-auto mb-5">
-            <CheckCircle2 className="w-9 h-9 text-[#7c1d35]" />
+          <div className="w-16 h-16 bg-[#E6007E]/10 rounded-full flex items-center justify-center mx-auto mb-5">
+            <CheckCircle2 className="w-9 h-9 text-[#E6007E]" />
           </div>
-          <h1 className="text-2xl font-bold text-[#1a1218] mb-3">Dossier envoyé !</h1>
+          <h1 className="text-2xl font-bold text-[#0A0A0A] mb-3">Dossier envoyé !</h1>
           <p className="text-gray-500 text-sm leading-relaxed mb-2">
             Merci {data.prenom}, ton dossier d'inscription a bien été transmis à l'équipe 3NERGY.
           </p>
           <p className="text-gray-400 text-sm leading-relaxed">
             Tu recevras une confirmation de ton coach dans les prochains jours. Bienvenue chez 3NERGY&nbsp;!
           </p>
-          <p className="mt-6 text-xs text-[#7c1d35] font-semibold tracking-widest uppercase">3NERGY</p>
+          <p className="mt-6 text-xs text-[#E6007E] font-semibold tracking-widest uppercase">3NERGY</p>
         </div>
       </div>
     );
@@ -376,24 +376,24 @@ export default function OnboardingForm({ token }: { token: string }) {
     <div className="max-w-2xl mx-auto px-4 py-10">
       {/* Logo + Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-14 h-14 bg-[#7c1d35] rounded-2xl mb-4">
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-[#E6007E] rounded-2xl mb-4">
           <span className="text-white font-bold text-xl tracking-tight">3N</span>
         </div>
-        <h1 className="text-2xl font-bold text-[#1a1218]">Dossier d'inscription</h1>
+        <h1 className="text-2xl font-bold text-[#0A0A0A]">Dossier d'inscription</h1>
         <p className="text-gray-500 text-sm mt-1">Coaching sportif en ligne · 3NERGY ASBL</p>
       </div>
 
       {/* Progress bar */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold text-[#7c1d35]">
+          <span className="text-xs font-semibold text-[#E6007E]">
             Étape {step} / {TOTAL}
           </span>
           <span className="text-xs text-gray-400">{STEPS[step - 1]}</span>
         </div>
         <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#7c1d35] to-[#e8648a] rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-[#E6007E] to-[#E6007E] rounded-full transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -430,13 +430,13 @@ export default function OnboardingForm({ token }: { token: string }) {
               <FieldLabel required>Formule de coaching</FieldLabel>
               <div className="space-y-2">
                 <RadioCard checked={data.formule === "basic"} onChange={() => set("formule", "basic")}>
-                  <span className="font-semibold">Basic</span> — <span className="text-[#7c1d35] font-bold">69€/mois</span>
+                  <span className="font-semibold">Basic</span> — <span className="text-[#E6007E] font-bold">69€/mois</span>
                 </RadioCard>
                 <RadioCard checked={data.formule === "performance"} onChange={() => set("formule", "performance")}>
-                  <span className="font-semibold">Performance</span> — <span className="text-[#7c1d35] font-bold">99€/mois</span>
+                  <span className="font-semibold">Performance</span> — <span className="text-[#E6007E] font-bold">99€/mois</span>
                 </RadioCard>
                 <RadioCard checked={data.formule === "pro"} onChange={() => set("formule", "pro")}>
-                  <span className="font-semibold">Pro</span> — <span className="text-[#7c1d35] font-bold">109€/mois</span>
+                  <span className="font-semibold">Pro</span> — <span className="text-[#E6007E] font-bold">109€/mois</span>
                 </RadioCard>
               </div>
               <p className="mt-3 text-xs text-gray-400 leading-relaxed">
@@ -660,7 +660,7 @@ export default function OnboardingForm({ token }: { token: string }) {
             </CheckCard>
             <CheckCard checked={data.ethique4} onChange={(v) => set("ethique4", v)}>
               Je m'engage à respecter les <strong>règles antidopage en vigueur</strong> (référence :{" "}
-              <a href="https://www.dopage.be" target="_blank" rel="noopener noreferrer" className="text-[#7c1d35] underline" onClick={(e) => e.stopPropagation()}>
+              <a href="https://www.dopage.be" target="_blank" rel="noopener noreferrer" className="text-[#E6007E] underline" onClick={(e) => e.stopPropagation()}>
                 www.dopage.be
               </a>).
             </CheckCard>
@@ -688,14 +688,14 @@ export default function OnboardingForm({ token }: { token: string }) {
                   ["Formulaire de Santé LF3", "https://www.lf3.be"],
                 ].map(([label, url]) => (
                   <li key={label} className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#7c1d35] flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E6007E] flex-shrink-0" />
                     <span>
                       <strong>{label}</strong> —{" "}
                       <a
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#7c1d35] underline"
+                        className="text-[#E6007E] underline"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {url.replace("https://", "")}
@@ -731,12 +731,12 @@ export default function OnboardingForm({ token }: { token: string }) {
             <SectionTitle>Validation finale</SectionTitle>
 
             {/* Summary */}
-            <div className="bg-[#fdf8f8] rounded-xl border border-[#f3e8eb] p-5 space-y-2 text-sm">
-              <h3 className="font-semibold text-[#1a1218] mb-3">Récapitulatif</h3>
+            <div className="bg-[#FAFAFA] rounded-xl border border-[#E4E4E7] p-5 space-y-2 text-sm">
+              <h3 className="font-semibold text-[#0A0A0A] mb-3">Récapitulatif</h3>
               <div className="flex justify-between"><span className="text-gray-500">Athlète</span><span className="font-semibold">{data.prenom} {data.nom}</span></div>
               <div className="flex justify-between"><span className="text-gray-500">Discipline</span><span className="font-semibold capitalize">{data.discipline.replace("_", " ").replace("course a pied", "Course à pied")}</span></div>
               <div className="flex justify-between"><span className="text-gray-500">Formule</span>
-                <span className="font-semibold text-[#7c1d35]">
+                <span className="font-semibold text-[#E6007E]">
                   {data.formule === "basic" ? "Basic — 69€/mois" : data.formule === "performance" ? "Performance — 99€/mois" : "Pro — 109€/mois"}
                 </span>
               </div>
@@ -770,9 +770,9 @@ export default function OnboardingForm({ token }: { token: string }) {
               key={i}
               className={`h-1.5 rounded-full transition-all duration-300 ${
                 i + 1 === step
-                  ? "w-6 bg-[#7c1d35]"
+                  ? "w-6 bg-[#E6007E]"
                   : i + 1 < step
-                  ? "w-2 bg-[#7c1d35]/40"
+                  ? "w-2 bg-[#E6007E]/40"
                   : "w-2 bg-gray-200"
               }`}
             />
@@ -783,7 +783,7 @@ export default function OnboardingForm({ token }: { token: string }) {
           <button
             type="button"
             onClick={handleNext}
-            className="flex items-center gap-2 px-5 py-3 bg-[#7c1d35] text-white rounded-xl text-sm font-semibold hover:bg-[#9b2445] transition-colors"
+            className="flex items-center gap-2 px-5 py-3 bg-[#E6007E] text-white rounded-xl text-sm font-semibold hover:bg-[#C00069] transition-colors"
           >
             Suivant
             <ChevronRight size={16} />
@@ -793,7 +793,7 @@ export default function OnboardingForm({ token }: { token: string }) {
             type="button"
             onClick={handleSubmit}
             disabled={submitting}
-            className="flex items-center gap-2 px-6 py-3 bg-[#7c1d35] text-white rounded-xl text-sm font-semibold hover:bg-[#9b2445] transition-colors disabled:opacity-60"
+            className="flex items-center gap-2 px-6 py-3 bg-[#E6007E] text-white rounded-xl text-sm font-semibold hover:bg-[#C00069] transition-colors disabled:opacity-60"
           >
             {submitting ? (
               <>

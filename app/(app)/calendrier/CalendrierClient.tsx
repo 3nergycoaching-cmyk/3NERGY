@@ -168,8 +168,8 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
       <div className="px-8 pt-8 pb-4 border-b border-gray-100 bg-white flex-shrink-0">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#7c1d35]/10 rounded-xl flex items-center justify-center">
-              <Calendar className="w-5 h-5 text-[#7c1d35]" />
+            <div className="w-10 h-10 bg-[#E6007E]/10 rounded-xl flex items-center justify-center">
+              <Calendar className="w-5 h-5 text-[#E6007E]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Calendrier</h1>
@@ -193,7 +193,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
               }
               className={`flex items-center gap-2 px-3.5 py-2 border rounded-lg text-sm font-medium transition-colors ${
                 nolioConnectedCount > 0
-                  ? "border-[#7c1d35]/30 text-[#7c1d35] hover:bg-[#7c1d35]/5 disabled:opacity-50"
+                  ? "border-[#E6007E]/30 text-[#E6007E] hover:bg-[#E6007E]/5 disabled:opacity-50"
                   : "border-gray-200 text-gray-400 cursor-not-allowed"
               }`}
             >
@@ -201,7 +201,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
               {nolioSyncing ? "Sync Nolio..." : "Sync Nolio"}
               <span className={`flex items-center gap-0.5 text-xs px-1.5 py-0.5 rounded-full font-semibold ${
                 nolioConnectedCount > 0
-                  ? "bg-[#7c1d35]/10 text-[#7c1d35]"
+                  ? "bg-[#E6007E]/10 text-[#E6007E]"
                   : "bg-gray-100 text-gray-400"
               }`}>
                 <Wifi size={10} />
@@ -210,7 +210,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
             </button>
             <button
               onClick={() => setShowAddModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#7c1d35] text-white rounded-lg text-sm font-medium hover:bg-[#9b2445] transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white rounded-lg text-sm font-medium hover:bg-[#C00069] transition-colors"
             >
               <Plus size={16} />
               Nouvel événement
@@ -266,13 +266,13 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
             <div className="flex border border-gray-200 rounded-lg overflow-hidden">
               <button
                 onClick={() => setView("year")}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors ${view === "year" ? "bg-[#7c1d35] text-white" : "text-gray-600 hover:bg-gray-50"}`}
+                className={`px-3 py-1.5 text-xs font-medium transition-colors ${view === "year" ? "bg-[#E6007E] text-white" : "text-gray-600 hover:bg-gray-50"}`}
               >
                 Annuel
               </button>
               <button
                 onClick={() => setView("month")}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors ${view === "month" ? "bg-[#7c1d35] text-white" : "text-gray-600 hover:bg-gray-50"}`}
+                className={`px-3 py-1.5 text-xs font-medium transition-colors ${view === "month" ? "bg-[#E6007E] text-white" : "text-gray-600 hover:bg-gray-50"}`}
               >
                 Mensuel
               </button>
@@ -295,15 +295,15 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                 <div
                   key={mIdx}
                   className={`bg-white rounded-xl border shadow-sm overflow-hidden cursor-pointer hover:shadow-md transition-shadow ${
-                    isCurrentMonth ? "border-[#7c1d35]/30 ring-1 ring-[#7c1d35]/20" : "border-gray-200"
+                    isCurrentMonth ? "border-[#E6007E]/30 ring-1 ring-[#E6007E]/20" : "border-gray-200"
                   }`}
                   onClick={() => { setCurrentMonth(mIdx); setView("month"); }}
                 >
-                  <div className={`px-4 py-2.5 border-b ${isCurrentMonth ? "bg-[#7c1d35] text-white" : "bg-gray-50 text-gray-700"}`}>
+                  <div className={`px-4 py-2.5 border-b ${isCurrentMonth ? "bg-[#E6007E] text-white" : "bg-gray-50 text-gray-700"}`}>
                     <span className="text-sm font-semibold">{month}</span>
                     {monthEvents.length > 0 && (
                       <span className={`ml-2 text-xs px-1.5 py-0.5 rounded-full font-medium ${
-                        isCurrentMonth ? "bg-white/20 text-white" : "bg-[#7c1d35]/10 text-[#7c1d35]"
+                        isCurrentMonth ? "bg-white/20 text-white" : "bg-[#E6007E]/10 text-[#E6007E]"
                       }`}>
                         {monthEvents.length}
                       </span>
@@ -375,12 +375,12 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                         key={di}
                         className={`h-24 rounded-lg border p-1.5 overflow-hidden ${
                           isToday
-                            ? "border-[#7c1d35] bg-[#7c1d35]/5"
+                            ? "border-[#E6007E] bg-[#E6007E]/5"
                             : "border-gray-100 bg-white hover:bg-gray-50/50"
                         } ${isPast ? "opacity-60" : ""}`}
                       >
                         <span className={`text-xs font-semibold block mb-1 ${
-                          isToday ? "text-[#7c1d35]" : "text-gray-500"
+                          isToday ? "text-[#E6007E]" : "text-gray-500"
                         }`}>
                           {date.getDate()}
                         </span>
@@ -394,7 +394,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                               <span className={`w-1 h-1 rounded-full flex-shrink-0 ${TYPE_CFG[e.type].dot}`} />
                               <span className="truncate flex-1">{e.titre}</span>
                               {e.source === "nolio" && (
-                                <span className="flex-shrink-0 text-[8px] font-bold bg-[#7c1d35]/20 text-[#7c1d35] px-1 rounded leading-tight">N</span>
+                                <span className="flex-shrink-0 text-[8px] font-bold bg-[#E6007E]/20 text-[#E6007E] px-1 rounded leading-tight">N</span>
                               )}
                             </button>
                           ))}
@@ -442,7 +442,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                                 {cfg.label}
                               </span>
                               {e.source === "nolio" && (
-                                <span className="text-xs px-1.5 py-0.5 rounded-full font-semibold bg-[#7c1d35]/10 text-[#7c1d35] flex items-center gap-0.5">
+                                <span className="text-xs px-1.5 py-0.5 rounded-full font-semibold bg-[#E6007E]/10 text-[#E6007E] flex items-center gap-0.5">
                                   <Wifi size={9} />
                                   Nolio
                                 </span>
@@ -478,7 +478,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Titre *</label>
                 <input
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                   value={addForm.titre}
                   onChange={(e) => setAddForm({ ...addForm, titre: e.target.value })}
                   placeholder="Nom de l'événement"
@@ -488,7 +488,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                 <div>
                   <label className="block text-xs font-medium text-gray-500 mb-1">Type</label>
                   <select
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                     value={addForm.type}
                     onChange={(e) => setAddForm({ ...addForm, type: e.target.value as TypeEvenement })}
                   >
@@ -500,7 +500,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                 <div>
                   <label className="block text-xs font-medium text-gray-500 mb-1">Responsable</label>
                   <select
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                     value={addForm.responsable ?? ""}
                     onChange={(e) => setAddForm({ ...addForm, responsable: e.target.value })}
                   >
@@ -516,7 +516,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                   <label className="block text-xs font-medium text-gray-500 mb-1">Date début *</label>
                   <input
                     type="date"
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                     value={addForm.dateDebut}
                     onChange={(e) => setAddForm({ ...addForm, dateDebut: e.target.value })}
                   />
@@ -525,7 +525,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                   <label className="block text-xs font-medium text-gray-500 mb-1">Date fin</label>
                   <input
                     type="date"
-                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                     value={addForm.dateFin ?? ""}
                     onChange={(e) => setAddForm({ ...addForm, dateFin: e.target.value })}
                   />
@@ -535,7 +535,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                 <label className="block text-xs font-medium text-gray-500 mb-1">Description</label>
                 <textarea
                   rows={3}
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 resize-none"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 resize-none"
                   value={addForm.description ?? ""}
                   onChange={(e) => setAddForm({ ...addForm, description: e.target.value })}
                   placeholder="Détails de l'événement..."
@@ -545,7 +545,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
             <div className="flex gap-3 mt-5">
               <button
                 onClick={handleAddEvent}
-                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[#7c1d35] text-white rounded-xl text-sm font-medium hover:bg-[#9b2445]"
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[#E6007E] text-white rounded-xl text-sm font-medium hover:bg-[#C00069]"
               >
                 <Save size={15} /> Enregistrer
               </button>
@@ -571,7 +571,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                   {TYPE_CFG[selectedEvent.type].label}
                 </span>
                 {selectedEvent.source === "nolio" && (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-[#7c1d35]/10 text-[#7c1d35] font-semibold flex items-center gap-1">
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-[#E6007E]/10 text-[#E6007E] font-semibold flex items-center gap-1">
                     <Wifi size={10} />
                     Nolio
                   </span>

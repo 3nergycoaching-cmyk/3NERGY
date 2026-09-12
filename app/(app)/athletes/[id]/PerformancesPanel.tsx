@@ -72,8 +72,8 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
 
   if (editing) {
     return (
-      <tr className="border-b border-gray-100 bg-[#7c1d35]/5">
-        <td className="px-4 py-2.5 text-sm font-semibold text-[#7c1d35] whitespace-nowrap w-44">{label}</td>
+      <tr className="border-b border-gray-100 bg-[#E6007E]/5">
+        <td className="px-4 py-2.5 text-sm font-semibold text-[#E6007E] whitespace-nowrap w-44">{label}</td>
         <td className="px-4 py-2">
           <input
             autoFocus
@@ -82,7 +82,7 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
             onChange={(e) => setForm({ ...form, valeur: e.target.value })}
             onKeyDown={handleKey}
             placeholder={hint ?? "—"}
-            className="w-full px-2.5 py-1.5 border border-[#7c1d35]/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+            className="w-full px-2.5 py-1.5 border border-[#E6007E]/30 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
           />
         </td>
         <td className="px-4 py-2">
@@ -91,7 +91,7 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
             value={form.date}
             onChange={(e) => setForm({ ...form, date: e.target.value })}
             onKeyDown={handleKey}
-            className="px-2 py-1.5 border border-gray-200 rounded-lg text-xs w-36 focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+            className="px-2 py-1.5 border border-gray-200 rounded-lg text-xs w-36 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
           />
         </td>
         <td className="px-4 py-2">
@@ -126,7 +126,7 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
       <td className="px-4 py-2.5 text-sm font-medium text-gray-700 whitespace-nowrap w-44">{label}</td>
       <td className="px-4 py-2.5">
         {chrono ? (
-          <span className="text-sm font-bold text-[#1a1218]">
+          <span className="text-sm font-bold text-[#0A0A0A]">
             {chrono.valeur}{unit ? <span className="text-xs font-normal text-gray-400 ml-1">{unit}</span> : null}
           </span>
         ) : (
@@ -137,7 +137,7 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
       <td className="px-4 py-2.5">
         {chrono && (
           <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-            chrono.contexte === "competition" ? "bg-[#7c1d35]/10 text-[#7c1d35]" : "bg-gray-100 text-gray-500"
+            chrono.contexte === "competition" ? "bg-[#E6007E]/10 text-[#E6007E]" : "bg-gray-100 text-gray-500"
           }`}>
             {chrono.contexte === "competition" ? "Compétition" : "Entraînement"}
           </span>
@@ -261,7 +261,7 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
         </div>
         <button
           onClick={() => { setForm(emptyCustom()); setAdding(true); }}
-          className="flex items-center gap-1.5 text-xs font-medium bg-[#7c1d35]/10 text-[#7c1d35] px-3 py-1.5 rounded-lg hover:bg-[#7c1d35]/20 transition-colors"
+          className="flex items-center gap-1.5 text-xs font-medium bg-[#E6007E]/10 text-[#E6007E] px-3 py-1.5 rounded-lg hover:bg-[#E6007E]/20 transition-colors"
         >
           <Plus size={12} /> Ajouter
         </button>
@@ -269,25 +269,25 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
 
       {/* Add form */}
       {adding && (
-        <div className="px-5 py-4 border-b border-gray-100 bg-[#7c1d35]/5">
+        <div className="px-5 py-4 border-b border-gray-100 bg-[#E6007E]/5">
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
-              <input type="text" value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value })} placeholder="ex: Natation, Running..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+              <input type="text" value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value })} placeholder="ex: Natation, Running..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">Distance / Effort</label>
-              <input type="text" value={form.distance} onChange={(e) => setForm({ ...form, distance: e.target.value })} placeholder="ex: 1000m TT, Hill climb..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+              <input type="text" value={form.distance} onChange={(e) => setForm({ ...form, distance: e.target.value })} placeholder="ex: 1000m TT, Hill climb..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-3">
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">Valeur</label>
-              <input type="text" value={form.valeur} onChange={(e) => setForm({ ...form, valeur: e.target.value })} placeholder="ex: 3:45, 280W..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+              <input type="text" value={form.valeur} onChange={(e) => setForm({ ...form, valeur: e.target.value })} placeholder="ex: 3:45, 280W..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">Date</label>
-              <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+              <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">Contexte</label>
@@ -299,7 +299,7 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
           </div>
           <div className="flex gap-2 mt-3 justify-end">
             <button onClick={() => setAdding(false)} className="px-4 py-2 text-sm border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors">Annuler</button>
-            <button onClick={handleAdd} disabled={!form.discipline.trim() || !form.distance.trim() || !form.valeur.trim()} className="flex items-center gap-2 px-4 py-2 bg-[#7c1d35] text-white text-sm rounded-xl hover:bg-[#9b2445] transition-colors disabled:opacity-40">
+            <button onClick={handleAdd} disabled={!form.discipline.trim() || !form.distance.trim() || !form.valeur.trim()} className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white text-sm rounded-xl hover:bg-[#C00069] transition-colors disabled:opacity-40">
               <Check size={14} /> Enregistrer
             </button>
           </div>
@@ -325,8 +325,8 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
             <tbody>
               {entries.map((entry) =>
                 editId === entry.id ? (
-                  <tr key={entry.id} className="border-b border-gray-50 bg-[#7c1d35]/5">
-                    <td className="px-4 py-2"><input autoFocus value={editForm.discipline} onChange={(e) => setEditForm({ ...editForm, discipline: e.target.value })} className="w-full px-2 py-1.5 border border-[#7c1d35]/30 rounded-lg text-sm focus:outline-none" /></td>
+                  <tr key={entry.id} className="border-b border-gray-50 bg-[#E6007E]/5">
+                    <td className="px-4 py-2"><input autoFocus value={editForm.discipline} onChange={(e) => setEditForm({ ...editForm, discipline: e.target.value })} className="w-full px-2 py-1.5 border border-[#E6007E]/30 rounded-lg text-sm focus:outline-none" /></td>
                     <td className="px-4 py-2"><input value={editForm.distance} onChange={(e) => setEditForm({ ...editForm, distance: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none" /></td>
                     <td className="px-4 py-2"><input value={editForm.valeur} onChange={(e) => setEditForm({ ...editForm, valeur: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none" /></td>
                     <td className="px-4 py-2"><input type="date" value={editForm.date} onChange={(e) => setEditForm({ ...editForm, date: e.target.value })} className="px-2 py-1.5 border border-gray-200 rounded-lg text-xs w-32 focus:outline-none" /></td>
@@ -342,10 +342,10 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
                   <tr key={entry.id} onClick={() => { setEditForm({ discipline: entry.discipline, distance: entry.distance, valeur: entry.valeur, date: entry.date, contexte: entry.contexte }); setEditId(entry.id); }} className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer group transition-colors">
                     <td className="px-4 py-2.5 text-sm font-medium text-gray-700">{entry.discipline}</td>
                     <td className="px-4 py-2.5 text-sm text-gray-600">{entry.distance}</td>
-                    <td className="px-4 py-2.5 text-sm font-bold text-[#1a1218]">{entry.valeur}</td>
+                    <td className="px-4 py-2.5 text-sm font-bold text-[#0A0A0A]">{entry.valeur}</td>
                     <td className="px-4 py-2.5 text-xs text-gray-400">{fmtDate(entry.date)}</td>
                     <td className="px-4 py-2.5">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${entry.contexte === "competition" ? "bg-[#7c1d35]/10 text-[#7c1d35]" : "bg-gray-100 text-gray-500"}`}>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${entry.contexte === "competition" ? "bg-[#E6007E]/10 text-[#E6007E]" : "bg-gray-100 text-gray-500"}`}>
                         {entry.contexte === "competition" ? "Compétition" : "Entraînement"}
                       </span>
                     </td>
@@ -414,7 +414,7 @@ export default function PerformancesPanel({ athleteId, initialPerformances }: Pr
   return (
     <div className="space-y-4">
       {saving && (
-        <div className="fixed bottom-6 right-6 bg-[#7c1d35] text-white text-xs px-4 py-2 rounded-xl shadow-lg z-50 flex items-center gap-2 pointer-events-none">
+        <div className="fixed bottom-6 right-6 bg-[#E6007E] text-white text-xs px-4 py-2 rounded-xl shadow-lg z-50 flex items-center gap-2 pointer-events-none">
           <div className="w-3 h-3 border-2 border-white/40 border-t-white rounded-full animate-spin" />
           Sauvegarde en cours…
         </div>
@@ -447,7 +447,7 @@ export default function PerformancesPanel({ athleteId, initialPerformances }: Pr
       </PerfSection>
 
       {/* ── Triathlon ── */}
-      <PerfSection title="Triathlon" icon={Zap} color="text-[#7c1d35] bg-[#7c1d35]/5">
+      <PerfSection title="Triathlon" icon={Zap} color="text-[#E6007E] bg-[#E6007E]/5">
         {([ ["sprint","h:mm:ss — ex: 1:02:00"], ["olympic","h:mm:ss — ex: 2:15:00"], ["703","h:mm:ss — ex: 4:58:00"], ["ironman","h:mm:ss — ex: 10:45:00"] ] as [TriathlonDistance, string][]).map(([k, hint]) => (
           <EditableRow key={k} label={k === "703" ? "70.3" : k.charAt(0).toUpperCase() + k.slice(1)} hint={hint} chrono={perfs.triathlon?.[k]} onSave={(c) => saveTri(k, c)} onClear={() => clearTri(k)} />
         ))}

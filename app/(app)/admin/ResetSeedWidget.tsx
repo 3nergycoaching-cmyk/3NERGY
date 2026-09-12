@@ -120,7 +120,7 @@ export default function ResetSeedWidget() {
 
         {step === "loading" && (
           <div className="flex items-center gap-3 text-gray-600">
-            <Loader2 className="w-5 h-5 animate-spin text-[#7c1d35]" />
+            <Loader2 className="w-5 h-5 animate-spin text-[#E6007E]" />
             <span className="text-sm">Réinitialisation en cours…</span>
           </div>
         )}

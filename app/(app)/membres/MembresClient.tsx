@@ -170,14 +170,14 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
       <div className="px-8 pt-8 pb-4 border-b border-gray-100 bg-white flex-shrink-0">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#7c1d35]/10 rounded-xl flex items-center justify-center">
-              <Users className="w-5 h-5 text-[#7c1d35]" />
+            <div className="w-10 h-10 bg-[#E6007E]/10 rounded-xl flex items-center justify-center">
+              <Users className="w-5 h-5 text-[#E6007E]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Membres</h1>
               <p className="text-sm text-gray-500 mt-0.5">
                 Communauté 3NERGY —{" "}
-                <span className="font-semibold text-[#7c1d35]">{totalCommunaute}</span> membres actifs
+                <span className="font-semibold text-[#E6007E]">{totalCommunaute}</span> membres actifs
               </p>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
           {tab === "licencies" && (
             <button
               onClick={() => setShowAddForm((v) => !v)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#7c1d35] text-white rounded-lg text-sm font-medium hover:bg-[#9b2445] transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white rounded-lg text-sm font-medium hover:bg-[#C00069] transition-colors"
             >
               <Plus size={16} />
               Nouveau licencié
@@ -200,7 +200,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
               key={key}
               onClick={() => setTab(key)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                tab === key ? "bg-[#7c1d35] text-white" : "text-gray-600 hover:bg-gray-100"
+                tab === key ? "bg-[#E6007E] text-white" : "text-gray-600 hover:bg-gray-100"
               }`}
             >
               <Icon size={15} />
@@ -229,7 +229,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                     key={s}
                     onClick={() => setAthleteFilter(s)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      athleteFilter === s ? "bg-[#7c1d35] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                      athleteFilter === s ? "bg-[#E6007E] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
                     }`}
                   >
                     {s === "actif" ? "Actifs" : s === "pause" ? "En pause" : s === "archive" ? "Archivés" : "Tous"}
@@ -241,7 +241,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
               </div>
               <Link
                 href="/athletes"
-                className="flex items-center gap-1.5 text-sm text-[#7c1d35] font-medium hover:underline"
+                className="flex items-center gap-1.5 text-sm text-[#E6007E] font-medium hover:underline"
               >
                 Gérer les athlètes
                 <ExternalLink size={13} />
@@ -269,7 +269,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                         {/* Nom */}
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-full bg-[#7c1d35]/10 flex items-center justify-center text-[#7c1d35] text-xs font-bold flex-shrink-0">
+                            <div className="w-7 h-7 rounded-full bg-[#E6007E]/10 flex items-center justify-center text-[#E6007E] text-xs font-bold flex-shrink-0">
                               {athlete.prenom[0]}{athlete.nom[0]}
                             </div>
                             <div>
@@ -299,7 +299,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                                   if (e.key === "Enter") savePrix(athlete.id);
                                   if (e.key === "Escape") setEditingPrixId(null);
                                 }}
-                                className="w-20 px-2 py-1 border border-[#7c1d35]/40 rounded-lg text-sm text-right focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20"
+                                className="w-20 px-2 py-1 border border-[#E6007E]/40 rounded-lg text-sm text-right focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                                 autoFocus
                               />
                               <span className="text-xs text-gray-400">€</span>
@@ -316,7 +316,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                               className="group flex items-center justify-end gap-1.5 ml-auto hover:bg-gray-100 px-2 py-1 rounded-lg transition-colors"
                               title="Modifier le prix"
                             >
-                              <span className={`text-sm font-semibold ${prix > 0 ? "text-[#1a1218]" : "text-gray-300"}`}>
+                              <span className={`text-sm font-semibold ${prix > 0 ? "text-[#0A0A0A]" : "text-gray-300"}`}>
                                 {prix > 0 ? `${prix} €` : "—"}
                               </span>
                               <Edit2 size={11} className="text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0" />
@@ -361,7 +361,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
               </p>
               <Link
                 href="/academy"
-                className="flex items-center gap-1.5 text-sm text-[#7c1d35] font-medium hover:underline"
+                className="flex items-center gap-1.5 text-sm text-[#E6007E] font-medium hover:underline"
               >
                 Gérer l&apos;Academy
                 <ExternalLink size={13} />
@@ -444,7 +444,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                   key={s}
                   onClick={() => setLicFilter(s)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                    licFilter === s ? "bg-[#7c1d35] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                    licFilter === s ? "bg-[#E6007E] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
                   }`}
                 >
                   {s === "tous" ? "Tous" : s === "actif" ? "Actifs" : "Expirés"}
@@ -612,7 +612,7 @@ function LicencieForm({
   onCancel: () => void;
   submitLabel: string;
 }) {
-  const inp = "w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20";
+  const inp = "w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20";
   return (
     <div>
       <div className="grid grid-cols-2 gap-3 mb-3">
@@ -663,7 +663,7 @@ function LicencieForm({
         </div>
       </div>
       <div className="flex gap-2">
-        <button onClick={onSubmit} className="flex items-center gap-1.5 px-4 py-2 bg-[#7c1d35] text-white rounded-lg text-sm font-medium hover:bg-[#9b2445]">
+        <button onClick={onSubmit} className="flex items-center gap-1.5 px-4 py-2 bg-[#E6007E] text-white rounded-lg text-sm font-medium hover:bg-[#C00069]">
           <Save size={14} />{submitLabel}
         </button>
         <button onClick={onCancel} className="flex items-center gap-1.5 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200">

@@ -165,11 +165,11 @@ export default function NolioTable({
                         >
                           <div
                             className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                            style={{ backgroundColor: coachById[crm.coachId]?.couleur || "#7c1d35" }}
+                            style={{ backgroundColor: coachById[crm.coachId]?.couleur || "#E6007E" }}
                           >
                             {crm.prenom.charAt(0)}{crm.nom.charAt(0)}
                           </div>
-                          <span className="text-sm font-semibold text-[#1a1218] group-hover:text-[#7c1d35] transition-colors">
+                          <span className="text-sm font-semibold text-[#0A0A0A] group-hover:text-[#E6007E] transition-colors">
                             {crm.prenom} {crm.nom}
                           </span>
                         </Link>
@@ -212,7 +212,7 @@ export default function NolioTable({
                       ) : (
                         <button
                           onClick={() => setModal(n)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#7c1d35] rounded-lg hover:bg-[#9b2445] transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-[#E6007E] rounded-lg hover:bg-[#C00069] transition-colors"
                         >
                           <LinkIcon size={12} />
                           Lier
@@ -240,7 +240,7 @@ export default function NolioTable({
             {/* Modal header */}
             <div className="flex items-start justify-between p-5 border-b border-gray-100 flex-shrink-0">
               <div>
-                <h2 className="font-bold text-[#1a1218] text-base">Lier à un athlète CRM</h2>
+                <h2 className="font-bold text-[#0A0A0A] text-base">Lier à un athlète CRM</h2>
                 <div className="flex items-center gap-2 mt-1.5">
                   <code className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-mono text-xs font-bold">
                     {modal.nolio_id}
@@ -266,7 +266,7 @@ export default function NolioTable({
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Rechercher par prénom, nom..."
-                  className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                  className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                 />
               </div>
             </div>
@@ -284,12 +284,12 @@ export default function NolioTable({
                       key={a.id}
                       disabled={saving !== null}
                       onClick={() => handleLink(modal.nolio_id, a.id)}
-                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-[#7c1d35]/5 transition-colors text-left disabled:opacity-50"
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-[#E6007E]/5 transition-colors text-left disabled:opacity-50"
                     >
                       {/* Avatar */}
                       <div
                         className="w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
-                        style={{ backgroundColor: coach?.couleur || "#7c1d35" }}
+                        style={{ backgroundColor: coach?.couleur || "#E6007E" }}
                       >
                         {a.prenom.charAt(0)}{a.nom.charAt(0)}
                       </div>
@@ -297,7 +297,7 @@ export default function NolioTable({
                       {/* Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <p className="text-sm font-semibold text-[#1a1218] truncate">
+                          <p className="text-sm font-semibold text-[#0A0A0A] truncate">
                             {a.prenom} {a.nom}
                           </p>
                           {isAlreadyLinked && (
@@ -323,7 +323,7 @@ export default function NolioTable({
                       {saving === modal.nolio_id ? (
                         <Loader2 size={15} className="animate-spin text-gray-400 flex-shrink-0" />
                       ) : (
-                        <LinkIcon size={14} className="text-gray-300 group-hover:text-[#7c1d35] flex-shrink-0" />
+                        <LinkIcon size={14} className="text-gray-300 group-hover:text-[#E6007E] flex-shrink-0" />
                       )}
                     </button>
                   );

@@ -77,12 +77,12 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#1a1218]">Projets</h1>
+          <h1 className="text-3xl font-bold text-[#0A0A0A]">Projets</h1>
           <p className="text-gray-500 text-sm mt-1">{projets.filter(p => p.statut === "en_cours").length} projets en cours</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
+          className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
         >
           <Plus size={16} />
           Nouveau projet
@@ -92,18 +92,18 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
       {showForm && (
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold text-[#1a1218]">Nouveau projet</h2>
+            <h2 className="font-bold text-[#0A0A0A]">Nouveau projet</h2>
             <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
           </div>
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Nom du projet *</label>
-                <input required value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                <input required value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Responsable</label>
-                <select value={form.responsable} onChange={(e) => setForm({ ...form, responsable: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white">
+                <select value={form.responsable} onChange={(e) => setForm({ ...form, responsable: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                   {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>)}
                 </select>
               </div>
@@ -111,15 +111,15 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Deadline</label>
-                <input type="date" value={form.deadline} onChange={(e) => setForm({ ...form, deadline: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                <input type="date" value={form.deadline} onChange={(e) => setForm({ ...form, deadline: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Progression ({form.progression}%)</label>
-                <input type="range" min={0} max={100} value={form.progression} onChange={(e) => setForm({ ...form, progression: Number(e.target.value) })} className="w-full mt-2 accent-[#7c1d35]" />
+                <input type="range" min={0} max={100} value={form.progression} onChange={(e) => setForm({ ...form, progression: Number(e.target.value) })} className="w-full mt-2 accent-[#E6007E]" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
-                <select value={form.statut} onChange={(e) => setForm({ ...form, statut: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white">
+                <select value={form.statut} onChange={(e) => setForm({ ...form, statut: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                   <option value="en_cours">En cours</option>
                   <option value="en_pause">En pause</option>
                   <option value="termine">Terminé</option>
@@ -128,11 +128,11 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-500 mb-1">Description</label>
-              <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] resize-none" />
+              <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] resize-none" />
             </div>
             <div className="flex gap-3 justify-end">
               <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Annuler</button>
-              <button type="submit" disabled={loading} className="px-4 py-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+              <button type="submit" disabled={loading} className="px-4 py-2 bg-[#E6007E] hover:bg-[#C00069] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                 {loading ? "Création..." : "Créer le projet"}
               </button>
             </div>
@@ -147,7 +147,7 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
             <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center mb-4">
               <Trash2 className="w-6 h-6 text-red-600" />
             </div>
-            <h3 className="font-bold text-lg mb-1 text-[#1a1218]">
+            <h3 className="font-bold text-lg mb-1 text-[#0A0A0A]">
               Supprimer &quot;{deleteTarget.nom}&quot; ?
             </h3>
             <p className="text-gray-500 text-sm mb-5">
@@ -183,7 +183,7 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1">
-                    <h3 className="text-lg font-bold text-[#1a1218]">{projet.nom}</h3>
+                    <h3 className="text-lg font-bold text-[#0A0A0A]">{projet.nom}</h3>
                     <Badge value={projet.statut} type="statut_projet" />
                   </div>
                   <p className="text-sm text-gray-500">{projet.description}</p>
@@ -206,7 +206,7 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
                   </button>
                   <Link
                     href={`/projets/${projet.id}`}
-                    className="flex items-center gap-1 px-3 py-1.5 text-xs bg-[#7c1d35]/10 text-[#7c1d35] rounded-xl hover:bg-[#7c1d35]/20 transition-colors font-medium"
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs bg-[#E6007E]/10 text-[#E6007E] rounded-xl hover:bg-[#E6007E]/20 transition-colors font-medium"
                   >
                     Détail <ChevronRight size={12} />
                   </Link>
@@ -217,11 +217,11 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs text-gray-500">Progression</span>
-                    <span className="text-xs font-bold text-[#7c1d35]">{projet.progression}%</span>
+                    <span className="text-xs font-bold text-[#E6007E]">{projet.progression}%</span>
                   </div>
                   <div className="w-full bg-gray-100 rounded-full h-2">
                     <div
-                      className="h-2 rounded-full bg-gradient-to-r from-[#7c1d35] to-[#e8648a] transition-all"
+                      className="h-2 rounded-full bg-gradient-to-r from-[#E6007E] to-[#E6007E] transition-all"
                       style={{ width: `${projet.progression}%` }}
                     />
                   </div>

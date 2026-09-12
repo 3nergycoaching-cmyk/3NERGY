@@ -72,7 +72,7 @@ export default function NolioConnectionActions({ isConnected, hasError }: Props)
         )}
         <a
           href="/api/auth/nolio?returnTo=/equipe/nolio"
-          className="flex items-center gap-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+          className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors"
         >
           <Wifi size={15} />
           {hasError ? "Reconnecter Nolio" : "Connecter Nolio"}
@@ -99,7 +99,7 @@ export default function NolioConnectionActions({ isConnected, hasError }: Props)
       <button
         onClick={handleSync}
         disabled={syncing || disconnecting}
-        className="flex items-center gap-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors disabled:opacity-60"
+        className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors disabled:opacity-60"
       >
         <RefreshCw size={15} className={syncing ? "animate-spin" : ""} />
         {syncing ? "Synchronisation…" : "Sync Nolio"}

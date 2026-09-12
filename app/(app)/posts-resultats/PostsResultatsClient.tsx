@@ -153,10 +153,10 @@ export default function PostsResultatsClient({ competitions }: Props) {
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-3 mb-1">
-            <div className="w-9 h-9 bg-[#7c1d35] rounded-xl flex items-center justify-center">
+            <div className="w-9 h-9 bg-[#E6007E] rounded-xl flex items-center justify-center">
               <ImageIcon size={18} className="text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-[#1a1218]">Posts Résultats</h1>
+            <h1 className="text-3xl font-bold text-[#0A0A0A]">Posts Résultats</h1>
           </div>
           <p className="text-gray-500 text-sm ml-12">
             Sélectionne des compétitions et génère un visuel Instagram/Facebook 1080×1080
@@ -165,7 +165,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
         {selected.size > 0 && (
           <button
             onClick={() => setShowPreview(true)}
-            className="flex items-center gap-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors shadow-sm"
+            className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors shadow-sm"
           >
             <Sparkles size={16} />
             Générer le visuel ({selected.size})
@@ -190,21 +190,21 @@ export default function PostsResultatsClient({ competitions }: Props) {
                   return (
                     <div key={comp.id} className={`${idx > 0 ? "border-t border-gray-50" : ""}`}>
                       <div
-                        className={`flex items-center gap-4 px-4 py-3 cursor-pointer transition-colors ${isSel ? "bg-[#7c1d35]/5" : "hover:bg-gray-50"}`}
+                        className={`flex items-center gap-4 px-4 py-3 cursor-pointer transition-colors ${isSel ? "bg-[#E6007E]/5" : "hover:bg-gray-50"}`}
                         onClick={() => toggleSelect(comp.id)}
                       >
-                        <div className="flex-shrink-0 text-[#7c1d35]">
+                        <div className="flex-shrink-0 text-[#E6007E]">
                           {isSel ? <CheckSquare size={18} /> : <Square size={18} className="text-gray-300" />}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-[#1a1218] text-sm truncate">{comp.titre}</p>
+                          <p className="font-semibold text-[#0A0A0A] text-sm truncate">{comp.titre}</p>
                           <p className="text-xs text-gray-400 mt-0.5">
                             {formatDate(comp.dateDebut)}
                             {comp.athleteNom && <> · <span className="text-gray-500">{comp.athleteNom}</span></>}
                           </p>
                         </div>
                         {comp.discipline && (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-[#7c1d35]/10 text-[#7c1d35] font-medium flex-shrink-0">
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-[#E6007E]/10 text-[#E6007E] font-medium flex-shrink-0">
                             {comp.discipline.replace("_", " ")}
                           </span>
                         )}
@@ -212,7 +212,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
 
                       {isSel && (
                         <div
-                          className="px-4 pb-3 flex flex-wrap gap-3 bg-[#7c1d35]/5 border-t border-[#7c1d35]/10"
+                          className="px-4 pb-3 flex flex-wrap gap-3 bg-[#E6007E]/5 border-t border-[#E6007E]/10"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <div className="flex items-center gap-2">
@@ -222,7 +222,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                               placeholder="ex: 3h01"
                               value={res.temps}
                               onChange={(e) => updateResult(comp.id, "temps", e.target.value)}
-                              className="w-28 px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                              className="w-28 px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                             />
                           </div>
                           <div className="flex items-center gap-2">
@@ -232,7 +232,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                               placeholder="ex: 20e/794"
                               value={res.classement}
                               onChange={(e) => updateResult(comp.id, "classement", e.target.value)}
-                              className="w-32 px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                              className="w-32 px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                             />
                           </div>
                           <label className="flex items-center gap-2 cursor-pointer select-none">
@@ -240,7 +240,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                               type="checkbox"
                               checked={res.recordPerso}
                               onChange={(e) => updateResult(comp.id, "recordPerso", e.target.checked)}
-                              className="w-4 h-4 accent-[#7c1d35] rounded"
+                              className="w-4 h-4 accent-[#E6007E] rounded"
                             />
                             <span className="text-xs font-medium text-gray-500">Record personnel 🏅</span>
                           </label>
@@ -257,8 +257,8 @@ export default function PostsResultatsClient({ competitions }: Props) {
           {bannerGroups.length > 0 && (
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <div className="px-4 py-3 border-b border-gray-50 flex items-center gap-2">
-                <Pencil size={14} className="text-[#7c1d35]" />
-                <p className="text-sm font-semibold text-[#1a1218]">Titres des bandeaux</p>
+                <Pencil size={14} className="text-[#E6007E]" />
+                <p className="text-sm font-semibold text-[#0A0A0A]">Titres des bandeaux</p>
                 <p className="text-xs text-gray-400 ml-1">Modifiables avant génération</p>
               </div>
               <div className="divide-y divide-gray-50">
@@ -271,7 +271,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                         onChange={(e) =>
                           setTitleOverrides((prev) => ({ ...prev, [g.key]: e.target.value }))
                         }
-                        className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-[#1a1218] focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                        className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-[#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                         placeholder="Titre du bandeau…"
                       />
                       {g.athletes.length > 0 && (
@@ -313,7 +313,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
           >
             <div className="flex items-center justify-between w-full">
               <h2 className="text-white font-bold text-lg flex items-center gap-2">
-                <Eye size={18} className="text-[#e8648a]" />
+                <Eye size={18} className="text-[#E6007E]" />
                 Aperçu — 1080×1080
               </h2>
               <button
@@ -336,7 +336,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
             <button
               onClick={handleDownload}
               disabled={downloading}
-              className="flex items-center gap-2 bg-[#e8648a] hover:bg-[#d4547a] disabled:opacity-50 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-colors w-full justify-center"
+              className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#d4547a] disabled:opacity-50 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-colors w-full justify-center"
             >
               <Download size={16} />
               {downloading ? "Génération en cours…" : "Télécharger le PNG (1080×1080)"}

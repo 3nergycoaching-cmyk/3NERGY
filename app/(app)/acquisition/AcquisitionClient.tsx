@@ -132,12 +132,12 @@ export default function AcquisitionClient({ leads: initialLeads, coaches }: Prop
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#1a1218]">Acquisition</h1>
+          <h1 className="text-3xl font-bold text-[#0A0A0A]">Acquisition</h1>
           <p className="text-gray-500 text-sm mt-1">{activeLeads.length} leads actifs dans le pipeline</p>
         </div>
         <button
           onClick={() => setShowNewForm(true)}
-          className="flex items-center gap-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
+          className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
         >
           <Plus size={16} />
           Nouveau lead
@@ -152,7 +152,7 @@ export default function AcquisitionClient({ leads: initialLeads, coaches }: Prop
             <div
               key={col.key}
               className={`rounded-2xl border-2 p-3 min-h-[400px] transition-all ${col.color} ${
-                dragOver === col.key ? "ring-2 ring-[#7c1d35] ring-offset-1" : ""
+                dragOver === col.key ? "ring-2 ring-[#E6007E] ring-offset-1" : ""
               }`}
               onDragOver={(e) => { e.preventDefault(); setDragOver(col.key); }}
               onDragLeave={() => setDragOver(null)}
@@ -311,7 +311,7 @@ function LeadCard({
     >
       <div className="flex items-start justify-between mb-2">
         <div className="flex-1 min-w-0 pr-2">
-          <p className="font-semibold text-sm text-[#1a1218] truncate">{lead.prenom} {lead.nom}</p>
+          <p className="font-semibold text-sm text-[#0A0A0A] truncate">{lead.prenom} {lead.nom}</p>
           <p className="text-xs text-gray-500 truncate">{lead.email}</p>
         </div>
         <div className="relative flex-shrink-0">
@@ -400,7 +400,7 @@ function LeadCard({
           {canMoveRight && !lead.converti && (
             <button
               onClick={() => onMove(lead, 1)}
-              className="px-2 py-0.5 text-xs rounded-lg bg-[#7c1d35]/10 hover:bg-[#7c1d35]/20 transition-colors text-[#7c1d35]"
+              className="px-2 py-0.5 text-xs rounded-lg bg-[#E6007E]/10 hover:bg-[#E6007E]/20 transition-colors text-[#E6007E]"
             >→</button>
           )}
         </div>
@@ -451,7 +451,7 @@ function NewLeadModal({
     }
   };
 
-  const inputCls = "w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]";
+  const inputCls = "w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]";
   const selectCls = inputCls + " bg-white";
 
   return (
@@ -523,7 +523,7 @@ function NewLeadModal({
           </div>
           <div className="flex gap-3 pt-1">
             <button type="button" onClick={onClose} className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Annuler</button>
-            <button type="submit" disabled={loading} className="flex-1 px-4 py-2.5 bg-[#7c1d35] hover:bg-[#9b2445] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+            <button type="submit" disabled={loading} className="flex-1 px-4 py-2.5 bg-[#E6007E] hover:bg-[#C00069] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               {loading ? "Création..." : "Créer le lead"}
             </button>
           </div>
@@ -571,7 +571,7 @@ function EditLeadModal({
     }
   };
 
-  const inputCls = "w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]";
+  const inputCls = "w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]";
   const selectCls = inputCls + " bg-white";
 
   return (
@@ -657,7 +657,7 @@ function EditLeadModal({
           </div>
           <div className="flex gap-3 pt-1">
             <button type="button" onClick={onClose} className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Annuler</button>
-            <button type="submit" disabled={loading} className="flex-1 px-4 py-2.5 bg-[#7c1d35] hover:bg-[#9b2445] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+            <button type="submit" disabled={loading} className="flex-1 px-4 py-2.5 bg-[#E6007E] hover:bg-[#C00069] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
               {loading ? "Sauvegarde..." : "Sauvegarder"}
             </button>
           </div>
@@ -722,7 +722,7 @@ function ConvertLeadModal({
     }
   };
 
-  const inputCls = "w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]";
+  const inputCls = "w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]";
   const selectCls = inputCls + " bg-white";
 
   return (

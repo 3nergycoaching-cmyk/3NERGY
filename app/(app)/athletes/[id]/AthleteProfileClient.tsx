@@ -138,7 +138,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
     <div className="p-8">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
-        <Link href="/athletes" className="text-gray-400 hover:text-[#7c1d35] transition-colors">
+        <Link href="/athletes" className="text-gray-400 hover:text-[#E6007E] transition-colors">
           <ArrowLeft size={20} />
         </Link>
         <div className="flex-1">
@@ -150,7 +150,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
               {athlete.prenom.charAt(0)}{athlete.nom.charAt(0)}
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-[#1a1218]">{athlete.prenom} {athlete.nom}</h1>
+              <h1 className="text-2xl font-bold text-[#0A0A0A]">{athlete.prenom} {athlete.nom}</h1>
               <div className="flex items-center gap-2 mt-1">
                 <Badge value={athlete.discipline} type="discipline" />
                 <Badge value={athlete.statut} type="statut_athlete" />
@@ -181,7 +181,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                             {defaultPrix > 0 && (
                               <span className="text-xs text-gray-400 ml-auto">{defaultPrix} €</span>
                             )}
-                            {currentService === svc && <span className="text-[#7c1d35] text-xs">✓</span>}
+                            {currentService === svc && <span className="text-[#E6007E] text-xs">✓</span>}
                           </button>
                         );
                       })}
@@ -230,7 +230,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
               <button
                 onClick={handleSave}
                 disabled={loading}
-                className="flex items-center gap-2 px-3 py-2 text-sm bg-[#7c1d35] text-white rounded-xl hover:bg-[#9b2445] transition-colors disabled:opacity-50"
+                className="flex items-center gap-2 px-3 py-2 text-sm bg-[#E6007E] text-white rounded-xl hover:bg-[#C00069] transition-colors disabled:opacity-50"
               >
                 <Save size={14} />
                 {loading ? "Sauvegarde..." : "Sauvegarder"}
@@ -263,13 +263,13 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
               onClick={() => setTab(key)}
               className={`px-4 py-2.5 text-sm font-medium border-b-2 transition-all ${
                 tab === key
-                  ? "border-[#7c1d35] text-[#7c1d35]"
+                  ? "border-[#E6007E] text-[#E6007E]"
                   : "border-transparent text-gray-500 hover:text-gray-700"
               }`}
             >
               {label}
               {key === "objectifs" && athlete.objectifs && athlete.objectifs.length > 0 && (
-                <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#7c1d35]/10 text-[#7c1d35] text-xs font-bold">
+                <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-bold">
                   {athlete.objectifs.length}
                 </span>
               )}
@@ -282,31 +282,31 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
       {tab === "infos" && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <h3 className="font-semibold text-[#1a1218] mb-4">Informations personnelles</h3>
+            <h3 className="font-semibold text-[#0A0A0A] mb-4">Informations personnelles</h3>
             <div className="space-y-4">
               {editing ? (
                 <>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-medium text-gray-500 mb-1">Prénom</label>
-                      <input value={form.prenom} onChange={(e) => setForm({ ...form, prenom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                      <input value={form.prenom} onChange={(e) => setForm({ ...form, prenom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                     </div>
                     <div>
                       <label className="block text-xs font-medium text-gray-500 mb-1">Nom</label>
-                      <input value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                      <input value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Email</label>
-                    <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                    <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Téléphone</label>
-                    <input value={form.telephone} onChange={(e) => setForm({ ...form, telephone: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                    <input value={form.telephone} onChange={(e) => setForm({ ...form, telephone: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Adresse</label>
-                    <input value={form.adresse || ""} onChange={(e) => setForm({ ...form, adresse: e.target.value })} placeholder="Rue, numéro, code postal, ville..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                    <input value={form.adresse || ""} onChange={(e) => setForm({ ...form, adresse: e.target.value })} placeholder="Rue, numéro, code postal, ville..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                   </div>
                 </>
               ) : (
@@ -321,19 +321,19 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
           </div>
 
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <h3 className="font-semibold text-[#1a1218] mb-4">Coaching & Service</h3>
+            <h3 className="font-semibold text-[#0A0A0A] mb-4">Coaching & Service</h3>
             <div className="space-y-4">
               {editing ? (
                 <>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Coach</label>
-                    <select value={form.coachId} onChange={(e) => setForm({ ...form, coachId: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white">
+                    <select value={form.coachId} onChange={(e) => setForm({ ...form, coachId: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                       {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
-                    <select value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value as Athlete["discipline"] })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white">
+                    <select value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value as Athlete["discipline"] })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                       <option value="triathlon">Triathlon</option>
                       <option value="cyclisme">Cyclisme</option>
                       <option value="course_a_pied">Course à pied</option>
@@ -342,7 +342,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
-                    <select value={form.statut} onChange={(e) => setForm({ ...form, statut: e.target.value as Athlete["statut"] })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white">
+                    <select value={form.statut} onChange={(e) => setForm({ ...form, statut: e.target.value as Athlete["statut"] })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                       <option value="actif">Actif</option>
                       <option value="pause">Pause</option>
                       <option value="archive">Archivé</option>
@@ -357,7 +357,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                         setForm({ ...form, service: svc, prixMensuel: SERVICE_TARIFS[svc] ?? 0 });
                         setCurrentService(svc);
                       }}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white"
                     >
                       {SERVICE_ORDER.map((svc) => (
                         <option key={svc} value={svc}>{SERVICE_LABELS[svc]}</option>
@@ -366,7 +366,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">Objectif de saison</label>
-                    <input value={form.objectif} onChange={(e) => setForm({ ...form, objectif: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                    <input value={form.objectif} onChange={(e) => setForm({ ...form, objectif: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-500 mb-1">
@@ -378,9 +378,9 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                       value={form.nolioId ?? ""}
                       onChange={(e) => setForm({ ...form, nolioId: e.target.value ? Number(e.target.value) : undefined })}
                       placeholder="ex: 86232"
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                     />
-                    <p className="text-xs text-gray-400 mt-1">Visible sur la page <a href="/equipe/nolio" className="text-[#7c1d35] underline" target="_blank">Équipe → Nolio</a></p>
+                    <p className="text-xs text-gray-400 mt-1">Visible sur la page <a href="/equipe/nolio" className="text-[#E6007E] underline" target="_blank">Équipe → Nolio</a></p>
                   </div>
                 </>
               ) : (
@@ -420,7 +420,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                   <Link2 className={`w-4 h-4 ${nolioConnected ? "text-emerald-600" : "text-gray-400"}`} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#1a1218] text-sm">Synchronisation Nolio</h3>
+                  <h3 className="font-semibold text-[#0A0A0A] text-sm">Synchronisation Nolio</h3>
                   <p className="text-xs text-gray-400 mt-0.5">
                     {nolioConnected
                       ? "Compétitions synchronisées automatiquement dans le calendrier"
@@ -459,7 +459,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                 <button
                   onClick={handleNolioSync}
                   disabled={nolioSyncing}
-                  className="flex items-center gap-2 px-4 py-2 bg-[#7c1d35] text-white rounded-xl text-sm font-medium hover:bg-[#9b2445] transition-colors disabled:opacity-50"
+                  className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white rounded-xl text-sm font-medium hover:bg-[#C00069] transition-colors disabled:opacity-50"
                 >
                   <RefreshCw size={14} className={nolioSyncing ? "animate-spin" : ""} />
                   {nolioSyncing ? "Synchronisation..." : "Synchroniser les courses"}
@@ -476,7 +476,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
             ) : (
               <Link
                 href={`/api/auth/nolio?athleteId=${athlete.id}`}
-                className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#7c1d35] text-white rounded-xl text-sm font-medium hover:bg-[#9b2445] transition-colors shadow-sm"
+                className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-[#E6007E] text-white rounded-xl text-sm font-medium hover:bg-[#C00069] transition-colors shadow-sm"
               >
                 <Link2 size={15} />
                 Connecter Nolio
@@ -505,14 +505,14 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
       {/* ── TAB: Notes ── */}
       {tab === "notes" && (
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h3 className="font-semibold text-[#1a1218] mb-4">Notes</h3>
+          <h3 className="font-semibold text-[#0A0A0A] mb-4">Notes</h3>
           {editing ? (
             <textarea
               value={form.notes}
               onChange={(e) => setForm({ ...form, notes: e.target.value })}
               rows={8}
               placeholder="Ajouter des notes sur cet athlète..."
-              className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] resize-none"
+              className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] resize-none"
             />
           ) : (
             <div className="p-4 rounded-xl bg-gray-50 min-h-[120px]">
@@ -527,17 +527,17 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
       {/* ── TAB: Historique ── */}
       {tab === "historique" && (
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h3 className="font-semibold text-[#1a1218] mb-4">Historique</h3>
+          <h3 className="font-semibold text-[#0A0A0A] mb-4">Historique</h3>
           <div className="space-y-3">
             <div className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-[#7c1d35] mt-1.5 flex-shrink-0" />
+              <div className="w-2 h-2 rounded-full bg-[#E6007E] mt-1.5 flex-shrink-0" />
               <div>
                 <p className="text-sm font-medium">Athlète créé</p>
                 <p className="text-xs text-gray-400">{formatDateLong(athlete.createdAt)}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-[#e8648a] mt-1.5 flex-shrink-0" />
+              <div className="w-2 h-2 rounded-full bg-[#E6007E] mt-1.5 flex-shrink-0" />
               <div>
                 <p className="text-sm font-medium">Formule souscrite</p>
                 <p className="text-xs text-gray-400">
@@ -587,7 +587,7 @@ function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <p className="text-xs text-gray-500 mb-0.5">{label}</p>
-      <p className="text-sm font-medium text-[#1a1218]">{value}</p>
+      <p className="text-sm font-medium text-[#0A0A0A]">{value}</p>
     </div>
   );
 }

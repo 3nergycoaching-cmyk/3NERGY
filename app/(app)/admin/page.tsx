@@ -33,7 +33,7 @@ export default async function AdminPage() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-[#1a1218]">Administration</h1>
+        <h1 className="text-3xl font-bold text-[#0A0A0A]">Administration</h1>
         <p className="text-gray-500 text-sm mt-1">Vue d&apos;ensemble des contrats et de l&apos;équipe</p>
       </div>
 
@@ -68,8 +68,8 @@ export default async function AdminPage() {
         </div>
         <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-9 h-9 bg-[#7c1d35]/10 rounded-xl flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-[#7c1d35]" />
+            <div className="w-9 h-9 bg-[#E6007E]/10 rounded-xl flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 text-[#E6007E]" />
             </div>
           </div>
           <p className="text-2xl font-bold">{db.athletes.length}</p>
@@ -80,9 +80,9 @@ export default async function AdminPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {/* Répartition services */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h2 className="font-bold text-[#1a1218] mb-4">Répartition des services (actifs)</h2>
+          <h2 className="font-bold text-[#0A0A0A] mb-4">Répartition des services (actifs)</h2>
           <div className="space-y-3">
-            <ServiceBar label="Pro" count={totalPro} total={activeAthletes.length} color="bg-[#7c1d35]" />
+            <ServiceBar label="Pro" count={totalPro} total={activeAthletes.length} color="bg-[#E6007E]" />
             <ServiceBar label="Performance" count={totalPerformance} total={activeAthletes.length} color="bg-indigo-500" />
             <ServiceBar label="Basic" count={totalBasic} total={activeAthletes.length} color="bg-gray-400" />
             <ServiceBar label="Gratuit" count={totalGratuit} total={activeAthletes.length} color="bg-sky-400" />
@@ -92,7 +92,7 @@ export default async function AdminPage() {
 
         {/* Répartition par coach */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h2 className="font-bold text-[#1a1218] mb-4">Charge par coach</h2>
+          <h2 className="font-bold text-[#0A0A0A] mb-4">Charge par coach</h2>
           <div className="space-y-3">
             {coachStats.map(({ coach, total, actifs }) => (
               <div key={coach.id} className="flex items-center gap-3">
@@ -128,7 +128,7 @@ export default async function AdminPage() {
       {/* Tous les athlètes */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-6 border-b border-gray-100">
-          <h2 className="font-bold text-[#1a1218]">Tous les athlètes actifs</h2>
+          <h2 className="font-bold text-[#0A0A0A]">Tous les athlètes actifs</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">

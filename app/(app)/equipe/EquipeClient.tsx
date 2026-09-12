@@ -73,12 +73,12 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#1a1218]">Équipe</h1>
+          <h1 className="text-3xl font-bold text-[#0A0A0A]">Équipe</h1>
           <p className="text-gray-500 text-sm mt-1">{coaches.length} coachs dans l&apos;équipe</p>
         </div>
         <button
           onClick={() => setShowNewCoach(true)}
-          className="flex items-center gap-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
+          className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
         >
           <Plus size={16} />
           Ajouter un coach
@@ -95,25 +95,25 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Prénom *</label>
-                <input required value={newForm.prenom} onChange={(e) => setNewForm({ ...newForm, prenom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                <input required value={newForm.prenom} onChange={(e) => setNewForm({ ...newForm, prenom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Nom *</label>
-                <input required value={newForm.nom} onChange={(e) => setNewForm({ ...newForm, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                <input required value={newForm.nom} onChange={(e) => setNewForm({ ...newForm, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Rôle</label>
-                <input value={newForm.role} onChange={(e) => setNewForm({ ...newForm, role: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                <input value={newForm.role} onChange={(e) => setNewForm({ ...newForm, role: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Email *</label>
-                <input required type="email" value={newForm.email} onChange={(e) => setNewForm({ ...newForm, email: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                <input required type="email" value={newForm.email} onChange={(e) => setNewForm({ ...newForm, email: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Téléphone</label>
-                <input value={newForm.telephone} onChange={(e) => setNewForm({ ...newForm, telephone: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]" />
+                <input value={newForm.telephone} onChange={(e) => setNewForm({ ...newForm, telephone: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-500 mb-1">Couleur</label>
@@ -125,7 +125,7 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
             </div>
             <div className="flex gap-3 justify-end">
               <button type="button" onClick={() => setShowNewCoach(false)} className="px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Annuler</button>
-              <button type="submit" disabled={loading} className="px-4 py-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
+              <button type="submit" disabled={loading} className="px-4 py-2 bg-[#E6007E] hover:bg-[#C00069] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
                 {loading ? "Création..." : "Créer le coach"}
               </button>
             </div>
@@ -152,14 +152,14 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
                     {isEditing ? (
                       <div className="space-y-1">
                         <div className="flex gap-2">
-                          <input value={editForm.prenom || ""} onChange={(e) => setEditForm({ ...editForm, prenom: e.target.value })} placeholder="Prénom" className="px-2 py-1 border border-gray-200 rounded-lg text-sm w-24 focus:outline-none focus:border-[#7c1d35]" />
-                          <input value={editForm.nom || ""} onChange={(e) => setEditForm({ ...editForm, nom: e.target.value })} placeholder="Nom" className="px-2 py-1 border border-gray-200 rounded-lg text-sm w-24 focus:outline-none focus:border-[#7c1d35]" />
+                          <input value={editForm.prenom || ""} onChange={(e) => setEditForm({ ...editForm, prenom: e.target.value })} placeholder="Prénom" className="px-2 py-1 border border-gray-200 rounded-lg text-sm w-24 focus:outline-none focus:border-[#E6007E]" />
+                          <input value={editForm.nom || ""} onChange={(e) => setEditForm({ ...editForm, nom: e.target.value })} placeholder="Nom" className="px-2 py-1 border border-gray-200 rounded-lg text-sm w-24 focus:outline-none focus:border-[#E6007E]" />
                         </div>
-                        <input value={editForm.role || ""} onChange={(e) => setEditForm({ ...editForm, role: e.target.value })} placeholder="Rôle" className="px-2 py-1 border border-gray-200 rounded-lg text-xs w-full focus:outline-none focus:border-[#7c1d35]" />
+                        <input value={editForm.role || ""} onChange={(e) => setEditForm({ ...editForm, role: e.target.value })} placeholder="Rôle" className="px-2 py-1 border border-gray-200 rounded-lg text-xs w-full focus:outline-none focus:border-[#E6007E]" />
                       </div>
                     ) : (
                       <>
-                        <p className="font-bold text-[#1a1218]">{coach.prenom} {coach.nom}</p>
+                        <p className="font-bold text-[#0A0A0A]">{coach.prenom} {coach.nom}</p>
                         <p className="text-xs text-gray-500">{coach.role}</p>
                       </>
                     )}
@@ -174,7 +174,7 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
                   ) : (
                     <button
                       onClick={() => { setEditingCoach(coach.id); setEditForm({ ...coach }); }}
-                      className="p-2 text-gray-400 hover:text-[#7c1d35] hover:bg-gray-100 rounded-xl transition-colors"
+                      className="p-2 text-gray-400 hover:text-[#E6007E] hover:bg-gray-100 rounded-xl transition-colors"
                     >
                       <Edit2 size={14} />
                     </button>
@@ -186,11 +186,11 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
                 <div className="grid grid-cols-2 gap-3 mb-4">
                   <div>
                     <label className="block text-xs text-gray-500 mb-1">Email</label>
-                    <input value={editForm.email || ""} onChange={(e) => setEditForm({ ...editForm, email: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7c1d35]" />
+                    <input value={editForm.email || ""} onChange={(e) => setEditForm({ ...editForm, email: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#E6007E]" />
                   </div>
                   <div>
                     <label className="block text-xs text-gray-500 mb-1">Téléphone</label>
-                    <input value={editForm.telephone || ""} onChange={(e) => setEditForm({ ...editForm, telephone: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7c1d35]" />
+                    <input value={editForm.telephone || ""} onChange={(e) => setEditForm({ ...editForm, telephone: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#E6007E]" />
                   </div>
                 </div>
               )}
@@ -221,7 +221,7 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
                         </div>
                         <button
                           onClick={() => setReassignModal({ coachId: coach.id, athleteId: athlete.id })}
-                          className="p-1 text-gray-400 hover:text-[#7c1d35] transition-colors"
+                          className="p-1 text-gray-400 hover:text-[#E6007E] transition-colors"
                           title="Réassigner"
                         >
                           <UserCheck size={13} />
@@ -272,7 +272,7 @@ function ReassignModal({
     <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold text-[#1a1218]">Réassigner l&apos;athlète</h2>
+          <h2 className="font-bold text-[#0A0A0A]">Réassigner l&apos;athlète</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
         </div>
         {athlete && <p className="text-sm text-gray-600 mb-4">{athlete.prenom} {athlete.nom}</p>}
@@ -281,7 +281,7 @@ function ReassignModal({
             <button
               key={c.id}
               onClick={() => setSelectedCoach(c.id)}
-              className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${selectedCoach === c.id ? "border-[#7c1d35] bg-[#7c1d35]/5" : "border-gray-100 hover:border-gray-200"}`}
+              className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${selectedCoach === c.id ? "border-[#E6007E] bg-[#E6007E]/5" : "border-gray-100 hover:border-gray-200"}`}
             >
               <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: c.couleur }}>
                 {c.prenom.charAt(0)}{c.nom.charAt(0)}
@@ -299,7 +299,7 @@ function ReassignModal({
           <button
             onClick={() => onReassign(athleteId, selectedCoach)}
             disabled={selectedCoach === currentCoachId}
-            className="flex-1 px-4 py-2 bg-[#7c1d35] text-white rounded-xl text-sm font-medium hover:bg-[#9b2445] transition-colors disabled:opacity-50"
+            className="flex-1 px-4 py-2 bg-[#E6007E] text-white rounded-xl text-sm font-medium hover:bg-[#C00069] transition-colors disabled:opacity-50"
           >
             Réassigner
           </button>

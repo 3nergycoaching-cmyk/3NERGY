@@ -182,20 +182,20 @@ export default function AthletesClient({ athletes, coaches }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#1a1218]">Athlètes</h1>
+          <h1 className="text-3xl font-bold text-[#0A0A0A]">Athlètes</h1>
           <p className="text-gray-500 text-sm mt-1">{athletes.length} athlètes enregistrés</p>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowInviteModal(true)}
-            className="flex items-center gap-2 border border-[#7c1d35] text-[#7c1d35] hover:bg-[#7c1d35]/5 px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
+            className="flex items-center gap-2 border border-[#E6007E] text-[#E6007E] hover:bg-[#E6007E]/5 px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
           >
             <Mail size={16} />
             Inviter un athlète
           </button>
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
+            className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
           >
             <Plus size={16} />
             Nouvel athlète
@@ -212,27 +212,27 @@ export default function AthletesClient({ athletes, coaches }: Props) {
             placeholder="Rechercher un athlète..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
           />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <Filter size={14} className="text-gray-400" />
           <select value={filterDiscipline} onChange={(e) => setFilterDiscipline(e.target.value as Discipline | "")}
-            className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white">
+            className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
             <option value="">Toutes les disciplines</option>
             <option value="triathlon">Triathlon</option>
             <option value="cyclisme">Cyclisme</option>
             <option value="course_a_pied">Course à pied</option>
           </select>
           <select value={filterCoach} onChange={(e) => setFilterCoach(e.target.value)}
-            className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white">
+            className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
             <option value="">Tous les coachs</option>
             {coaches.map((c) => (
               <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>
             ))}
           </select>
           <select value={filterStatut} onChange={(e) => setFilterStatut(e.target.value as StatutAthlete | "")}
-            className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white">
+            className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
             <option value="">Tous les statuts</option>
             <option value="actif">Actif</option>
             <option value="pause">En pause</option>
@@ -287,7 +287,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                             {athlete.prenom.charAt(0)}{athlete.nom.charAt(0)}
                           </div>
                           <div>
-                            <p className="font-semibold text-[#1a1218]">{athlete.prenom} {athlete.nom}</p>
+                            <p className="font-semibold text-[#0A0A0A]">{athlete.prenom} {athlete.nom}</p>
                             <p className="text-xs text-gray-400">{athlete.telephone}</p>
                           </div>
                         </div>
@@ -364,7 +364,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                                     {defaultPrix > 0 && (
                                       <span className="text-xs text-gray-400 ml-auto">{defaultPrix} €</span>
                                     )}
-                                    {currentService === svc && <span className="text-[#7c1d35] text-xs">✓</span>}
+                                    {currentService === svc && <span className="text-[#E6007E] text-xs">✓</span>}
                                   </button>
                                 );
                               })}
@@ -458,10 +458,10 @@ export default function AthletesClient({ athletes, coaches }: Props) {
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-100">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 bg-[#7c1d35]/10 rounded-xl flex items-center justify-center">
-                  <Mail size={16} className="text-[#7c1d35]" />
+                <div className="w-9 h-9 bg-[#E6007E]/10 rounded-xl flex items-center justify-center">
+                  <Mail size={16} className="text-[#E6007E]" />
                 </div>
-                <h2 className="font-bold text-[#1a1218]">Inviter un athlète</h2>
+                <h2 className="font-bold text-[#0A0A0A]">Inviter un athlète</h2>
               </div>
               <button onClick={closeInviteModal} className="text-gray-400 hover:text-gray-600 transition-colors">
                 <X size={20} />
@@ -474,17 +474,17 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                 <div className="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Mail size={24} className="text-emerald-600" />
                 </div>
-                <h3 className="font-bold text-[#1a1218] mb-1">Invitation envoyée !</h3>
+                <h3 className="font-bold text-[#0A0A0A] mb-1">Invitation envoyée !</h3>
                 <p className="text-gray-500 text-sm mb-4">
                   {inviteResult.prenom} a reçu un email avec son lien d'inscription.
                 </p>
                 <div className="bg-gray-50 rounded-xl p-3 mb-4 text-left">
                   <p className="text-xs text-gray-500 mb-1">Lien de secours :</p>
-                  <p className="text-xs text-[#7c1d35] break-all font-mono">{inviteResult.formUrl}</p>
+                  <p className="text-xs text-[#E6007E] break-all font-mono">{inviteResult.formUrl}</p>
                 </div>
                 <button
                   onClick={closeInviteModal}
-                  className="w-full py-2.5 bg-[#7c1d35] text-white rounded-xl text-sm font-semibold hover:bg-[#9b2445] transition-colors"
+                  className="w-full py-2.5 bg-[#E6007E] text-white rounded-xl text-sm font-semibold hover:bg-[#C00069] transition-colors"
                 >
                   Fermer
                 </button>
@@ -500,14 +500,14 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                     <label className="block text-xs font-semibold text-gray-600 mb-1">Prénom *</label>
                     <input required type="text" value={inviteForm.prenom}
                       onChange={(e) => setInviteForm((f) => ({ ...f, prenom: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-gray-600 mb-1">Nom *</label>
                     <input required type="text" value={inviteForm.nom}
                       onChange={(e) => setInviteForm((f) => ({ ...f, nom: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                     />
                   </div>
                 </div>
@@ -515,14 +515,14 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                   <label className="block text-xs font-semibold text-gray-600 mb-1">Email *</label>
                   <input required type="email" value={inviteForm.email}
                     onChange={(e) => setInviteForm((f) => ({ ...f, email: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                   />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-600 mb-1">Coach assigné *</label>
                   <select required value={inviteForm.coachId}
                     onChange={(e) => setInviteForm((f) => ({ ...f, coachId: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white"
                   >
                     <option value="">Sélectionner un coach</option>
                     {coaches.map((c) => (
@@ -539,7 +539,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                     Annuler
                   </button>
                   <button type="submit" disabled={inviting}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#7c1d35] text-white rounded-xl text-sm font-semibold hover:bg-[#9b2445] transition-colors disabled:opacity-60">
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#E6007E] text-white rounded-xl text-sm font-semibold hover:bg-[#C00069] transition-colors disabled:opacity-60">
                     {inviting ? <><Loader2 size={14} className="animate-spin" /> Envoi...</> : <><Mail size={14} /> Envoyer l'invitation</>}
                   </button>
                 </div>
@@ -565,7 +565,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
             <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center mb-4">
               <Trash2 className="w-6 h-6 text-red-600" />
             </div>
-            <h3 className="font-bold text-lg mb-1 text-[#1a1218]">
+            <h3 className="font-bold text-lg mb-1 text-[#0A0A0A]">
               Supprimer {deleteTarget.prenom} {deleteTarget.nom} ?
             </h3>
             <p className="text-gray-500 text-sm mb-5">

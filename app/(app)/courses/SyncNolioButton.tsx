@@ -76,7 +76,7 @@ export default function SyncNolioButton() {
       <button
         onClick={handleSync}
         disabled={syncing}
-        className="flex items-center gap-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors disabled:opacity-60"
+        className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors disabled:opacity-60"
       >
         {syncing ? (
           <RefreshCw size={15} className="animate-spin" />

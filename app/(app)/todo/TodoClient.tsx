@@ -191,10 +191,10 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
 
   // ── Classes ────────────────────────────────────────────────────────────────
 
-  const inputCls = "px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35] bg-white";
+  const inputCls = "px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white";
   const tabBtn = (active: boolean, extra = "") =>
     `relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-b-2 transition-all whitespace-nowrap ${active
-      ? "border-[#7c1d35] text-[#7c1d35]"
+      ? "border-[#E6007E] text-[#E6007E]"
       : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"} ${extra}`;
 
   // ── Render ─────────────────────────────────────────────────────────────────
@@ -206,7 +206,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
       <div className="px-8 pt-6 pb-0 flex-shrink-0">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-[#1a1218]">To-do</h1>
+            <h1 className="text-3xl font-bold text-[#0A0A0A]">To-do</h1>
             <p className="text-gray-500 text-sm mt-0.5">
               {doneCount}/{filtered.length} tâches terminées
               {filtered.length > 0 && (
@@ -218,7 +218,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
           </div>
           <button
             onClick={() => setShowAddForm((v) => !v)}
-            className="flex items-center gap-2 bg-[#7c1d35] hover:bg-[#9b2445] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
+            className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
           >
             <Plus size={16} />
             Nouvelle tâche
@@ -229,7 +229,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
         {filtered.length > 0 && (
           <div className="w-full bg-gray-100 rounded-full h-1 mb-4">
             <div
-              className="h-1 rounded-full bg-gradient-to-r from-[#7c1d35] to-[#e8648a] transition-all duration-500"
+              className="h-1 rounded-full bg-gradient-to-r from-[#E6007E] to-[#E6007E] transition-all duration-500"
               style={{ width: `${(doneCount / filtered.length) * 100}%` }}
             />
           </div>
@@ -240,10 +240,10 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
           <form
             onSubmit={handleAdd}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-2xl border border-[#7c1d35]/20 shadow-md p-5 mb-4 space-y-3"
+            className="bg-white rounded-2xl border border-[#E6007E]/20 shadow-md p-5 mb-4 space-y-3"
           >
             <div className="flex items-center justify-between mb-1">
-              <h3 className="font-semibold text-[#1a1218] text-sm">Nouvelle tâche</h3>
+              <h3 className="font-semibold text-[#0A0A0A] text-sm">Nouvelle tâche</h3>
               <button type="button" onClick={() => setShowAddForm(false)} className="text-gray-400 hover:text-gray-600">
                 <X size={16} />
               </button>
@@ -255,7 +255,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
               value={addForm.titre}
               onChange={(e) => setAddForm({ ...addForm, titre: e.target.value })}
               placeholder="Titre de la tâche..."
-              className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+              className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div>
@@ -300,7 +300,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
             </div>
             <div className="flex justify-end gap-2 pt-1">
               <button type="button" onClick={() => setShowAddForm(false)} className="px-4 py-2 text-sm border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">Annuler</button>
-              <button type="submit" disabled={adding || !addForm.titre.trim()} className="flex items-center gap-2 px-4 py-2 text-sm bg-[#7c1d35] text-white rounded-xl hover:bg-[#9b2445] transition-colors disabled:opacity-50">
+              <button type="submit" disabled={adding || !addForm.titre.trim()} className="flex items-center gap-2 px-4 py-2 text-sm bg-[#E6007E] text-white rounded-xl hover:bg-[#C00069] transition-colors disabled:opacity-50">
                 <Plus size={14} />
                 {adding ? "Ajout..." : "Ajouter"}
               </button>
@@ -361,7 +361,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                 onClick={() => setFilterStatut(key)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   filterStatut === key
-                    ? "bg-[#7c1d35] text-white"
+                    ? "bg-[#E6007E] text-white"
                     : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
                 }`}
               >
@@ -382,7 +382,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
             <button
               onClick={() => { if (sortKey === "priorite") setSortAsc((v) => !v); else { setSortKey("priorite"); setSortAsc(true); } }}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                sortKey === "priorite" ? "bg-[#7c1d35]/10 text-[#7c1d35] border border-[#7c1d35]/20" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                sortKey === "priorite" ? "bg-[#E6007E]/10 text-[#E6007E] border border-[#E6007E]/20" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
               }`}
             >
               <ArrowUpDown size={11} />
@@ -392,7 +392,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
             <button
               onClick={() => { if (sortKey === "deadline") setSortAsc((v) => !v); else { setSortKey("deadline"); setSortAsc(true); } }}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                sortKey === "deadline" ? "bg-[#7c1d35]/10 text-[#7c1d35] border border-[#7c1d35]/20" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                sortKey === "deadline" ? "bg-[#E6007E]/10 text-[#E6007E] border border-[#E6007E]/20" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
               }`}
             >
               <ArrowUpDown size={11} />
@@ -428,14 +428,14 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                   <div
                     key={todo.id}
                     onClick={(e) => e.stopPropagation()}
-                    className="bg-white rounded-2xl border-2 border-[#7c1d35]/30 shadow-md p-4 space-y-3"
+                    className="bg-white rounded-2xl border-2 border-[#E6007E]/30 shadow-md p-4 space-y-3"
                   >
                     <input
                       autoFocus
                       type="text"
                       value={editForm.titre || ""}
                       onChange={(e) => setEditForm({ ...editForm, titre: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#7c1d35]/20 focus:border-[#7c1d35]"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                     />
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                       <div>
@@ -482,7 +482,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                       <button onClick={(e) => { e.stopPropagation(); setEditingId(null); setEditForm({}); }} className="flex items-center gap-1 px-3 py-1.5 text-xs border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
                         <X size={12} /> Annuler
                       </button>
-                      <button onClick={handleSaveEdit} className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-[#7c1d35] text-white rounded-xl hover:bg-[#9b2445] transition-colors">
+                      <button onClick={handleSaveEdit} className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-[#E6007E] text-white rounded-xl hover:bg-[#C00069] transition-colors">
                         <Save size={12} /> Sauvegarder
                       </button>
                     </div>
@@ -497,7 +497,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     className={`flex items-center gap-3 bg-white rounded-xl px-4 py-3 border transition-all ${
                       isDone
                         ? "border-gray-100 opacity-60"
-                        : "border-gray-100 hover:border-[#7c1d35]/20 hover:shadow-sm"
+                        : "border-gray-100 hover:border-[#E6007E]/20 hover:shadow-sm"
                     }`}
                   >
                     {/* Checkbox */}
@@ -508,7 +508,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     >
                       {isDone
                         ? <CheckSquare className="w-5 h-5 text-emerald-500" />
-                        : <Square className="w-5 h-5 text-gray-300 hover:text-[#7c1d35]" />
+                        : <Square className="w-5 h-5 text-gray-300 hover:text-[#E6007E]" />
                       }
                     </button>
 
@@ -518,7 +518,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     {/* Title */}
                     <span
                       className={`flex-1 min-w-0 text-sm font-medium truncate ${
-                        isDone ? "line-through text-gray-400" : "text-[#1a1218]"
+                        isDone ? "line-through text-gray-400" : "text-[#0A0A0A]"
                       }`}
                     >
                       {todo.titre}
@@ -580,7 +580,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     <div className="flex-shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={(e) => startEdit(e, todo)}
-                        className="p-1 text-gray-400 hover:text-[#7c1d35] hover:bg-[#7c1d35]/5 rounded-lg transition-colors"
+                        className="p-1 text-gray-400 hover:text-[#E6007E] hover:bg-[#E6007E]/5 rounded-lg transition-colors"
                         title="Modifier"
                       >
                         <Edit2 size={13} />
@@ -615,7 +615,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
             <div className="w-11 h-11 bg-red-100 rounded-2xl flex items-center justify-center mb-4">
               <Trash2 className="w-5 h-5 text-red-600" />
             </div>
-            <h3 className="font-bold text-[#1a1218] mb-1">Supprimer cette tâche ?</h3>
+            <h3 className="font-bold text-[#0A0A0A] mb-1">Supprimer cette tâche ?</h3>
             <p className="text-gray-500 text-sm mb-5 truncate">{deleteTarget.titre}</p>
             <div className="flex gap-3">
               <button

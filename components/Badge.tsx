@@ -49,7 +49,7 @@ const prioriteMap: Record<PrioriteTache, { label: string; class: string }> = {
 const serviceMap: Record<Service, { label: string; class: string }> = {
   basic:       { label: SERVICE_LABELS.basic,       class: "bg-gray-100 text-gray-700" },
   performance: { label: SERVICE_LABELS.performance, class: "bg-indigo-100 text-indigo-700" },
-  pro:         { label: SERVICE_LABELS.pro,         class: "bg-[#7c1d35]/10 text-[#7c1d35]" },
+  pro:         { label: SERVICE_LABELS.pro,         class: "bg-[#E6007E]/10 text-[#E6007E]" },
   gratuit:     { label: SERVICE_LABELS.gratuit,     class: "bg-sky-100 text-sky-700" },
   autre:       { label: SERVICE_LABELS.autre,       class: "bg-slate-100 text-slate-600" },
 };
