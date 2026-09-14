@@ -26,7 +26,7 @@ const formatEuro = (value: number) => `${value.toLocaleString("fr-FR")} €`;
 export default function FinanceChart({ data }: Props) {
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-48 text-gray-300 text-sm">
+      <div className="flex items-center justify-center h-48 text-gray-500 text-sm">
         Aucune donnée à afficher
       </div>
     );

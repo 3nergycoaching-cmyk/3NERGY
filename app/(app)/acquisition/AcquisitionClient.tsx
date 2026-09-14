@@ -203,8 +203,8 @@ export default function AcquisitionClient({ leads: initialLeads, coaches }: Prop
             onDrop={() => handleDrop("perdu")}
           >
             <div className="flex items-center gap-2 mb-3 px-1">
-              <h3 className="font-semibold text-sm text-gray-400">Perdu</h3>
-              <span className="text-xs font-bold text-gray-400 bg-white/80 px-2 py-0.5 rounded-full">
+              <h3 className="font-semibold text-sm text-gray-500">Perdu</h3>
+              <span className="text-xs font-bold text-gray-500 bg-white/80 px-2 py-0.5 rounded-full">
                 {perduLeads.length}
               </span>
             </div>
@@ -220,7 +220,7 @@ export default function AcquisitionClient({ leads: initialLeads, coaches }: Prop
                   <Badge value={lead.discipline} type="discipline" />
                   <button
                     onClick={() => handleDelete(lead.id)}
-                    className="text-gray-300 hover:text-red-500 transition-colors ml-1"
+                    className="text-gray-500 hover:text-red-500 transition-colors ml-1"
                     title="Supprimer"
                   >
                     <X size={12} />
@@ -239,7 +239,7 @@ export default function AcquisitionClient({ leads: initialLeads, coaches }: Prop
             onDragLeave={() => setDragOver(null)}
             onDrop={() => handleDrop("perdu")}
           >
-            <p className="text-xs text-gray-300 text-center py-2">Glisser ici pour marquer comme perdu</p>
+            <p className="text-xs text-gray-500 text-center py-2">Glisser ici pour marquer comme perdu</p>
           </div>
         );
       })()}
@@ -317,7 +317,7 @@ function LeadCard({
         <div className="relative flex-shrink-0">
           <button
             onClick={() => setMenuOpen(menuOpen === lead.id ? null : lead.id)}
-            className="p-1 rounded-lg hover:bg-gray-100 text-gray-400 transition-colors"
+            className="p-1 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors"
           >
             <MoreVertical size={14} />
           </button>
@@ -348,7 +348,7 @@ function LeadCard({
       {/* Badges */}
       <div className="flex items-center gap-2 mb-2 flex-wrap">
         <Badge value={lead.discipline} type="discipline" />
-        <span className="text-xs text-gray-400 flex items-center gap-1">
+        <span className="text-xs text-gray-500 flex items-center gap-1">
           {sourceIcon(lead.source)} {sourceLabel(lead.source)}
         </span>
         {lead.converti && (
@@ -360,14 +360,14 @@ function LeadCard({
 
       {/* Coach assigné */}
       {coachName && (
-        <p className="text-xs text-gray-400 mb-1">
+        <p className="text-xs text-gray-500 mb-1">
           <span className="font-medium text-gray-600">{coachName}</span>
         </p>
       )}
 
       {/* Date début coaching */}
       {lead.dateDebutCoaching && (
-        <p className="text-xs text-gray-400 mb-1">
+        <p className="text-xs text-gray-500 mb-1">
           Début : <span className="font-medium">{new Date(lead.dateDebutCoaching).toLocaleDateString("fr-FR")}</span>
         </p>
       )}
@@ -389,7 +389,7 @@ function LeadCard({
 
       {/* Navigation arrows + date */}
       <div className="flex items-center justify-between mt-2">
-        <p className="text-xs text-gray-400">{formatDate(lead.createdAt)}</p>
+        <p className="text-xs text-gray-500">{formatDate(lead.createdAt)}</p>
         <div className="flex gap-1">
           {canMoveLeft && !lead.converti && (
             <button
@@ -459,32 +459,32 @@ function NewLeadModal({
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="text-xl font-bold">Nouveau lead</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X size={20} /></button>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-600"><X size={20} /></button>
         </div>
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Prénom *</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Prénom *</label>
               <input required value={form.prenom} onChange={(e) => setForm({ ...form, prenom: e.target.value })} className={inputCls} />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Nom *</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Nom *</label>
               <input required value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className={inputCls} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Email *</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Email *</label>
               <input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputCls} />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Téléphone</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Téléphone</label>
               <input value={form.telephone} onChange={(e) => setForm({ ...form, telephone: e.target.value })} className={inputCls} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Source</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Source</label>
               <select value={form.source} onChange={(e) => setForm({ ...form, source: e.target.value })} className={selectCls}>
                 <option value="instagram">Instagram</option>
                 <option value="bouche_a_oreille">Bouche-à-oreille</option>
@@ -493,7 +493,7 @@ function NewLeadModal({
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Discipline</label>
               <select value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value })} className={selectCls}>
                 <option value="triathlon">Triathlon</option>
                 <option value="cyclisme">Cyclisme</option>
@@ -504,7 +504,7 @@ function NewLeadModal({
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Coach assigné</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Coach assigné</label>
               <select value={form.coachId} onChange={(e) => setForm({ ...form, coachId: e.target.value })} className={selectCls}>
                 <option value="">— Aucun —</option>
                 {coaches.map((c) => (
@@ -513,12 +513,12 @@ function NewLeadModal({
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Date début coaching</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Date début coaching</label>
               <input type="date" value={form.dateDebutCoaching} onChange={(e) => setForm({ ...form, dateDebutCoaching: e.target.value })} className={inputCls} />
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Notes</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Notes</label>
             <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} rows={3} className={inputCls + " resize-none"} />
           </div>
           <div className="flex gap-3 pt-1">
@@ -579,32 +579,32 @@ function EditLeadModal({
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="text-xl font-bold">Modifier le lead</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X size={20} /></button>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-600"><X size={20} /></button>
         </div>
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Prénom</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Prénom</label>
               <input value={form.prenom} onChange={(e) => setForm({ ...form, prenom: e.target.value })} className={inputCls} />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Nom</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Nom</label>
               <input value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className={inputCls} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Email</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Email</label>
               <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputCls} />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Téléphone</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Téléphone</label>
               <input value={form.telephone} onChange={(e) => setForm({ ...form, telephone: e.target.value })} className={inputCls} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Source</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Source</label>
               <select value={form.source} onChange={(e) => setForm({ ...form, source: e.target.value as Lead["source"] })} className={selectCls}>
                 <option value="instagram">Instagram</option>
                 <option value="bouche_a_oreille">Bouche-à-oreille</option>
@@ -613,7 +613,7 @@ function EditLeadModal({
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Statut</label>
               <select value={form.statut} onChange={(e) => setForm({ ...form, statut: e.target.value as Lead["statut"] })} className={selectCls}>
                 <option value="a_contacter">À contacter</option>
                 <option value="appel_effectue">Appel effectué</option>
@@ -627,7 +627,7 @@ function EditLeadModal({
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Discipline</label>
               <select value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value as Lead["discipline"] })} className={selectCls}>
                 <option value="triathlon">Triathlon</option>
                 <option value="cyclisme">Cyclisme</option>
@@ -636,7 +636,7 @@ function EditLeadModal({
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Coach assigné</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Coach assigné</label>
               <select value={form.coachId} onChange={(e) => setForm({ ...form, coachId: e.target.value })} className={selectCls}>
                 <option value="">— Aucun —</option>
                 {coaches.map((c) => (
@@ -647,12 +647,12 @@ function EditLeadModal({
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Date début coaching</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Date début coaching</label>
               <input type="date" value={form.dateDebutCoaching} onChange={(e) => setForm({ ...form, dateDebutCoaching: e.target.value })} className={inputCls} />
             </div>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Notes</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Notes</label>
             <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} rows={3} className={inputCls + " resize-none"} />
           </div>
           <div className="flex gap-3 pt-1">
@@ -730,7 +730,7 @@ function ConvertLeadModal({
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="text-xl font-bold">Convertir en athlète</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X size={20} /></button>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-600"><X size={20} /></button>
         </div>
         <form onSubmit={handleConvert} className="p-6 space-y-4">
           <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
@@ -738,13 +738,13 @@ function ConvertLeadModal({
             <p className="text-xs text-emerald-600 mt-0.5">{lead.email}</p>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Coach assigné *</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Coach assigné *</label>
             <select required value={form.coachId} onChange={(e) => setForm({ ...form, coachId: e.target.value })} className={selectCls}>
               {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Service</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Service</label>
             <select value={form.service} onChange={(e) => setForm({ ...form, service: e.target.value })} className={selectCls}>
               <option value="basic">Basic</option>
               <option value="performance">Performance</option>
@@ -754,7 +754,7 @@ function ConvertLeadModal({
             </select>
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Objectif de saison</label>
+            <label className="block text-xs font-medium text-gray-600 mb-1">Objectif de saison</label>
             <input value={form.objectif} onChange={(e) => setForm({ ...form, objectif: e.target.value })} className={inputCls} />
           </div>
           <div className="flex gap-3 pt-1">

@@ -93,7 +93,7 @@ function TextInput({
       placeholder={placeholder}
       required={required}
       disabled={disabled}
-      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white disabled:bg-gray-50 disabled:text-gray-400"
+      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white disabled:bg-gray-50 disabled:text-gray-500"
     />
   );
 }
@@ -359,7 +359,7 @@ export default function OnboardingForm({ token }: { token: string }) {
           <p className="text-gray-500 text-sm leading-relaxed mb-2">
             Merci {data.prenom}, ton dossier d'inscription a bien été transmis à l'équipe 3NERGY.
           </p>
-          <p className="text-gray-400 text-sm leading-relaxed">
+          <p className="text-gray-500 text-sm leading-relaxed">
             Tu recevras une confirmation de ton coach dans les prochains jours. Bienvenue chez 3NERGY&nbsp;!
           </p>
           <p className="mt-6 text-xs text-[#E6007E] font-semibold tracking-widest uppercase">3NERGY</p>
@@ -389,7 +389,7 @@ export default function OnboardingForm({ token }: { token: string }) {
           <span className="text-xs font-semibold text-[#E6007E]">
             Étape {step} / {TOTAL}
           </span>
-          <span className="text-xs text-gray-400">{STEPS[step - 1]}</span>
+          <span className="text-xs text-gray-500">{STEPS[step - 1]}</span>
         </div>
         <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
           <div
@@ -439,7 +439,7 @@ export default function OnboardingForm({ token }: { token: string }) {
                   <span className="font-semibold">Pro</span> — <span className="text-[#E6007E] font-bold">109€/mois</span>
                 </RadioCard>
               </div>
-              <p className="mt-3 text-xs text-gray-400 leading-relaxed">
+              <p className="mt-3 text-xs text-gray-500 leading-relaxed">
                 Engagement minimum de 3 mois incompressibles, puis reconduction mensuelle. Les prestations constituent une obligation de moyens et non de résultats.
               </p>
             </div>
@@ -501,7 +501,7 @@ export default function OnboardingForm({ token }: { token: string }) {
           <div className="space-y-5">
             <SectionTitle>Informations personnelles</SectionTitle>
 
-            <p className="text-xs text-gray-400 bg-gray-50 rounded-xl p-3 leading-relaxed">
+            <p className="text-xs text-gray-500 bg-gray-50 rounded-xl p-3 leading-relaxed">
               Les données collectées sont utilisées exclusivement dans le cadre de la gestion de l'adhésion, du suivi sportif et de la sécurité des athlètes, conformément à la Politique RGPD de 3NERGY ASBL.
             </p>
 

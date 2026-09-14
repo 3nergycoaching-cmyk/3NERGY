@@ -134,8 +134,8 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
       {objectifs.length === 0 && (
         <div className="flex flex-col items-center justify-center py-14 bg-white rounded-2xl border border-gray-100 shadow-sm">
           <Trophy className="w-10 h-10 text-gray-200 mb-3" />
-          <p className="text-gray-400 text-sm font-medium">Aucune course définie</p>
-          <p className="text-gray-300 text-xs mt-1">Ajoute des courses ou synchronise Nolio</p>
+          <p className="text-gray-500 text-sm font-medium">Aucune course définie</p>
+          <p className="text-gray-500 text-xs mt-1">Ajoute des courses ou synchronise Nolio</p>
         </div>
       )}
 
@@ -156,7 +156,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
                 isPast ? "bg-gray-100" : "bg-[#E6007E]/8 bg-[#E6007E]/10"
               }`}>
                 {isPast ? (
-                  <p className="text-xs text-gray-400 font-medium">Passé</p>
+                  <p className="text-xs text-gray-500 font-medium">Passé</p>
                 ) : (
                   <>
                     <p className="text-lg font-bold text-[#E6007E] leading-none">J-{days}</p>
@@ -196,13 +196,13 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
                 <div className="flex items-center gap-1 flex-shrink-0">
                   <button
                     onClick={() => openEdit(obj)}
-                    className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+                    className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-600 transition-colors"
                   >
                     <Pencil size={14} />
                   </button>
                   <button
                     onClick={() => setDeleteId(obj.id)}
-                    className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
+                    className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-red-50 text-gray-500 hover:text-red-500 transition-colors"
                   >
                     <Trash2 size={14} />
                   </button>
@@ -221,13 +221,13 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
               <h2 className="font-bold text-[#0A0A0A]">
                 {modal === "add" ? "Ajouter une course" : "Modifier la course"}
               </h2>
-              <button onClick={() => setModal(null)} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => setModal(null)} className="text-gray-500 hover:text-gray-600">
                 <X size={20} />
               </button>
             </div>
             <form onSubmit={handleSave} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Nom de la course *</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Nom de la course *</label>
                 <input
                   required
                   type="text"
@@ -239,7 +239,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Date *</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Date *</label>
                   <input
                     required
                     type="date"
@@ -249,7 +249,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Distance / Format</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Distance / Format</label>
                   <select
                     value={form.distance}
                     onChange={(e) => setForm({ ...form, distance: e.target.value as DistanceObjectif })}

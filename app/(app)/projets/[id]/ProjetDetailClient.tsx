@@ -132,7 +132,7 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
     <div className="p-8">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
-        <Link href="/projets" className="text-gray-400 hover:text-[#E6007E] transition-colors">
+        <Link href="/projets" className="text-gray-500 hover:text-[#E6007E] transition-colors">
           <ArrowLeft size={20} />
         </Link>
         <div className="flex-1">
@@ -173,22 +173,22 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
           {editingProjet ? (
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Description</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Description</label>
                 <textarea value={projetForm.description} onChange={(e) => setProjetForm({ ...projetForm, description: e.target.value })} rows={3} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] resize-none" />
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Deadline</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Deadline</label>
                   <input type="date" value={projetForm.deadline} onChange={(e) => setProjetForm({ ...projetForm, deadline: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Responsable</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Responsable</label>
                   <select value={projetForm.responsable} onChange={(e) => setProjetForm({ ...projetForm, responsable: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                     {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Statut</label>
                   <select value={projetForm.statut} onChange={(e) => setProjetForm({ ...projetForm, statut: e.target.value as Projet["statut"] })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                     <option value="en_cours">En cours</option>
                     <option value="en_pause">En pause</option>
@@ -197,7 +197,7 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Progression : {projetForm.progression}%</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Progression : {projetForm.progression}%</label>
                 <input type="range" min={0} max={100} value={projetForm.progression} onChange={(e) => setProjetForm({ ...projetForm, progression: Number(e.target.value) })} className="w-full accent-[#E6007E]" />
               </div>
             </div>
@@ -273,11 +273,11 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
           <form onSubmit={handleCreateTache} className="mb-4 p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Titre *</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Titre *</label>
                 <input required value={newTache.titre} onChange={(e) => setNewTache({ ...newTache, titre: e.target.value })} placeholder="Titre de la tâche" className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Responsable</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Responsable</label>
                 <select value={newTache.responsable} onChange={(e) => setNewTache({ ...newTache, responsable: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                   {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>)}
                 </select>
@@ -285,11 +285,11 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
             </div>
             <div className="grid grid-cols-3 gap-3">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Deadline</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Deadline</label>
                 <input type="date" value={newTache.deadline} onChange={(e) => setNewTache({ ...newTache, deadline: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Priorité</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Priorité</label>
                 <select value={newTache.priorite} onChange={(e) => setNewTache({ ...newTache, priorite: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                   <option value="haute">Haute</option>
                   <option value="moyenne">Moyenne</option>
@@ -297,7 +297,7 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Statut</label>
                 <select value={newTache.statut} onChange={(e) => setNewTache({ ...newTache, statut: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                   <option value="a_faire">À faire</option>
                   <option value="en_cours">En cours</option>
@@ -315,7 +315,7 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
         {/* Todos liés (depuis la To-Do globale) */}
         {todos.length > 0 && (
           <div className="mb-4 space-y-2">
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide flex items-center gap-1.5">
+            <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide flex items-center gap-1.5">
               <ListTodo size={12} /> To-Do globale associée
             </p>
             {todos.map((todo) => {
@@ -329,17 +329,17 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
                   >
                     {isDone && <Check size={11} />}
                   </button>
-                  <p className={`text-sm flex-1 ${isDone ? "line-through text-gray-400" : "text-[#0A0A0A]"}`}>{todo.titre}</p>
+                  <p className={`text-sm flex-1 ${isDone ? "line-through text-gray-500" : "text-[#0A0A0A]"}`}>{todo.titre}</p>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-violet-100 text-violet-700 flex-shrink-0">
                     <ListTodo size={9} /> To-Do
                   </span>
                   {coach && (
-                    <span className="text-xs text-gray-400 flex-shrink-0">{coach.prenom}</span>
+                    <span className="text-xs text-gray-500 flex-shrink-0">{coach.prenom}</span>
                   )}
                   <Link href="/todo" className="text-xs text-violet-500 hover:underline flex-shrink-0">
                     Modifier
                   </Link>
-                  <button onClick={() => handleDeleteTodo(todo.id)} className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0">
+                  <button onClick={() => handleDeleteTodo(todo.id)} className="p-1 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0">
                     <Trash2 size={14} />
                   </button>
                 </div>
@@ -350,7 +350,7 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
 
         <div className="space-y-2">
           {filteredTaches.length === 0 && todos.length === 0 ? (
-            <p className="text-center text-gray-400 text-sm py-8">Aucune tâche</p>
+            <p className="text-center text-gray-500 text-sm py-8">Aucune tâche</p>
           ) : filteredTaches.length === 0 ? null : (
             filteredTaches.map((tache) => (
               <div key={tache.id} className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${tache.statut === "termine" ? "bg-gray-50 border-gray-100 opacity-70" : "bg-white border-gray-100 hover:border-gray-200"}`}>
@@ -377,11 +377,11 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
                   </div>
                 ) : (
                   <div className="flex-1 flex items-center gap-3">
-                    <p className={`text-sm flex-1 ${tache.statut === "termine" ? "line-through text-gray-400" : "text-[#0A0A0A]"}`}>{tache.titre}</p>
+                    <p className={`text-sm flex-1 ${tache.statut === "termine" ? "line-through text-gray-500" : "text-[#0A0A0A]"}`}>{tache.titre}</p>
                     <Badge value={tache.priorite} type="priorite" />
                     <Badge value={tache.statut} type="statut_tache" />
-                    <span className="text-xs text-gray-400">{getCoachName(tache.responsable).split(" ")[0]}</span>
-                    <span className="text-xs text-gray-400">{formatDate(tache.deadline)}</span>
+                    <span className="text-xs text-gray-500">{getCoachName(tache.responsable).split(" ")[0]}</span>
+                    <span className="text-xs text-gray-500">{formatDate(tache.deadline)}</span>
                   </div>
                 )}
 
@@ -389,12 +389,12 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
                   {editingTache === tache.id ? (
                     <>
                       <button onClick={() => handleSaveTache(tache.id)} className="p-1 text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"><Save size={14} /></button>
-                      <button onClick={() => setEditingTache(null)} className="p-1 text-gray-400 hover:bg-gray-100 rounded-lg transition-colors"><X size={14} /></button>
+                      <button onClick={() => setEditingTache(null)} className="p-1 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors"><X size={14} /></button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => { setEditingTache(tache.id); setEditTacheForm({ ...tache }); }} className="p-1 text-gray-400 hover:text-[#E6007E] hover:bg-gray-100 rounded-lg transition-colors"><Edit2 size={14} /></button>
-                      <button onClick={() => handleDeleteTache(tache.id)} className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 size={14} /></button>
+                      <button onClick={() => { setEditingTache(tache.id); setEditTacheForm({ ...tache }); }} className="p-1 text-gray-500 hover:text-[#E6007E] hover:bg-gray-100 rounded-lg transition-colors"><Edit2 size={14} /></button>
+                      <button onClick={() => handleDeleteTache(tache.id)} className="p-1 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 size={14} /></button>
                     </>
                   )}
                 </div>

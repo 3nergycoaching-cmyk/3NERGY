@@ -57,7 +57,7 @@ export default function CoursesClient({ events, overrides }: Props) {
           <p className="text-gray-500 text-sm mt-1">
             {upcomingEvents.length} à venir · {totalParticipants} inscriptions
             {pastEvents.length > 0 && (
-              <span className="ml-2 text-gray-400">· {pastEvents.length} passées</span>
+              <span className="ml-2 text-gray-500">· {pastEvents.length} passées</span>
             )}
           </p>
         </div>
@@ -118,8 +118,8 @@ export default function CoursesClient({ events, overrides }: Props) {
       {displayed.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm">
           <Flag className="w-12 h-12 text-gray-200 mb-4" />
-          <p className="text-gray-400 font-medium">Aucune course à venir</p>
-          <p className="text-gray-300 text-sm mt-1">
+          <p className="text-gray-500 font-medium">Aucune course à venir</p>
+          <p className="text-gray-500 text-sm mt-1">
             {pastEvents.length > 0
               ? "Utilisez le bouton ci-dessus pour voir les courses passées"
               : "Synchronisez Nolio ou ajoutez des objectifs sur les fiches athlètes"}
@@ -141,7 +141,7 @@ export default function CoursesClient({ events, overrides }: Props) {
               {upcomingEvents.length > 0 && (
                 <div className="flex items-center gap-3 py-2">
                   <div className="flex-1 border-t border-gray-200" />
-                  <span className="text-xs font-semibold text-gray-400 flex items-center gap-1.5 bg-white px-3 py-1 rounded-full border border-gray-200">
+                  <span className="text-xs font-semibold text-gray-600 flex items-center gap-1.5 bg-white px-3 py-1 rounded-full border border-gray-200">
                     <Clock size={11} />
                     Courses à venir
                   </span>
@@ -304,7 +304,7 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
           <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
             isPast ? "bg-gray-100" : "bg-[#E6007E]/10"
           }`}>
-            <Flag className={`w-5 h-5 ${isPast ? "text-gray-400" : "text-[#E6007E]"}`} />
+            <Flag className={`w-5 h-5 ${isPast ? "text-gray-500" : "text-[#E6007E]"}`} />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
@@ -325,7 +325,7 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
                   <button onClick={saveName} disabled={saving} className="text-emerald-600 hover:text-emerald-700 p-1">
                     <Check size={16} />
                   </button>
-                  <button onClick={() => { setIsEditing(false); setEditValue(titre); }} className="text-gray-400 hover:text-gray-600 p-1">
+                  <button onClick={() => { setIsEditing(false); setEditValue(titre); }} className="text-gray-500 hover:text-gray-600 p-1">
                     <X size={16} />
                   </button>
                 </div>
@@ -336,7 +336,7 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
                     <button
                       onClick={resetName}
                       title="Réinitialiser le nom"
-                      className="text-gray-300 hover:text-gray-500 transition-colors"
+                      className="text-gray-500 hover:text-gray-500 transition-colors"
                     >
                       <X size={12} />
                     </button>
@@ -344,7 +344,7 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
                   <button
                     onClick={() => { setIsEditing(true); setEditValue(titre); }}
                     title="Renommer"
-                    className="text-gray-300 hover:text-[#E6007E] transition-colors ml-0.5"
+                    className="text-gray-500 hover:text-[#E6007E] transition-colors ml-0.5"
                   >
                     <Pencil size={13} />
                   </button>
@@ -367,7 +367,7 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
               <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${distClass}`}>
                 {distance}
               </span>
-              <span className="text-xs text-gray-400 flex items-center gap-1">
+              <span className="text-xs text-gray-500 flex items-center gap-1">
                 <Calendar size={11} />
                 {new Date(date + "T00:00:00").toLocaleDateString("fr-FR", {
                   weekday: "long", day: "numeric", month: "long", year: "numeric",
@@ -422,11 +422,11 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
           {/* Days left / past indicator */}
           <div className="text-right ml-2">
             {isPast ? (
-              <span className="text-xs text-gray-400 bg-gray-100 px-3 py-1.5 rounded-xl">Passé</span>
+              <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1.5 rounded-xl">Passé</span>
             ) : (
               <div>
                 <p className="text-2xl font-bold text-[#E6007E]">J-{daysLeft}</p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-500">
                   {participants.length} athlète{participants.length > 1 ? "s" : ""} 3NERGY
                 </p>
               </div>
@@ -463,7 +463,7 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-400 truncate">
+                  <p className="text-xs text-gray-500 truncate">
                     {coach ? `${coach.prenom} ${coach.nom}` : "—"}
                   </p>
                 </div>
@@ -502,7 +502,7 @@ function SplitPanel({
       ref={panelRef}
       className="absolute right-0 top-full mt-1 z-20 bg-white rounded-xl shadow-xl border border-gray-100 p-3 min-w-64"
     >
-      <p className="text-xs font-semibold text-gray-500 mb-2">Noms fusionnés — cliquez pour extraire</p>
+      <p className="text-xs font-semibold text-gray-600 mb-2">Noms fusionnés — cliquez pour extraire</p>
       <div className="space-y-1">
         {originalTitres.map((name, i) =>
           originalTitres.slice(i + 1).map((other) => (
@@ -511,7 +511,7 @@ function SplitPanel({
               onClick={() => onSplit(normalizeRaceName(name), normalizeRaceName(other))}
               className="w-full text-left flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50 transition-colors group"
             >
-              <Scissors size={12} className="text-gray-400 group-hover:text-[#E6007E] mt-0.5 flex-shrink-0" />
+              <Scissors size={12} className="text-gray-500 group-hover:text-[#E6007E] mt-0.5 flex-shrink-0" />
               <span className="text-xs text-gray-600">
                 Séparer <strong>{name}</strong> de <strong>{other}</strong>
               </span>
@@ -549,7 +549,7 @@ function MergePanel({
       ref={panelRef}
       className="absolute right-0 top-full mt-1 z-20 bg-white rounded-xl shadow-xl border border-gray-100 p-3 min-w-56"
     >
-      <p className="text-xs font-semibold text-gray-500 mb-2">Fusionner avec…</p>
+      <p className="text-xs font-semibold text-gray-600 mb-2">Fusionner avec…</p>
       <div className="space-y-1">
         {siblings.map((s) => (
           <button
@@ -557,7 +557,7 @@ function MergePanel({
             onClick={() => onMerge(s)}
             className="w-full text-left flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 transition-colors group"
           >
-            <GitMerge size={12} className="text-gray-400 group-hover:text-[#E6007E] flex-shrink-0" />
+            <GitMerge size={12} className="text-gray-500 group-hover:text-[#E6007E] flex-shrink-0" />
             <span className="text-xs text-gray-700 font-medium truncate">{s.titre}</span>
           </button>
         ))}

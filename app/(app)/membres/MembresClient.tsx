@@ -252,11 +252,11 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-100 bg-gray-50/60">
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Athlète</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Formule</th>
-                    <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Prix/mois</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Coach</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Statut</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Athlète</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Formule</th>
+                    <th className="text-right px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Prix/mois</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Coach</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Statut</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -274,7 +274,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                             </div>
                             <div>
                               <p className="font-medium text-gray-900">{athlete.prenom} {athlete.nom}</p>
-                              <p className="text-xs text-gray-400">{athlete.email}</p>
+                              <p className="text-xs text-gray-500">{athlete.email}</p>
                             </div>
                           </div>
                         </td>
@@ -302,11 +302,11 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                                 className="w-20 px-2 py-1 border border-[#E6007E]/40 rounded-lg text-sm text-right focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                                 autoFocus
                               />
-                              <span className="text-xs text-gray-400">€</span>
+                              <span className="text-xs text-gray-500">€</span>
                               <button onClick={() => savePrix(athlete.id)} className="p-1 text-emerald-600 hover:bg-emerald-50 rounded">
                                 <Check size={13} />
                               </button>
-                              <button onClick={() => setEditingPrixId(null)} className="p-1 text-gray-400 hover:bg-gray-100 rounded">
+                              <button onClick={() => setEditingPrixId(null)} className="p-1 text-gray-500 hover:bg-gray-100 rounded">
                                 <X size={13} />
                               </button>
                             </div>
@@ -316,10 +316,10 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                               className="group flex items-center justify-end gap-1.5 ml-auto hover:bg-gray-100 px-2 py-1 rounded-lg transition-colors"
                               title="Modifier le prix"
                             >
-                              <span className={`text-sm font-semibold ${prix > 0 ? "text-[#0A0A0A]" : "text-gray-300"}`}>
+                              <span className={`text-sm font-semibold ${prix > 0 ? "text-[#0A0A0A]" : "text-gray-500"}`}>
                                 {prix > 0 ? `${prix} €` : "—"}
                               </span>
-                              <Edit2 size={11} className="text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0" />
+                              <Edit2 size={11} className="text-gray-500 group-hover:text-gray-500 transition-colors flex-shrink-0" />
                             </button>
                           )}
                         </td>
@@ -331,7 +331,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                               <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: coach.couleur }} />
                               <span className="text-gray-600 text-sm">{coach.prenom} {coach.nom}</span>
                             </div>
-                          ) : <span className="text-gray-400">—</span>}
+                          ) : <span className="text-gray-500">—</span>}
                         </td>
 
                         {/* Statut */}
@@ -341,7 +341,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                   })}
                   {filteredAthletes.length === 0 && (
                     <tr>
-                      <td colSpan={5} className="px-4 py-10 text-center text-gray-400 text-sm">
+                      <td colSpan={5} className="px-4 py-10 text-center text-gray-500 text-sm">
                         Aucun athlète dans cette catégorie.
                       </td>
                     </tr>
@@ -372,12 +372,12 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-100 bg-gray-50/60">
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Jeune athlète</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Âge</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Contact parent</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Email</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Urgence</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Statut</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Jeune athlète</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Âge</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Contact parent</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Email</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Urgence</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Statut</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -395,7 +395,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                       <td className="px-4 py-3">
                         <div className="text-sm text-gray-700 font-medium">{ya.contactParent || "—"}</div>
                         {ya.telephoneParent && (
-                          <div className="text-xs text-gray-400 mt-0.5">{ya.telephoneParent}</div>
+                          <div className="text-xs text-gray-500 mt-0.5">{ya.telephoneParent}</div>
                         )}
                       </td>
                       <td className="px-4 py-3 text-xs text-gray-600">{ya.emailParent || "—"}</td>
@@ -411,7 +411,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                   ))}
                   {youngAthletes.length === 0 && (
                     <tr>
-                      <td colSpan={5} className="px-4 py-10 text-center text-gray-400 text-sm">Aucun jeune enregistré</td>
+                      <td colSpan={5} className="px-4 py-10 text-center text-gray-500 text-sm">Aucun jeune enregistré</td>
                     </tr>
                   )}
                 </tbody>
@@ -459,11 +459,11 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-100 bg-gray-50/60">
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Licencié</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Contact</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Discipline</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Licence</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Statut</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Licencié</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Contact</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Discipline</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Licence</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Statut</th>
                     <th className="px-4 py-3" />
                   </tr>
                 </thead>
@@ -491,7 +491,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                             <div>
                               <p className="font-medium text-gray-900">{lic.prenom} {lic.nom}</p>
                               {lic.adresse && (
-                                <p className="text-xs text-gray-400 flex items-center gap-0.5 mt-0.5">
+                                <p className="text-xs text-gray-500 flex items-center gap-0.5 mt-0.5">
                                   <MapPin size={10} />{lic.adresse}
                                 </p>
                               )}
@@ -502,12 +502,12 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                           <div className="space-y-0.5">
                             {lic.email && (
                               <div className="flex items-center gap-1 text-xs text-gray-600">
-                                <Mail size={11} className="text-gray-400" />{lic.email}
+                                <Mail size={11} className="text-gray-500" />{lic.email}
                               </div>
                             )}
                             {lic.telephone && (
                               <div className="flex items-center gap-1 text-xs text-gray-600">
-                                <Phone size={11} className="text-gray-400" />{lic.telephone}
+                                <Phone size={11} className="text-gray-500" />{lic.telephone}
                               </div>
                             )}
                           </div>
@@ -515,15 +515,15 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                         <td className="px-4 py-3">
                           {lic.discipline
                             ? <Badge value={lic.discipline} type="discipline" />
-                            : <span className="text-gray-400 text-xs">—</span>}
+                            : <span className="text-gray-500 text-xs">—</span>}
                         </td>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-1 text-xs text-gray-600">
-                            <Calendar size={11} className="text-gray-400" />
+                            <Calendar size={11} className="text-gray-500" />
                             {formatDate(lic.dateLicence)}
                           </div>
                           {lic.numeroLicence && (
-                            <p className="text-xs text-gray-400 mt-0.5 font-mono">{lic.numeroLicence}</p>
+                            <p className="text-xs text-gray-500 mt-0.5 font-mono">{lic.numeroLicence}</p>
                           )}
                         </td>
                         <td className="px-4 py-3">
@@ -537,13 +537,13 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                           <div className="flex gap-1">
                             <button
                               onClick={() => startEdit(lic)}
-                              className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                              className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
                             >
                               <Edit2 size={14} />
                             </button>
                             <button
                               onClick={() => setDeleteTarget(lic.id)}
-                              className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                              className="p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
                             >
                               <Trash2 size={14} />
                             </button>
@@ -554,7 +554,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                   )}
                   {filteredLicencies.length === 0 && (
                     <tr>
-                      <td colSpan={6} className="px-4 py-10 text-center text-gray-400 text-sm">
+                      <td colSpan={6} className="px-4 py-10 text-center text-gray-500 text-sm">
                         Aucun licencié trouvé
                       </td>
                     </tr>
@@ -617,35 +617,35 @@ function LicencieForm({
     <div>
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Prénom *</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Prénom *</label>
           <input className={inp} value={form.prenom} onChange={(e) => onChange({ ...form, prenom: e.target.value })} placeholder="Prénom" />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Nom *</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Nom *</label>
           <input className={inp} value={form.nom} onChange={(e) => onChange({ ...form, nom: e.target.value })} placeholder="Nom" />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Email</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Email</label>
           <input type="email" className={inp} value={form.email} onChange={(e) => onChange({ ...form, email: e.target.value })} placeholder="email@example.fr" />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Téléphone</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Téléphone</label>
           <input className={inp} value={form.telephone} onChange={(e) => onChange({ ...form, telephone: e.target.value })} placeholder="06 00 00 00 00" />
         </div>
         <div className="col-span-2">
-          <label className="block text-xs font-medium text-gray-500 mb-1">Adresse</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Adresse</label>
           <input className={inp} value={form.adresse ?? ""} onChange={(e) => onChange({ ...form, adresse: e.target.value })} placeholder="Adresse complète" />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Date de prise de licence *</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Date de prise de licence *</label>
           <input type="date" className={inp} value={form.dateLicence} onChange={(e) => onChange({ ...form, dateLicence: e.target.value })} />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">N° de licence</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">N° de licence</label>
           <input className={inp} value={form.numeroLicence ?? ""} onChange={(e) => onChange({ ...form, numeroLicence: e.target.value })} placeholder="TRI-2025-001 (optionnel)" />
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Discipline</label>
           <select className={inp} value={form.discipline ?? ""} onChange={(e) => onChange({ ...form, discipline: e.target.value as Discipline | undefined || undefined })}>
             <option value="">— Non renseigné —</option>
             <option value="triathlon">Triathlon</option>
@@ -655,7 +655,7 @@ function LicencieForm({
           </select>
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
+          <label className="block text-xs font-medium text-gray-600 mb-1">Statut</label>
           <select className={inp} value={form.statut} onChange={(e) => onChange({ ...form, statut: e.target.value as StatutLicencie })}>
             <option value="actif">Actif</option>
             <option value="expire">Expiré</option>

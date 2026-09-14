@@ -127,13 +127,13 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
       <td className="px-4 py-2.5">
         {chrono ? (
           <span className="text-sm font-bold text-[#0A0A0A]">
-            {chrono.valeur}{unit ? <span className="text-xs font-normal text-gray-400 ml-1">{unit}</span> : null}
+            {chrono.valeur}{unit ? <span className="text-xs font-normal text-gray-500 ml-1">{unit}</span> : null}
           </span>
         ) : (
-          <span className="text-gray-300 text-sm italic">Cliquer pour saisir</span>
+          <span className="text-gray-500 text-sm italic">Cliquer pour saisir</span>
         )}
       </td>
-      <td className="px-4 py-2.5 text-xs text-gray-400">{chrono ? fmtDate(chrono.date) : "—"}</td>
+      <td className="px-4 py-2.5 text-xs text-gray-500">{chrono ? fmtDate(chrono.date) : "—"}</td>
       <td className="px-4 py-2.5">
         {chrono && (
           <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -145,11 +145,11 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
       </td>
       <td className="px-4 py-2.5" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button onClick={open} className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-gray-200 text-gray-400 hover:text-gray-600 transition-colors" title="Modifier">
+          <button onClick={open} className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-gray-200 text-gray-500 hover:text-gray-600 transition-colors" title="Modifier">
             <Pencil size={12} />
           </button>
           {chrono && (
-            <button onClick={onClear} className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-red-100 text-gray-400 hover:text-red-500 transition-colors" title="Supprimer">
+            <button onClick={onClear} className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-red-100 text-gray-500 hover:text-red-500 transition-colors" title="Supprimer">
               <X size={12} />
             </button>
           )}
@@ -205,10 +205,10 @@ function PerfSection({ title, icon: Icon, color, children }: {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-50 bg-gray-50/50">
-              <th className="text-left px-4 py-2 text-xs font-semibold text-gray-400 w-44">Distance / Effort</th>
-              <th className="text-left px-4 py-2 text-xs font-semibold text-gray-400">Valeur</th>
-              <th className="text-left px-4 py-2 text-xs font-semibold text-gray-400">Date</th>
-              <th className="text-left px-4 py-2 text-xs font-semibold text-gray-400">Contexte</th>
+              <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600 w-44">Distance / Effort</th>
+              <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Valeur</th>
+              <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Date</th>
+              <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Contexte</th>
               <th className="w-16 px-4 py-2" />
             </tr>
           </thead>
@@ -272,25 +272,25 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
         <div className="px-5 py-4 border-b border-gray-100 bg-[#E6007E]/5">
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Discipline</label>
               <input type="text" value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value })} placeholder="ex: Natation, Running..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Distance / Effort</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Distance / Effort</label>
               <input type="text" value={form.distance} onChange={(e) => setForm({ ...form, distance: e.target.value })} placeholder="ex: 1000m TT, Hill climb..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Valeur</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Valeur</label>
               <input type="text" value={form.valeur} onChange={(e) => setForm({ ...form, valeur: e.target.value })} placeholder="ex: 3:45, 280W..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Date</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Date</label>
               <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Contexte</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Contexte</label>
               <select value={form.contexte} onChange={(e) => setForm({ ...form, contexte: e.target.value as CustomEntry["contexte"] })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none bg-white">
                 <option value="competition">Compétition</option>
                 <option value="entrainement">Entraînement</option>
@@ -308,17 +308,17 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
 
       {/* List */}
       {entries.length === 0 && !adding ? (
-        <p className="text-center text-gray-300 text-sm py-6">Aucune entrée personnalisée</p>
+        <p className="text-center text-gray-500 text-sm py-6">Aucune entrée personnalisée</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-50 bg-gray-50/50">
-                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-400">Discipline</th>
-                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-400">Distance / Effort</th>
-                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-400">Valeur</th>
-                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-400">Date</th>
-                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-400">Contexte</th>
+                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Discipline</th>
+                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Distance / Effort</th>
+                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Valeur</th>
+                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Date</th>
+                <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Contexte</th>
                 <th className="w-16 px-4 py-2" />
               </tr>
             </thead>
@@ -343,14 +343,14 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
                     <td className="px-4 py-2.5 text-sm font-medium text-gray-700">{entry.discipline}</td>
                     <td className="px-4 py-2.5 text-sm text-gray-600">{entry.distance}</td>
                     <td className="px-4 py-2.5 text-sm font-bold text-[#0A0A0A]">{entry.valeur}</td>
-                    <td className="px-4 py-2.5 text-xs text-gray-400">{fmtDate(entry.date)}</td>
+                    <td className="px-4 py-2.5 text-xs text-gray-500">{fmtDate(entry.date)}</td>
                     <td className="px-4 py-2.5">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${entry.contexte === "competition" ? "bg-[#E6007E]/10 text-[#E6007E]" : "bg-gray-100 text-gray-500"}`}>
                         {entry.contexte === "competition" ? "Compétition" : "Entraînement"}
                       </span>
                     </td>
                     <td className="px-4 py-2.5" onClick={(e) => e.stopPropagation()}>
-                      <button onClick={() => handleDelete(entry.id)} className="w-6 h-6 flex items-center justify-center rounded-md opacity-0 group-hover:opacity-100 hover:bg-red-100 text-gray-400 hover:text-red-500 transition-all">
+                      <button onClick={() => handleDelete(entry.id)} className="w-6 h-6 flex items-center justify-center rounded-md opacity-0 group-hover:opacity-100 hover:bg-red-100 text-gray-500 hover:text-red-500 transition-all">
                         <X size={12} />
                       </button>
                     </td>

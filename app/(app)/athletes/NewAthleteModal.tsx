@@ -71,7 +71,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="text-xl font-bold text-[#0A0A0A]">Nouvel athlète</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 transition-colors">
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-600 transition-colors">
             <X size={20} />
           </button>
         </div>
@@ -170,7 +170,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Prix mensuel (€)
                 {form.service !== "gratuit" && (
-                  <span className="ml-1 text-xs text-gray-400 font-normal">— modifiable</span>
+                  <span className="ml-1 text-xs text-gray-500 font-normal">— modifiable</span>
                 )}
               </label>
               <input
@@ -180,7 +180,7 @@ export default function NewAthleteModal({ coaches, onClose, onCreated, initialDa
                 value={form.prixMensuel}
                 disabled={form.service === "gratuit"}
                 onChange={(e) => setForm({ ...form, prixMensuel: parseFloat(e.target.value) || 0 })}
-                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] disabled:bg-gray-50 disabled:text-gray-400"
+                className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
           </div>

@@ -174,7 +174,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
       </div>
 
       {competitions.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-12 text-center text-gray-400">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-12 text-center text-gray-500">
           <ImageIcon size={40} className="mx-auto mb-3 opacity-30" />
           <p className="text-sm">Aucune compétition trouvée. Les événements de type «&nbsp;Compétition&nbsp;» apparaîtront ici.</p>
         </div>
@@ -182,7 +182,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
         <div className="space-y-6">
           {grouped.map(({ weekLabel, items }) => (
             <div key={weekLabel}>
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 pl-1">{weekLabel}</p>
+              <p className="text-xs font-semibold text-gray-600 uppercase tracking-widest mb-2 pl-1">{weekLabel}</p>
               <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                 {items.map((comp, idx) => {
                   const isSel = selected.has(comp.id);
@@ -194,11 +194,11 @@ export default function PostsResultatsClient({ competitions }: Props) {
                         onClick={() => toggleSelect(comp.id)}
                       >
                         <div className="flex-shrink-0 text-[#E6007E]">
-                          {isSel ? <CheckSquare size={18} /> : <Square size={18} className="text-gray-300" />}
+                          {isSel ? <CheckSquare size={18} /> : <Square size={18} className="text-gray-500" />}
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-[#0A0A0A] text-sm truncate">{comp.titre}</p>
-                          <p className="text-xs text-gray-400 mt-0.5">
+                          <p className="text-xs text-gray-500 mt-0.5">
                             {formatDate(comp.dateDebut)}
                             {comp.athleteNom && <> · <span className="text-gray-500">{comp.athleteNom}</span></>}
                           </p>
@@ -216,7 +216,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                           onClick={(e) => e.stopPropagation()}
                         >
                           <div className="flex items-center gap-2">
-                            <label className="text-xs font-medium text-gray-500 whitespace-nowrap">Temps</label>
+                            <label className="text-xs font-medium text-gray-600 whitespace-nowrap">Temps</label>
                             <input
                               type="text"
                               placeholder="ex: 3h01"
@@ -226,7 +226,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <label className="text-xs font-medium text-gray-500 whitespace-nowrap">Classement</label>
+                            <label className="text-xs font-medium text-gray-600 whitespace-nowrap">Classement</label>
                             <input
                               type="text"
                               placeholder="ex: 20e/794"
@@ -242,7 +242,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                               onChange={(e) => updateResult(comp.id, "recordPerso", e.target.checked)}
                               className="w-4 h-4 accent-[#E6007E] rounded"
                             />
-                            <span className="text-xs font-medium text-gray-500">Record personnel 🏅</span>
+                            <span className="text-xs font-medium text-gray-600">Record personnel 🏅</span>
                           </label>
                         </div>
                       )}
@@ -259,7 +259,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
               <div className="px-4 py-3 border-b border-gray-50 flex items-center gap-2">
                 <Pencil size={14} className="text-[#E6007E]" />
                 <p className="text-sm font-semibold text-[#0A0A0A]">Titres des bandeaux</p>
-                <p className="text-xs text-gray-400 ml-1">Modifiables avant génération</p>
+                <p className="text-xs text-gray-500 ml-1">Modifiables avant génération</p>
               </div>
               <div className="divide-y divide-gray-50">
                 {bannerGroups.map((g) => (
@@ -275,7 +275,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                         placeholder="Titre du bandeau…"
                       />
                       {g.athletes.length > 0 && (
-                        <p className="text-xs text-gray-400 mt-1 ml-0.5">
+                        <p className="text-xs text-gray-500 mt-1 ml-0.5">
                           {g.athletes.join(", ")}
                           {" · "}
                           {formatDate(g.dateDebut)}
@@ -288,7 +288,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                         onClick={() =>
                           setTitleOverrides((prev) => ({ ...prev, [g.key]: bestRaceName(g.names) }))
                         }
-                        className="text-xs text-gray-400 hover:text-gray-600 whitespace-nowrap"
+                        className="text-xs text-gray-500 hover:text-gray-600 whitespace-nowrap"
                       >
                         Réinitialiser
                       </button>

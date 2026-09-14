@@ -89,34 +89,34 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold">Nouveau coach</h2>
-            <button onClick={() => setShowNewCoach(false)} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
+            <button onClick={() => setShowNewCoach(false)} className="text-gray-500 hover:text-gray-600"><X size={18} /></button>
           </div>
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Prénom *</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Prénom *</label>
                 <input required value={newForm.prenom} onChange={(e) => setNewForm({ ...newForm, prenom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Nom *</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Nom *</label>
                 <input required value={newForm.nom} onChange={(e) => setNewForm({ ...newForm, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Rôle</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Rôle</label>
                 <input value={newForm.role} onChange={(e) => setNewForm({ ...newForm, role: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Email *</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Email *</label>
                 <input required type="email" value={newForm.email} onChange={(e) => setNewForm({ ...newForm, email: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Téléphone</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Téléphone</label>
                 <input value={newForm.telephone} onChange={(e) => setNewForm({ ...newForm, telephone: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Couleur</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Couleur</label>
                 <div className="flex items-center gap-2">
                   <input type="color" value={newForm.couleur} onChange={(e) => setNewForm({ ...newForm, couleur: e.target.value })} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
                   <span className="text-xs text-gray-500">{newForm.couleur}</span>
@@ -169,12 +169,12 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
                   {isEditing ? (
                     <>
                       <button onClick={() => handleSaveCoach(coach.id)} className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors" disabled={loading}><Save size={14} /></button>
-                      <button onClick={() => setEditingCoach(null)} className="p-2 text-gray-400 hover:bg-gray-100 rounded-xl transition-colors"><X size={14} /></button>
+                      <button onClick={() => setEditingCoach(null)} className="p-2 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors"><X size={14} /></button>
                     </>
                   ) : (
                     <button
                       onClick={() => { setEditingCoach(coach.id); setEditForm({ ...coach }); }}
-                      className="p-2 text-gray-400 hover:text-[#E6007E] hover:bg-gray-100 rounded-xl transition-colors"
+                      className="p-2 text-gray-500 hover:text-[#E6007E] hover:bg-gray-100 rounded-xl transition-colors"
                     >
                       <Edit2 size={14} />
                     </button>
@@ -208,7 +208,7 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
                 </div>
                 <div className="space-y-2">
                   {coachAthletes.length === 0 ? (
-                    <p className="text-xs text-gray-400">Aucun athlète assigné</p>
+                    <p className="text-xs text-gray-500">Aucun athlète assigné</p>
                   ) : (
                     coachAthletes.map((athlete) => (
                       <div key={athlete.id} className="flex items-center justify-between p-2 rounded-xl bg-gray-50">
@@ -221,7 +221,7 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
                         </div>
                         <button
                           onClick={() => setReassignModal({ coachId: coach.id, athleteId: athlete.id })}
-                          className="p-1 text-gray-400 hover:text-[#E6007E] transition-colors"
+                          className="p-1 text-gray-500 hover:text-[#E6007E] transition-colors"
                           title="Réassigner"
                         >
                           <UserCheck size={13} />
@@ -273,7 +273,7 @@ function ReassignModal({
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-bold text-[#0A0A0A]">Réassigner l&apos;athlète</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-600"><X size={18} /></button>
         </div>
         {athlete && <p className="text-sm text-gray-600 mb-4">{athlete.prenom} {athlete.nom}</p>}
         <div className="space-y-2 mb-4">
@@ -288,9 +288,9 @@ function ReassignModal({
               </div>
               <div className="text-left">
                 <p className="text-sm font-medium">{c.prenom} {c.nom}</p>
-                <p className="text-xs text-gray-400">{c.role}</p>
+                <p className="text-xs text-gray-500">{c.role}</p>
               </div>
-              {c.id === currentCoachId && <span className="ml-auto text-xs text-gray-400">Actuel</span>}
+              {c.id === currentCoachId && <span className="ml-auto text-xs text-gray-500">Actuel</span>}
             </button>
           ))}
         </div>

@@ -93,16 +93,16 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold text-[#0A0A0A]">Nouveau projet</h2>
-            <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600"><X size={18} /></button>
+            <button onClick={() => setShowForm(false)} className="text-gray-500 hover:text-gray-600"><X size={18} /></button>
           </div>
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Nom du projet *</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Nom du projet *</label>
                 <input required value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Responsable</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Responsable</label>
                 <select value={form.responsable} onChange={(e) => setForm({ ...form, responsable: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                   {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>)}
                 </select>
@@ -110,15 +110,15 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Deadline</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Deadline</label>
                 <input type="date" value={form.deadline} onChange={(e) => setForm({ ...form, deadline: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Progression ({form.progression}%)</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Progression ({form.progression}%)</label>
                 <input type="range" min={0} max={100} value={form.progression} onChange={(e) => setForm({ ...form, progression: Number(e.target.value) })} className="w-full mt-2 accent-[#E6007E]" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Statut</label>
                 <select value={form.statut} onChange={(e) => setForm({ ...form, statut: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                   <option value="en_cours">En cours</option>
                   <option value="en_pause">En pause</option>
@@ -127,7 +127,7 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Description</label>
+              <label className="block text-xs font-medium text-gray-600 mb-1">Description</label>
               <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] resize-none" />
             </div>
             <div className="flex gap-3 justify-end">
@@ -239,7 +239,7 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
                     </div>
                   )}
                   <div className="flex items-center gap-1 text-xs">
-                    <CheckSquare size={12} className="text-gray-400" />
+                    <CheckSquare size={12} className="text-gray-500" />
                     {doneCount}/{projetTaches.length} tâches
                   </div>
                   <div className="text-xs">

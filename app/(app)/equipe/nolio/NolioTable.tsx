@@ -114,7 +114,7 @@ export default function NolioTable({
       {/* Stats bar */}
       <div className="flex items-center gap-3 mb-4 text-sm">
         <span className="text-emerald-600 font-semibold">{linkedCount} liés</span>
-        <span className="text-gray-300">·</span>
+        <span className="text-gray-500">·</span>
         <span className="text-amber-600 font-semibold">{nolioAthletes.length - linkedCount} non liés</span>
       </div>
 
@@ -174,7 +174,7 @@ export default function NolioTable({
                           </span>
                         </Link>
                       ) : (
-                        <span className="text-xs text-gray-300 italic">Non lié</span>
+                        <span className="text-xs text-gray-500 italic">Non lié</span>
                       )}
                     </td>
 
@@ -200,11 +200,11 @@ export default function NolioTable({
                     {/* Action button */}
                     <td className="px-5 py-3 text-right">
                       {isSaving ? (
-                        <Loader2 size={16} className="animate-spin text-gray-400 ml-auto" />
+                        <Loader2 size={16} className="animate-spin text-gray-500 ml-auto" />
                       ) : isLinkedById ? (
                         <button
                           onClick={() => handleUnlink(n.nolio_id)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-gray-500 border border-gray-200 rounded-lg hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-gray-600 border border-gray-200 rounded-lg hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-colors"
                         >
                           <Unlink size={12} />
                           Délier
@@ -245,12 +245,12 @@ export default function NolioTable({
                   <code className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-mono text-xs font-bold">
                     {modal.nolio_id}
                   </code>
-                  <span className="text-xs text-gray-400 font-mono">{modal.name}</span>
+                  <span className="text-xs text-gray-500 font-mono">{modal.name}</span>
                 </div>
               </div>
               <button
                 onClick={() => setModal(null)}
-                className="text-gray-400 hover:text-gray-600 transition-colors p-1"
+                className="text-gray-500 hover:text-gray-600 transition-colors p-1"
               >
                 <X size={18} />
               </button>
@@ -259,7 +259,7 @@ export default function NolioTable({
             {/* Search */}
             <div className="p-4 border-b border-gray-100 flex-shrink-0">
               <div className="relative">
-                <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
                 <input
                   ref={searchRef}
                   type="text"
@@ -274,7 +274,7 @@ export default function NolioTable({
             {/* Results list */}
             <div className="overflow-y-auto flex-1 py-2">
               {filteredCrm.length === 0 ? (
-                <p className="text-center text-gray-400 text-sm py-8">Aucun résultat</p>
+                <p className="text-center text-gray-500 text-sm py-8">Aucun résultat</p>
               ) : (
                 filteredCrm.map((a) => {
                   const coach = coachById[a.coachId];
@@ -308,12 +308,12 @@ export default function NolioTable({
                         </div>
                         <div className="flex items-center gap-2 mt-0.5">
                           {coach && (
-                            <span className="text-xs text-gray-400">
+                            <span className="text-xs text-gray-500">
                               {coach.prenom} {coach.nom}
                             </span>
                           )}
                           <span className="text-gray-200">·</span>
-                          <span className="text-xs text-gray-400 capitalize">
+                          <span className="text-xs text-gray-500 capitalize">
                             {a.discipline.replace("_", " ")}
                           </span>
                         </div>
@@ -321,9 +321,9 @@ export default function NolioTable({
 
                       {/* Saving indicator */}
                       {saving === modal.nolio_id ? (
-                        <Loader2 size={15} className="animate-spin text-gray-400 flex-shrink-0" />
+                        <Loader2 size={15} className="animate-spin text-gray-500 flex-shrink-0" />
                       ) : (
-                        <LinkIcon size={14} className="text-gray-300 group-hover:text-[#E6007E] flex-shrink-0" />
+                        <LinkIcon size={14} className="text-gray-500 group-hover:text-[#E6007E] flex-shrink-0" />
                       )}
                     </button>
                   );
@@ -333,7 +333,7 @@ export default function NolioTable({
 
             {/* Footer hint */}
             <div className="px-5 py-3 border-t border-gray-100 flex-shrink-0">
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-500">
                 Cliquez sur un athlète pour assigner l'ID Nolio <strong>{modal.nolio_id}</strong>.
               </p>
             </div>

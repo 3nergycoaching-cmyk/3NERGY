@@ -146,7 +146,7 @@ export default async function AdminPage() {
                 <tr key={athlete.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
                   <td className="px-4 py-3">
                     <p className="font-medium">{athlete.prenom} {athlete.nom}</p>
-                    <p className="text-xs text-gray-400">{athlete.email}</p>
+                    <p className="text-xs text-gray-500">{athlete.email}</p>
                   </td>
                   <td className="px-4 py-3 text-gray-600">{getCoach(athlete.coachId)}</td>
                   <td className="px-4 py-3"><Badge value={athlete.service} type="service" /></td>
@@ -168,7 +168,7 @@ function ServiceBar({ label, count, total, color }: { label: string; count: numb
     <div>
       <div className="flex items-center justify-between mb-1">
         <span className="text-sm text-gray-600">{label}</span>
-        <span className="text-sm font-bold">{count} <span className="text-gray-400 font-normal">({pct}%)</span></span>
+        <span className="text-sm font-bold">{count} <span className="text-gray-500 font-normal">({pct}%)</span></span>
       </div>
       <div className="w-full bg-gray-100 rounded-full h-2">
         <div className={`h-2 rounded-full ${color} transition-all`} style={{ width: `${pct}%` }} />

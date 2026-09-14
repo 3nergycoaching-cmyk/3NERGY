@@ -279,7 +279,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                 <h3 className="font-semibold text-gray-900 mb-4">Ajouter un jeune athlète</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Prénom *</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Prénom *</label>
                     <input
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.prenom}
@@ -288,7 +288,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Nom *</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Nom *</label>
                     <input
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.nom}
@@ -297,7 +297,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Date de naissance *</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Date de naissance *</label>
                     <input
                       type="date"
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
@@ -306,7 +306,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Discipline</label>
                     <select
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.discipline}
@@ -318,7 +318,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Contact parent</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Contact parent</label>
                     <input
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.contactParent}
@@ -327,7 +327,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Téléphone parent</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Téléphone parent</label>
                     <input
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.telephoneParent}
@@ -336,7 +336,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Email parent</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Email parent</label>
                     <input
                       type="email"
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
@@ -346,7 +346,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Contact urgence</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Contact urgence</label>
                     <input
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.urgence ?? ""}
@@ -355,7 +355,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Statut</label>
                     <select
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addYAForm.statut}
@@ -408,12 +408,12 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-100 bg-gray-50/60">
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Athlète</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Âge</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Contact parent</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Email parent</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Urgence</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Statut</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Athlète</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Âge</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Contact parent</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Email parent</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Urgence</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-600 uppercase tracking-wide">Statut</th>
                     <th className="px-4 py-3" />
                   </tr>
                 </thead>
@@ -493,7 +493,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                             <button onClick={() => handleSaveYA(ya.id)} className="p-1.5 text-emerald-600 hover:bg-emerald-50 rounded">
                               <Save size={14} />
                             </button>
-                            <button onClick={() => setEditingYAId(null)} className="p-1.5 text-gray-400 hover:bg-gray-100 rounded">
+                            <button onClick={() => setEditingYAId(null)} className="p-1.5 text-gray-500 hover:bg-gray-100 rounded">
                               <X size={14} />
                             </button>
                           </div>
@@ -512,7 +512,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                         <td className="px-4 py-3 text-gray-700 font-medium">{calcAge(ya.dateNaissance)} ans</td>
                         <td className="px-4 py-3">
                           <div className="text-sm text-gray-700 font-medium">{ya.contactParent || "—"}</div>
-                          <div className="text-xs text-gray-400 mt-0.5">{ya.telephoneParent || ""}</div>
+                          <div className="text-xs text-gray-500 mt-0.5">{ya.telephoneParent || ""}</div>
                         </td>
                         <td className="px-4 py-3 text-xs text-gray-600">{ya.emailParent || "—"}</td>
                         <td className="px-4 py-3 text-xs text-gray-600">{ya.urgence || "—"}</td>
@@ -529,13 +529,13 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                           <div className="flex gap-1">
                             <button
                               onClick={() => startEditYA(ya)}
-                              className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                              className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
                             >
                               <Edit2 size={14} />
                             </button>
                             <button
                               onClick={() => setDeleteYATarget(ya.id)}
-                              className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                              className="p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
                             >
                               <Trash2 size={14} />
                             </button>
@@ -546,7 +546,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   ))}
                   {filteredYA.length === 0 && (
                     <tr>
-                      <td colSpan={7} className="px-4 py-12 text-center text-gray-400 text-sm">
+                      <td colSpan={7} className="px-4 py-12 text-center text-gray-500 text-sm">
                         Aucun jeune athlète trouvé
                       </td>
                     </tr>
@@ -566,7 +566,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                 <h3 className="font-semibold text-gray-900 mb-4">Nouvelle séance</h3>
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Date *</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Date *</label>
                     <input
                       type="date"
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
@@ -575,7 +575,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Entraîneur</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Entraîneur</label>
                     <select
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addSessionForm.entraineurId}
@@ -587,7 +587,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Discipline</label>
                     <select
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addSessionForm.discipline}
@@ -599,7 +599,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Lieu *</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Lieu *</label>
                     <input
                       className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                       value={addSessionForm.lieu}
@@ -610,7 +610,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                 </div>
                 {/* Présents */}
                 <div className="mb-4">
-                  <label className="block text-xs font-medium text-gray-500 mb-2">Présents</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-2">Présents</label>
                   <div className="flex flex-wrap gap-2">
                     {youngAthletes.filter((y) => y.statut === "actif").map((ya) => (
                       <button
@@ -628,7 +628,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Notes</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Notes</label>
                   <textarea
                     rows={2}
                     className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 resize-none"
@@ -657,7 +657,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
             {/* Sessions list */}
             <div className="space-y-3">
               {sortedSessions.length === 0 && (
-                <div className="text-center py-16 text-gray-400 text-sm">Aucune séance enregistrée</div>
+                <div className="text-center py-16 text-gray-500 text-sm">Aucune séance enregistrée</div>
               )}
               {sortedSessions.map((session) => {
                 const coach = coachById[session.entraineurId];
@@ -670,7 +670,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                       <div className="p-5">
                         <div className="grid grid-cols-2 gap-4 mb-4">
                           <div>
-                            <label className="block text-xs font-medium text-gray-500 mb-1">Date</label>
+                            <label className="block text-xs font-medium text-gray-600 mb-1">Date</label>
                             <input
                               type="date"
                               className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none"
@@ -679,7 +679,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                             />
                           </div>
                           <div>
-                            <label className="block text-xs font-medium text-gray-500 mb-1">Entraîneur</label>
+                            <label className="block text-xs font-medium text-gray-600 mb-1">Entraîneur</label>
                             <select
                               className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none"
                               value={editSessionForm.entraineurId}
@@ -691,7 +691,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                             </select>
                           </div>
                           <div>
-                            <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
+                            <label className="block text-xs font-medium text-gray-600 mb-1">Discipline</label>
                             <select
                               className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none"
                               value={editSessionForm.discipline}
@@ -703,7 +703,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                             </select>
                           </div>
                           <div>
-                            <label className="block text-xs font-medium text-gray-500 mb-1">Lieu</label>
+                            <label className="block text-xs font-medium text-gray-600 mb-1">Lieu</label>
                             <input
                               className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none"
                               value={editSessionForm.lieu}
@@ -712,7 +712,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                           </div>
                         </div>
                         <div className="mb-4">
-                          <label className="block text-xs font-medium text-gray-500 mb-2">Présents</label>
+                          <label className="block text-xs font-medium text-gray-600 mb-2">Présents</label>
                           <div className="flex flex-wrap gap-2">
                             {youngAthletes.map((ya) => (
                               <button
@@ -730,7 +730,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                           </div>
                         </div>
                         <div className="mb-4">
-                          <label className="block text-xs font-medium text-gray-500 mb-1">Notes</label>
+                          <label className="block text-xs font-medium text-gray-600 mb-1">Notes</label>
                           <textarea
                             rows={2}
                             className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none resize-none"
@@ -765,7 +765,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                               <div className="text-lg font-bold text-[#E6007E]">
                                 {new Date(session.date).toLocaleDateString("fr-FR", { day: "2-digit", month: "short" })}
                               </div>
-                              <div className="text-xs text-gray-400">
+                              <div className="text-xs text-gray-500">
                                 {new Date(session.date).getFullYear()}
                               </div>
                             </div>
@@ -785,7 +785,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                                     {coach.prenom} {coach.nom}
                                   </span>
                                 )}
-                                <span className="text-xs text-gray-400">·</span>
+                                <span className="text-xs text-gray-500">·</span>
                                 <span className="text-xs text-gray-500">
                                   {session.presents.length} présent{session.presents.length > 1 ? "s" : ""}
                                 </span>
@@ -816,17 +816,17 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                             </div>
                             <button
                               onClick={(e) => { e.stopPropagation(); startEditSession(session); }}
-                              className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                              className="p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
                             >
                               <Edit2 size={14} />
                             </button>
                             <button
                               onClick={(e) => { e.stopPropagation(); setDeleteSessionTarget(session.id); }}
-                              className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                              className="p-1.5 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
                             >
                               <Trash2 size={14} />
                             </button>
-                            {isExpanded ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
+                            {isExpanded ? <ChevronUp size={16} className="text-gray-500" /> : <ChevronDown size={16} className="text-gray-500" />}
                           </div>
                         </div>
 
@@ -834,10 +834,10 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                         {isExpanded && (
                           <div className="border-t border-gray-100 px-5 py-4 bg-gray-50/50">
                             <div className="mb-3">
-                              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Présents</p>
+                              <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">Présents</p>
                               <div className="flex flex-wrap gap-2">
                                 {session.presents.length === 0 && (
-                                  <span className="text-sm text-gray-400">Aucun présent enregistré</span>
+                                  <span className="text-sm text-gray-500">Aucun présent enregistré</span>
                                 )}
                                 {session.presents.map((yaId) => {
                                   const ya = yaById[yaId];
@@ -858,7 +858,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                             </div>
                             {session.notes && (
                               <div>
-                                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Notes</p>
+                                <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1">Notes</p>
                                 <p className="text-sm text-gray-600 italic">{session.notes}</p>
                               </div>
                             )}
@@ -877,7 +877,7 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
         {tab === "entraineurs" && (
           <div>
             {coaches.length === 0 ? (
-              <div className="text-center py-16 text-gray-400 text-sm">Aucun entraîneur</div>
+              <div className="text-center py-16 text-gray-500 text-sm">Aucun entraîneur</div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {coaches.map((coach) => {
@@ -918,12 +918,12 @@ export default function AcademyClient({ initialYoungAthletes, initialSessions, c
                         </div>
                       )}
                       {lastSession && (
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-gray-500">
                           Dernière séance : {formatDate(lastSession.date)}
                         </p>
                       )}
                       {coachSessions.length === 0 && (
-                        <p className="text-xs text-gray-400 italic">Aucune séance encadrée</p>
+                        <p className="text-xs text-gray-500 italic">Aucune séance encadrée</p>
                       )}
                     </div>
                   );

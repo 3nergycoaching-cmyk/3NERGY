@@ -194,7 +194,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
               className={`flex items-center gap-2 px-3.5 py-2 border rounded-lg text-sm font-medium transition-colors ${
                 nolioConnectedCount > 0
                   ? "border-[#E6007E]/30 text-[#E6007E] hover:bg-[#E6007E]/5 disabled:opacity-50"
-                  : "border-gray-200 text-gray-400 cursor-not-allowed"
+                  : "border-gray-200 text-gray-500 cursor-not-allowed"
               }`}
             >
               <RefreshCw size={14} className={nolioSyncing ? "animate-spin" : ""} />
@@ -202,7 +202,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
               <span className={`flex items-center gap-0.5 text-xs px-1.5 py-0.5 rounded-full font-semibold ${
                 nolioConnectedCount > 0
                   ? "bg-[#E6007E]/10 text-[#E6007E]"
-                  : "bg-gray-100 text-gray-400"
+                  : "bg-gray-100 text-gray-500"
               }`}>
                 <Wifi size={10} />
                 {nolioConnectedCount}
@@ -311,7 +311,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                   </div>
                   <div className="px-3 py-2 min-h-[60px]">
                     {monthEvents.length === 0 ? (
-                      <p className="text-xs text-gray-300 italic py-1">Aucun événement</p>
+                      <p className="text-xs text-gray-500 italic py-1">Aucun événement</p>
                     ) : (
                       <div className="space-y-1">
                         {monthEvents.slice(0, 3).map((e) => (
@@ -321,7 +321,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                           </div>
                         ))}
                         {monthEvents.length > 3 && (
-                          <p className="text-xs text-gray-400 pl-3">+{monthEvents.length - 3} autres</p>
+                          <p className="text-xs text-gray-500 pl-3">+{monthEvents.length - 3} autres</p>
                         )}
                       </div>
                     )}
@@ -338,7 +338,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
             {/* Day headers */}
             <div className="grid grid-cols-7 mb-2">
               {DAYS_SHORT.map((d) => (
-                <div key={d} className="text-center text-xs font-semibold text-gray-400 uppercase tracking-wide py-2">
+                <div key={d} className="text-center text-xs font-semibold text-gray-600 uppercase tracking-wide py-2">
                   {d}
                 </div>
               ))}
@@ -399,7 +399,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                             </button>
                           ))}
                           {dayEvents.length > 2 && (
-                            <p className="text-xs text-gray-400 pl-1">+{dayEvents.length - 2}</p>
+                            <p className="text-xs text-gray-500 pl-1">+{dayEvents.length - 2}</p>
                           )}
                         </div>
                       </div>
@@ -476,7 +476,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
             </div>
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Titre *</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Titre *</label>
                 <input
                   className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                   value={addForm.titre}
@@ -486,7 +486,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Type</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Type</label>
                   <select
                     className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                     value={addForm.type}
@@ -498,7 +498,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Responsable</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Responsable</label>
                   <select
                     className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
                     value={addForm.responsable ?? ""}
@@ -513,7 +513,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Date début *</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Date début *</label>
                   <input
                     type="date"
                     className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
@@ -522,7 +522,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Date fin</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1">Date fin</label>
                   <input
                     type="date"
                     className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
@@ -532,7 +532,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Description</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Description</label>
                 <textarea
                   rows={3}
                   className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 resize-none"
@@ -589,7 +589,7 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
             <h2 className="text-lg font-bold text-gray-900 mb-4">{selectedEvent.titre}</h2>
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Calendar size={15} className="text-gray-400 flex-shrink-0" />
+                <Calendar size={15} className="text-gray-500 flex-shrink-0" />
                 <span>
                   {formatDateFR(selectedEvent.dateDebut)}
                   {selectedEvent.dateFin && ` → ${formatDateFR(selectedEvent.dateFin)}`}
@@ -599,20 +599,20 @@ export default function CalendrierClient({ initialEvents, manualEvents, coaches,
                 const coach = coaches.find((c) => c.id === selectedEvent.responsable);
                 return coach ? (
                   <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Users size={15} className="text-gray-400 flex-shrink-0" />
+                    <Users size={15} className="text-gray-500 flex-shrink-0" />
                     <span>{coach.prenom} {coach.nom}</span>
                   </div>
                 ) : null;
               })()}
               {selectedEvent.description && (
                 <div className="flex items-start gap-2 text-sm text-gray-600">
-                  <AlignLeft size={15} className="text-gray-400 flex-shrink-0 mt-0.5" />
+                  <AlignLeft size={15} className="text-gray-500 flex-shrink-0 mt-0.5" />
                   <span>{selectedEvent.description}</span>
                 </div>
               )}
               {selectedEvent.source && selectedEvent.source !== "manual" && (
                 <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <Tag size={15} className="text-gray-400 flex-shrink-0" />
+                  <Tag size={15} className="text-gray-500 flex-shrink-0" />
                   <span className="italic">
                     {selectedEvent.source === "objectif" && "Importé depuis les objectifs athlètes"}
                     {selectedEvent.source === "academy" && "Importé depuis les séances Academy"}

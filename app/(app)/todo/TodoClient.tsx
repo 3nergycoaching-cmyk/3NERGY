@@ -210,7 +210,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
             <p className="text-gray-500 text-sm mt-0.5">
               {doneCount}/{filtered.length} tâches terminées
               {filtered.length > 0 && (
-                <span className="ml-2 text-xs text-gray-400">
+                <span className="ml-2 text-xs text-gray-500">
                   ({Math.round((doneCount / filtered.length) * 100)}%)
                 </span>
               )}
@@ -244,7 +244,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
           >
             <div className="flex items-center justify-between mb-1">
               <h3 className="font-semibold text-[#0A0A0A] text-sm">Nouvelle tâche</h3>
-              <button type="button" onClick={() => setShowAddForm(false)} className="text-gray-400 hover:text-gray-600">
+              <button type="button" onClick={() => setShowAddForm(false)} className="text-gray-500 hover:text-gray-600">
                 <X size={16} />
               </button>
             </div>
@@ -259,13 +259,13 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Responsable</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Responsable</label>
                 <select value={addForm.responsable} onChange={(e) => setAddForm({ ...addForm, responsable: e.target.value })} className={inputCls + " w-full"}>
                   {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Priorité</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Priorité</label>
                 <select value={addForm.priorite} onChange={(e) => setAddForm({ ...addForm, priorite: e.target.value as PrioriteTodo })} className={inputCls + " w-full"}>
                   <option value="haute">🔴 Haute</option>
                   <option value="moyenne">🟡 Moyenne</option>
@@ -273,7 +273,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Statut</label>
                 <select value={addForm.statut} onChange={(e) => setAddForm({ ...addForm, statut: e.target.value as StatutTodo })} className={inputCls + " w-full"}>
                   <option value="a_faire">À faire</option>
                   <option value="en_cours">En cours</option>
@@ -281,20 +281,20 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Deadline</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Deadline</label>
                 <input type="date" value={addForm.deadline} onChange={(e) => setAddForm({ ...addForm, deadline: e.target.value })} className={inputCls + " w-full"} />
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Projet associé</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Projet associé</label>
                 <select value={addForm.projetId} onChange={(e) => setAddForm({ ...addForm, projetId: e.target.value })} className={inputCls + " w-full"}>
                   <option value="">— Aucun —</option>
                   {projets.map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Notes</label>
+                <label className="block text-xs font-medium text-gray-600 mb-1">Notes</label>
                 <input type="text" value={addForm.notes} onChange={(e) => setAddForm({ ...addForm, notes: e.target.value })} placeholder="Note libre..." className={inputCls + " w-full"} />
               </div>
             </div>
@@ -408,8 +408,8 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
         {filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm mt-2">
             <CheckSquare className="w-12 h-12 text-gray-200 mb-3" />
-            <p className="text-gray-400 font-medium">Aucune tâche à afficher</p>
-            <p className="text-gray-300 text-sm mt-1">Ajoutez une tâche avec le bouton en haut à droite</p>
+            <p className="text-gray-500 font-medium">Aucune tâche à afficher</p>
+            <p className="text-gray-500 text-sm mt-1">Ajoutez une tâche avec le bouton en haut à droite</p>
           </div>
         ) : (
           <div className="space-y-1.5 mt-2">
@@ -439,13 +439,13 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     />
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                       <div>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">Responsable</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Responsable</label>
                         <select value={editForm.responsable || ""} onChange={(e) => setEditForm({ ...editForm, responsable: e.target.value })} className={inputCls + " w-full"}>
                           {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom}</option>)}
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">Priorité</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Priorité</label>
                         <select value={editForm.priorite || ""} onChange={(e) => setEditForm({ ...editForm, priorite: e.target.value as PrioriteTodo })} className={inputCls + " w-full"}>
                           <option value="haute">🔴 Haute</option>
                           <option value="moyenne">🟡 Moyenne</option>
@@ -453,7 +453,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Statut</label>
                         <select value={editForm.statut || ""} onChange={(e) => setEditForm({ ...editForm, statut: e.target.value as StatutTodo })} className={inputCls + " w-full"}>
                           <option value="a_faire">À faire</option>
                           <option value="en_cours">En cours</option>
@@ -461,20 +461,20 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">Deadline</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Deadline</label>
                         <input type="date" value={editForm.deadline || ""} onChange={(e) => setEditForm({ ...editForm, deadline: e.target.value })} className={inputCls + " w-full"} />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">Projet associé</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Projet associé</label>
                         <select value={editForm.projetId || ""} onChange={(e) => setEditForm({ ...editForm, projetId: e.target.value })} className={inputCls + " w-full"}>
                           <option value="">— Aucun —</option>
                           {projets.map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-500 mb-1">Notes</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Notes</label>
                         <input type="text" value={editForm.notes || ""} onChange={(e) => setEditForm({ ...editForm, notes: e.target.value })} placeholder="Note libre..." className={inputCls + " w-full"} />
                       </div>
                     </div>
@@ -508,7 +508,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     >
                       {isDone
                         ? <CheckSquare className="w-5 h-5 text-emerald-500" />
-                        : <Square className="w-5 h-5 text-gray-300 hover:text-[#E6007E]" />
+                        : <Square className="w-5 h-5 text-gray-500 hover:text-[#E6007E]" />
                       }
                     </button>
 
@@ -518,7 +518,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     {/* Title */}
                     <span
                       className={`flex-1 min-w-0 text-sm font-medium truncate ${
-                        isDone ? "line-through text-gray-400" : "text-[#0A0A0A]"
+                        isDone ? "line-through text-gray-500" : "text-[#0A0A0A]"
                       }`}
                     >
                       {todo.titre}
@@ -558,7 +558,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     {/* Deadline */}
                     {todo.deadline && (
                       <span className={`flex-shrink-0 text-xs flex items-center gap-1 ${
-                        overdue ? "text-red-500 font-medium" : isDone ? "text-gray-300" : "text-gray-400"
+                        overdue ? "text-red-500 font-medium" : isDone ? "text-gray-500" : "text-gray-500"
                       }`}>
                         <Flag size={10} />
                         {fmtDate(todo.deadline)}
@@ -569,7 +569,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     {todo.notes && (
                       <button
                         onClick={(e) => { e.stopPropagation(); toggleNotes(todo.id); }}
-                        className="flex-shrink-0 text-gray-300 hover:text-amber-500 transition-colors"
+                        className="flex-shrink-0 text-gray-500 hover:text-amber-500 transition-colors"
                         title="Afficher les notes"
                       >
                         <StickyNote size={13} className={noteOpen ? "text-amber-500" : ""} />
@@ -580,14 +580,14 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     <div className="flex-shrink-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={(e) => startEdit(e, todo)}
-                        className="p-1 text-gray-400 hover:text-[#E6007E] hover:bg-[#E6007E]/5 rounded-lg transition-colors"
+                        className="p-1 text-gray-500 hover:text-[#E6007E] hover:bg-[#E6007E]/5 rounded-lg transition-colors"
                         title="Modifier"
                       >
                         <Edit2 size={13} />
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); setDeleteTarget(todo); }}
-                        className="p-1 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-1 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                         title="Supprimer"
                       >
                         <Trash2 size={13} />

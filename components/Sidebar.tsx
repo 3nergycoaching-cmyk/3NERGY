@@ -70,23 +70,15 @@ function UserFooter() {
           </div>
         )}
         <div className="min-w-0 flex-1">
-          <p className="text-xs font-semibold truncate" style={{ color: "#0A0A0A" }}>{displayName}</p>
-          <p className="text-xs truncate" style={{ color: "#71717A" }}>{displayRole}</p>
+          <p className="text-xs font-semibold truncate text-white">{displayName}</p>
+          <p className="text-xs truncate" style={{ color: "#A1A1AA" }}>{displayRole}</p>
         </div>
       </div>
 
       <SignOutButton redirectUrl="/sign-in">
         <button
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-150"
-          style={{ color: "#71717A" }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F4F4F5";
-            (e.currentTarget as HTMLButtonElement).style.color = "#0A0A0A";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
-            (e.currentTarget as HTMLButtonElement).style.color = "#71717A";
-          }}
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-150 hover:bg-white/10 hover:text-white"
+          style={{ color: "#A1A1AA" }}
         >
           <LogOut size={14} className="flex-shrink-0" />
           Se déconnecter
@@ -101,24 +93,23 @@ export default function Sidebar() {
 
   return (
     <aside
-      className="flex flex-col shadow-sm"
+      className="flex flex-col"
       style={{
         width: "220px",
         flexShrink: 0,
         height: "100%",
         overflowY: "auto",
-        backgroundColor: "#FAFAFA",
-        borderRight: "1px solid #E4E4E7",
+        backgroundColor: "#0A0A0A",
       }}
     >
       {/* Logo */}
-      <div className="px-6 py-6" style={{ borderBottom: "1px solid #E4E4E7" }}>
+      <div className="px-6 py-6" style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#E6007E" }}>
             <Zap className="w-5 h-5 text-white" />
           </div>
           <div>
-            <span className="font-bold text-lg tracking-tight" style={{ color: "#0A0A0A" }}>3NERGY</span>
+            <span className="font-bold text-lg tracking-tight text-white">3NERGY</span>
             <p className="text-xs font-medium -mt-0.5" style={{ color: "#E6007E" }}>CRM</p>
           </div>
         </div>
@@ -134,35 +125,18 @@ export default function Sidebar() {
               <li key={href}>
                 <Link
                   href={href}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 relative"
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                    isActive
+                      ? "text-white"
+                      : "hover:bg-white/10 hover:text-white"
+                  }`}
                   style={
                     isActive
-                      ? {
-                          backgroundColor: "#FDF2F8",
-                          color: "#E6007E",
-                          borderLeft: "3px solid #E6007E",
-                          paddingLeft: "9px",
-                        }
-                      : { color: "#71717A" }
+                      ? { backgroundColor: "#E6007E" }
+                      : { color: "#A1A1AA" }
                   }
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "#F4F4F5";
-                      (e.currentTarget as HTMLAnchorElement).style.color = "#0A0A0A";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "transparent";
-                      (e.currentTarget as HTMLAnchorElement).style.color = "#71717A";
-                    }
-                  }}
                 >
-                  <Icon
-                    className="flex-shrink-0"
-                    size={18}
-                    style={{ color: isActive ? "#E6007E" : "#71717A" }}
-                  />
+                  <Icon className="flex-shrink-0" size={18} />
                   {label}
                 </Link>
               </li>
@@ -172,7 +146,7 @@ export default function Sidebar() {
       </nav>
 
       {/* User footer */}
-      <div className="px-4 py-4" style={{ borderTop: "1px solid #E4E4E7" }}>
+      <div className="px-4 py-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <UserFooter />
       </div>
     </aside>

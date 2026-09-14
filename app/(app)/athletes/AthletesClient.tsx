@@ -206,7 +206,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
       {/* Filtres */}
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-4 flex flex-wrap gap-3 items-center">
         <div className="flex-1 min-w-[200px] relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
           <input
             type="text"
             placeholder="Rechercher un athlète..."
@@ -216,7 +216,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
           />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <Filter size={14} className="text-gray-400" />
+          <Filter size={14} className="text-gray-500" />
           <select value={filterDiscipline} onChange={(e) => setFilterDiscipline(e.target.value as Discipline | "")}
             className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
             <option value="">Toutes les disciplines</option>
@@ -261,7 +261,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="text-center py-12 text-gray-400">Aucun athlète trouvé</td>
+                  <td colSpan={7} className="text-center py-12 text-gray-500">Aucun athlète trouvé</td>
                 </tr>
               ) : (
                 filtered.map((athlete) => {
@@ -288,7 +288,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                           </div>
                           <div>
                             <p className="font-semibold text-[#0A0A0A]">{athlete.prenom} {athlete.nom}</p>
-                            <p className="text-xs text-gray-400">{athlete.telephone}</p>
+                            <p className="text-xs text-gray-500">{athlete.telephone}</p>
                           </div>
                         </div>
                       </td>
@@ -362,7 +362,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                                       {SERVICE_LABELS[svc]}
                                     </span>
                                     {defaultPrix > 0 && (
-                                      <span className="text-xs text-gray-400 ml-auto">{defaultPrix} €</span>
+                                      <span className="text-xs text-gray-500 ml-auto">{defaultPrix} €</span>
                                     )}
                                     {currentService === svc && <span className="text-[#E6007E] text-xs">✓</span>}
                                   </button>
@@ -379,7 +379,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                         <div className="relative">
                           <button
                             onClick={(e) => toggleMenu(e, athlete.id)}
-                            className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600"
+                            className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-600"
                           >
                             <MoreHorizontal size={15} />
                           </button>
@@ -394,7 +394,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                                 onClick={() => router.push(`/athletes/${athlete.id}`)}
                                 className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                               >
-                                <Eye size={14} className="text-gray-400 flex-shrink-0" />
+                                <Eye size={14} className="text-gray-500 flex-shrink-0" />
                                 Voir la fiche
                               </button>
 
@@ -463,7 +463,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                 </div>
                 <h2 className="font-bold text-[#0A0A0A]">Inviter un athlète</h2>
               </div>
-              <button onClick={closeInviteModal} className="text-gray-400 hover:text-gray-600 transition-colors">
+              <button onClick={closeInviteModal} className="text-gray-500 hover:text-gray-600 transition-colors">
                 <X size={20} />
               </button>
             </div>
@@ -530,7 +530,7 @@ export default function AthletesClient({ athletes, coaches }: Props) {
                     ))}
                   </select>
                 </div>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-500">
                   Un email sera envoyé depuis contact@3nergy.be avec le lien vers le formulaire d'inscription (valable 7 jours).
                 </p>
                 <div className="flex gap-3 pt-1">

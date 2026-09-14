@@ -110,7 +110,7 @@ export default async function DashboardPage() {
     <div className="p-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold" style={{ color: "#0A0A0A" }}>Dashboard</h1>
-        <p className="mt-1 text-sm" style={{ color: "#71717A" }}>
+        <p className="mt-1 text-sm" style={{ color: "#52525B" }}>
           {new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(new Date())}
         </p>
       </div>
@@ -124,12 +124,12 @@ export default async function DashboardPage() {
             style={{ borderColor: "#E4E4E7", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}
           >
             <div className="rounded-xl p-3 flex-shrink-0" style={{ backgroundColor: "#F4F4F5" }}>
-              <Icon className="w-5 h-5" style={{ color: "#71717A" }} />
+              <Icon className="w-5 h-5" style={{ color: "#52525B" }} />
             </div>
             <div>
               <p className="text-3xl font-bold" style={{ color: "#0A0A0A" }}>{value}</p>
               <p className="text-sm font-medium mt-0.5" style={{ color: "#0A0A0A" }}>{label}</p>
-              <p className="text-xs mt-0.5" style={{ color: "#71717A" }}>{sub}</p>
+              <p className="text-xs mt-0.5" style={{ color: "#52525B" }}>{sub}</p>
             </div>
           </div>
         ))}
@@ -149,7 +149,7 @@ export default async function DashboardPage() {
             <h2 className="text-lg font-bold" style={{ color: "#0A0A0A" }}>Urgences de la semaine</h2>
           </div>
           {urgentTaches.length === 0 ? (
-            <p className="text-sm text-center py-8" style={{ color: "#71717A" }}>Aucune urgence cette semaine 🎉</p>
+            <p className="text-sm text-center py-8" style={{ color: "#52525B" }}>Aucune urgence cette semaine 🎉</p>
           ) : (
             <ul className="space-y-3">
               {urgentTaches.map((t) => {
@@ -161,7 +161,7 @@ export default async function DashboardPage() {
                   <li key={t.id} className="flex items-start gap-3 p-3 rounded-xl border" style={{ backgroundColor: "#FAFAFA", borderColor: "#E4E4E7" }}>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate" style={{ color: "#0A0A0A" }}>{t.titre}</p>
-                      <p className="text-xs mt-0.5" style={{ color: "#71717A" }}>{proj?.nom || "—"}</p>
+                      <p className="text-xs mt-0.5" style={{ color: "#52525B" }}>{proj?.nom || "—"}</p>
                     </div>
                     <span className={`text-xs font-bold px-2 py-1 rounded-full flex-shrink-0 ${
                       daysLeft <= 2 ? "bg-red-100 text-red-700" : "bg-amber-100 text-amber-700"
@@ -191,7 +191,7 @@ export default async function DashboardPage() {
               <div>
                 <p className="font-semibold text-sm" style={{ color: "#0A0A0A" }}>{coach.prenom}</p>
                 <p className="text-2xl font-bold" style={{ color: coach.couleur }}>{count}</p>
-                <p className="text-xs" style={{ color: "#71717A" }}>athlètes</p>
+                <p className="text-xs" style={{ color: "#52525B" }}>athlètes</p>
               </div>
             </div>
           ))}
@@ -219,7 +219,7 @@ export default async function DashboardPage() {
           <h3 className="font-bold mb-4" style={{ color: "#0A0A0A" }}>Répartition par service</h3>
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-xs border-b" style={{ color: "#71717A", borderColor: "#E4E4E7" }}>
+              <tr className="text-xs border-b" style={{ color: "#3F3F46", borderColor: "#E4E4E7" }}>
                 <th className="text-left pb-2 font-medium uppercase tracking-wide">Service</th>
                 <th className="text-right pb-2 font-medium uppercase tracking-wide">Athlètes actifs</th>
                 <th className="text-right pb-2 font-medium uppercase tracking-wide">Prix moyen</th>
@@ -230,8 +230,8 @@ export default async function DashboardPage() {
               {serviceStats.map((s) => (
                 <tr key={s.key} className="border-b" style={{ borderColor: "#E4E4E7" }}>
                   <td className="py-2.5 font-medium" style={{ color: "#0A0A0A" }}>{s.label}</td>
-                  <td className="py-2.5 text-right" style={{ color: "#71717A" }}>{s.count}</td>
-                  <td className="py-2.5 text-right" style={{ color: "#71717A" }}>{s.avgPrix} €</td>
+                  <td className="py-2.5 text-right" style={{ color: "#52525B" }}>{s.count}</td>
+                  <td className="py-2.5 text-right" style={{ color: "#52525B" }}>{s.avgPrix} €</td>
                   <td className="py-2.5 text-right font-semibold" style={{ color: "#0A0A0A" }}>{s.revenue.toLocaleString("fr-FR")} €</td>
                 </tr>
               ))}

@@ -138,7 +138,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
     <div className="p-8">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
-        <Link href="/athletes" className="text-gray-400 hover:text-[#E6007E] transition-colors">
+        <Link href="/athletes" className="text-gray-500 hover:text-[#E6007E] transition-colors">
           <ArrowLeft size={20} />
         </Link>
         <div className="flex-1">
@@ -162,7 +162,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                     title="Changer la formule"
                   >
                     <Badge value={currentService} type="service" />
-                    <ChevronDown size={12} className="text-gray-400 -ml-0.5" />
+                    <ChevronDown size={12} className="text-gray-500 -ml-0.5" />
                   </button>
                   {serviceMenuOpen && (
                     <div className="absolute left-0 top-8 z-30 w-52 bg-white rounded-xl shadow-lg border border-gray-100 py-1">
@@ -179,7 +179,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                               {SERVICE_LABELS[svc]}
                             </span>
                             {defaultPrix > 0 && (
-                              <span className="text-xs text-gray-400 ml-auto">{defaultPrix} €</span>
+                              <span className="text-xs text-gray-500 ml-auto">{defaultPrix} €</span>
                             )}
                             {currentService === svc && <span className="text-[#E6007E] text-xs">✓</span>}
                           </button>
@@ -288,24 +288,24 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                 <>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Prénom</label>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">Prénom</label>
                       <input value={form.prenom} onChange={(e) => setForm({ ...form, prenom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-500 mb-1">Nom</label>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">Nom</label>
                       <input value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Email</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Email</label>
                     <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Téléphone</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Téléphone</label>
                     <input value={form.telephone} onChange={(e) => setForm({ ...form, telephone: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Adresse</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Adresse</label>
                     <input value={form.adresse || ""} onChange={(e) => setForm({ ...form, adresse: e.target.value })} placeholder="Rue, numéro, code postal, ville..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                   </div>
                 </>
@@ -326,13 +326,13 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
               {editing ? (
                 <>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Coach</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Coach</label>
                     <select value={form.coachId} onChange={(e) => setForm({ ...form, coachId: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                       {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Discipline</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Discipline</label>
                     <select value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value as Athlete["discipline"] })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                       <option value="triathlon">Triathlon</option>
                       <option value="cyclisme">Cyclisme</option>
@@ -341,7 +341,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Statut</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Statut</label>
                     <select value={form.statut} onChange={(e) => setForm({ ...form, statut: e.target.value as Athlete["statut"] })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
                       <option value="actif">Actif</option>
                       <option value="pause">Pause</option>
@@ -349,7 +349,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Formule</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Formule</label>
                     <select
                       value={form.service}
                       onChange={(e) => {
@@ -365,13 +365,13 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">Objectif de saison</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Objectif de saison</label>
                     <input value={form.objectif} onChange={(e) => setForm({ ...form, objectif: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-500 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-1">
                       ID Nolio
-                      <span className="ml-1 text-gray-300 font-normal">(liaison manuelle)</span>
+                      <span className="ml-1 text-gray-500 font-normal">(liaison manuelle)</span>
                     </label>
                     <input
                       type="number"
@@ -380,7 +380,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                       placeholder="ex: 86232"
                       className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                     />
-                    <p className="text-xs text-gray-400 mt-1">Visible sur la page <a href="/equipe/nolio" className="text-[#E6007E] underline" target="_blank">Équipe → Nolio</a></p>
+                    <p className="text-xs text-gray-500 mt-1">Visible sur la page <a href="/equipe/nolio" className="text-[#E6007E] underline" target="_blank">Équipe → Nolio</a></p>
                   </div>
                 </>
               ) : (
@@ -417,11 +417,11 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
                 <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${
                   nolioConnected ? "bg-emerald-100" : "bg-gray-100"
                 }`}>
-                  <Link2 className={`w-4 h-4 ${nolioConnected ? "text-emerald-600" : "text-gray-400"}`} />
+                  <Link2 className={`w-4 h-4 ${nolioConnected ? "text-emerald-600" : "text-gray-500"}`} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-[#0A0A0A] text-sm">Synchronisation Nolio</h3>
-                  <p className="text-xs text-gray-400 mt-0.5">
+                  <p className="text-xs text-gray-500 mt-0.5">
                     {nolioConnected
                       ? "Compétitions synchronisées automatiquement dans le calendrier"
                       : "Connecte le compte Nolio pour importer les courses dans le calendrier"}
@@ -533,14 +533,14 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
               <div className="w-2 h-2 rounded-full bg-[#E6007E] mt-1.5 flex-shrink-0" />
               <div>
                 <p className="text-sm font-medium">Athlète créé</p>
-                <p className="text-xs text-gray-400">{formatDateLong(athlete.createdAt)}</p>
+                <p className="text-xs text-gray-500">{formatDateLong(athlete.createdAt)}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-2 h-2 rounded-full bg-[#E6007E] mt-1.5 flex-shrink-0" />
               <div>
                 <p className="text-sm font-medium">Formule souscrite</p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-500">
                   {SERVICE_LABELS[athlete.service] ?? athlete.service}
                   {athlete.prixMensuel > 0 ? ` — ${athlete.prixMensuel} €/mois` : " — Gratuit"}
                 </p>
@@ -548,7 +548,7 @@ export default function AthleteProfileClient({ athlete, coach, coaches, taches, 
             </div>
             {taches.length > 0 && (
               <div className="mt-2 pt-2 border-t border-gray-100">
-                <p className="text-xs font-semibold text-gray-500 mb-2">Tâches associées</p>
+                <p className="text-xs font-semibold text-gray-600 mb-2">Tâches associées</p>
                 <div className="space-y-2">
                   {taches.map((t) => (
                     <div key={t.id} className="flex items-center justify-between p-2.5 rounded-xl bg-gray-50">
