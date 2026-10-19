@@ -59,6 +59,12 @@ export interface Performances {
 }
 
 // ── Athlete ────────────────────────────────────────────────────────────────
+export type Canal = "ORGANIQUE" | "GROWTH_OPERATOR";
+export type Regime = "HISTORIQUE" | "STANDARD";
+export type Formule = "BASIC" | "PERFORMANCE" | "PRO" | "F200" | "F300";
+export type Engagement = "SANS_ENGAGEMENT" | "M3" | "M6" | "M9" | "M12";
+export type StatutPaiement = "OK" | "EN_ATTENTE" | "EN_RETARD";
+
 export interface Athlete {
   id: string;
   nom: string;
@@ -77,10 +83,21 @@ export interface Athlete {
   prixMensuel: number;
   notes: string;
   createdAt: string;
-  nolioId?: number;           // Nolio athlete ID for manual linking
-  nolioToken?: NolioToken;    // @deprecated — use db.nolioCoachToken instead
+  nolioId?: number;
+  nolioToken?: NolioToken;
   objectifs?: Objectif[];
   performances?: Performances;
+  // Nouveaux champs
+  canal?: Canal;
+  regime: Regime;
+  formule?: Formule;
+  engagement?: Engagement;
+  dateDebut?: string;
+  dateFinEngagement?: string;
+  statutPaiement: StatutPaiement;
+  moisPaiement?: string;
+  paiementUnique?: number;
+  paiementsHistorique?: Record<string, StatutPaiement>;
 }
 
 export type SourceLead = "instagram" | "bouche_a_oreille" | "site_web" | "autre";

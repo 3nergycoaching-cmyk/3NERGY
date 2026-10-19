@@ -2,14 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Athlete, Coach, Discipline, StatutAthlete, Service } from "@/lib/types";
-import Badge, { serviceMap } from "@/components/Badge";
-import { SERVICE_ORDER, SERVICE_LABELS, SERVICE_TARIFS } from "@/lib/config";
-import {
-  Search, Plus, Filter,
-  MoreHorizontal, Eye, PauseCircle, PlayCircle, Trash2,
-  Mail, Loader2, Clock, X,
-} from "lucide-react";
+import { Athlete, Coach, StatutPaiement, Canal } from "@/lib/types";
+import { Search, Plus, Mail, Loader2, X, AlertCircle, Clock, CheckCircle2 } from "lucide-react";
 import NewAthleteModal from "./NewAthleteModal";
 
 interface Props {
@@ -17,18 +11,109 @@ interface Props {
   coaches: Coach[];
 }
 
+const CANAL_LABELS: Record<Canal, string> = {
+  ORGANIQUE: "Organique",
+  GROWTH_OPERATOR: "Growth op.",
+};
+
+const ENGAGEMENT_LABELS: Record<string, string> = {
+  SANS_ENGAGEMENT: "Libre",
+  M3: "3 mois",
+  M6: "6 mois",
+  M9: "9 mois",
+  M12: "12 mois",
+};
+
+function daysUntil(dateStr: string | undefined): number | null {
+  if (!dateStr) return null;
+  return Math.ceil((new Date(dateStr).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+}
+
+const STATUT_CYCLE: StatutPaiement[] = ["EN_ATTENTE", "OK", "EN_RETARD"];
+const currentMois = () => new Date().toISOString().slice(0, 7); // "YYYY-MM"
+
+function StatutBadge({
+  statut, moisPaiement, athleteId, onUpdate,
+}: {
+  statut: StatutPaiement; moisPaiement?: string; athleteId: string;
+  onUpdate: (id: string, s: StatutPaiement) => void;
+}) {
+  const [saving, setSaving] = useState(false);
+
+  // Si le paiement a été validé un mois passé → considérer EN_ATTENTE pour ce mois
+  const mois = currentMois();
+  const effectif: StatutPaiement = moisPaiement === mois ? statut : "EN_ATTENTE";
+
+  const handleClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const next = STATUT_CYCLE[(STATUT_CYCLE.indexOf(effectif) + 1) % STATUT_CYCLE.length];
+    setSaving(true);
+    onUpdate(athleteId, next);
+    await fetch(`/api/athletes/${athleteId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ statutPaiement: next, moisPaiement: mois }),
+    });
+    setSaving(false);
+  };
+
+  const base = "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold cursor-pointer select-none transition-opacity";
+  if (saving) return <span className={`${base} opacity-50 bg-gray-100 text-gray-500`}><Loader2 size={11} className="animate-spin" /> …</span>;
+  if (effectif === "OK") return (
+    <span onClick={handleClick} title="Cliquer pour changer" className={`${base} bg-emerald-50 text-emerald-700 hover:bg-emerald-100`}>
+      <CheckCircle2 size={11} /> OK
+    </span>
+  );
+  if (effectif === "EN_RETARD") return (
+    <span onClick={handleClick} title="Cliquer pour changer" className={`${base} bg-red-50 text-red-700 hover:bg-red-100`}>
+      <AlertCircle size={11} /> En retard
+    </span>
+  );
+  return (
+    <span onClick={handleClick} title="Cliquer pour changer" className={`${base} bg-amber-50 text-amber-700 hover:bg-amber-100`}>
+      <Clock size={11} /> En attente
+    </span>
+  );
+}
+
+function EngagementFinBadge({ dateFinEngagement }: { dateFinEngagement?: string }) {
+  const days = daysUntil(dateFinEngagement);
+  if (days === null || days > 30) return null;
+  if (days < 0) return (
+    <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-700">Expiré</span>
+  );
+  return (
+    <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-700">J-{days}</span>
+  );
+}
+
 export default function AthletesClient({ athletes, coaches }: Props) {
   const router = useRouter();
+  const [tab, setTab] = useState<"historique" | "nouveau">("historique");
   const [search, setSearch] = useState("");
-  const [filterDiscipline, setFilterDiscipline] = useState<Discipline | "">("");
   const [filterCoach, setFilterCoach] = useState("");
-  const [filterStatut, setFilterStatut] = useState<StatutAthlete | "">("");
+  const [filterCanal, setFilterCanal] = useState<Canal | "">("");
+  const [filterStatutPaiement, setFilterStatutPaiement] = useState<StatutPaiement | "">("");
   const [showModal, setShowModal] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [inviteForm, setInviteForm] = useState({ prenom: "", nom: "", email: "", coachId: coaches[0]?.id ?? "" });
   const [inviting, setInviting] = useState(false);
   const [inviteResult, setInviteResult] = useState<{ formUrl: string; prenom: string } | null>(null);
   const [inviteError, setInviteError] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Athlete | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [statutOverrides, setStatutOverrides] = useState<Record<string, { statut: StatutPaiement; mois: string }>>({});
+
+  const handleStatutUpdate = (id: string, s: StatutPaiement) => {
+    setStatutOverrides((prev) => ({ ...prev, [id]: { statut: s, mois: new Date().toISOString().slice(0, 7) } }));
+  };
+
+  const closeMenu = useCallback(() => setOpenMenuId(null), []);
+  useEffect(() => {
+    document.addEventListener("click", closeMenu);
+    return () => document.removeEventListener("click", closeMenu);
+  }, [closeMenu]);
 
   const handleInvite = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,11 +130,8 @@ export default function AthletesClient({ athletes, coaches }: Props) {
       if (!res.ok) { setInviteError(json.error ?? "Erreur"); return; }
       setInviteResult({ formUrl: json.formUrl, prenom: inviteForm.prenom });
       router.refresh();
-    } catch {
-      setInviteError("Erreur réseau");
-    } finally {
-      setInviting(false);
-    }
+    } catch { setInviteError("Erreur réseau"); }
+    finally { setInviting(false); }
   };
 
   const closeInviteModal = () => {
@@ -59,90 +141,6 @@ export default function AthletesClient({ athletes, coaches }: Props) {
     setInviteForm({ prenom: "", nom: "", email: "", coachId: coaches[0]?.id ?? "" });
   };
 
-  // menu contextuel
-  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
-  const [deleteTarget, setDeleteTarget] = useState<Athlete | null>(null);
-  const [deleting, setDeleting] = useState(false);
-
-  // statuts locaux pour mise à jour optimiste
-  const [localStatuts, setLocalStatuts] = useState<Record<string, StatutAthlete>>(
-    () => Object.fromEntries(athletes.map((a) => [a.id, a.statut]))
-  );
-  const [togglingId, setTogglingId] = useState<string | null>(null);
-
-  // services locaux pour mise à jour optimiste
-  const [localServices, setLocalServices] = useState<Record<string, Service>>(
-    () => Object.fromEntries(athletes.map((a) => [a.id, a.service]))
-  );
-  const [openServiceMenuId, setOpenServiceMenuId] = useState<string | null>(null);
-
-  // Fermer le menu si clic hors
-  const closeMenu = useCallback(() => {
-    setOpenMenuId(null);
-    setOpenServiceMenuId(null);
-  }, []);
-  useEffect(() => {
-    document.addEventListener("click", closeMenu);
-    return () => document.removeEventListener("click", closeMenu);
-  }, [closeMenu]);
-
-  // Filtres
-  const filtered = athletes.filter((a) => {
-    const q = search.toLowerCase();
-    const currentStatut = localStatuts[a.id] ?? a.statut;
-    return (
-      (!q || `${a.prenom} ${a.nom} ${a.email}`.toLowerCase().includes(q)) &&
-      (!filterDiscipline || a.discipline === filterDiscipline) &&
-      (!filterCoach || a.coachId === filterCoach) &&
-      (!filterStatut || currentStatut === filterStatut)
-    );
-  });
-
-  const getCoach = (id: string) => coaches.find((c) => c.id === id);
-  const getCoachName = (id: string) => {
-    const c = getCoach(id);
-    return c ? `${c.prenom} ${c.nom}` : "—";
-  };
-
-  // Toggle actif ↔ pause (badge click)
-  const handleToggleStatut = async (e: React.MouseEvent, athlete: Athlete) => {
-    e.stopPropagation();
-    const current = localStatuts[athlete.id] ?? athlete.statut;
-    if (current === "archive" || current === "en_attente" || current === "arret") return;
-    const next: StatutAthlete = current === "actif" ? "pause" : "actif";
-    setLocalStatuts((prev) => ({ ...prev, [athlete.id]: next }));
-    setTogglingId(athlete.id);
-    try {
-      await fetch(`/api/athletes/${athlete.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ statut: next }),
-      });
-    } catch {
-      setLocalStatuts((prev) => ({ ...prev, [athlete.id]: current }));
-    } finally {
-      setTogglingId(null);
-    }
-  };
-
-  // Set statut explicitly (from "..." menu)
-  const handleSetStatut = async (e: React.MouseEvent, athlete: Athlete, next: StatutAthlete) => {
-    e.stopPropagation();
-    const current = localStatuts[athlete.id] ?? athlete.statut;
-    setLocalStatuts((prev) => ({ ...prev, [athlete.id]: next }));
-    setOpenMenuId(null);
-    try {
-      await fetch(`/api/athletes/${athlete.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ statut: next }),
-      });
-    } catch {
-      setLocalStatuts((prev) => ({ ...prev, [athlete.id]: current }));
-    }
-  };
-
-  // Suppression
   const handleDelete = async () => {
     if (!deleteTarget) return;
     setDeleting(true);
@@ -150,440 +148,246 @@ export default function AthletesClient({ athletes, coaches }: Props) {
       await fetch(`/api/athletes/${deleteTarget.id}`, { method: "DELETE" });
       setDeleteTarget(null);
       router.refresh();
-    } finally {
-      setDeleting(false);
-    }
+    } finally { setDeleting(false); }
   };
 
-  const toggleMenu = (e: React.MouseEvent, id: string) => {
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation(); // prevent document click listener from closing immediately
-    setOpenMenuId((prev) => (prev === id ? null : id));
-  };
+  const getCoach = (id: string) => coaches.find((c) => c.id === id);
 
-  const handleChangeService = async (e: React.MouseEvent, athlete: Athlete, newService: Service) => {
-    e.stopPropagation();
-    const newPrix = SERVICE_TARIFS[newService] ?? 0;
-    setLocalServices((prev) => ({ ...prev, [athlete.id]: newService }));
-    setOpenServiceMenuId(null);
-    try {
-      await fetch(`/api/athletes/${athlete.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ service: newService, prixMensuel: newPrix }),
-      });
-    } catch {
-      setLocalServices((prev) => ({ ...prev, [athlete.id]: athlete.service }));
-    }
-  };
+  const activeAthletes = athletes.filter((a) => a.statut === "actif");
+  const tabAthletes = activeAthletes.filter((a) =>
+    tab === "historique" ? a.regime === "HISTORIQUE" : a.regime === "STANDARD"
+  );
+
+  const filtered = tabAthletes
+    .filter((a) => {
+      const q = search.toLowerCase();
+      return (
+        (!q || `${a.prenom} ${a.nom}`.toLowerCase().includes(q)) &&
+        (!filterCoach || a.coachId === filterCoach) &&
+        (!filterCanal || a.canal === filterCanal) &&
+        (!filterStatutPaiement || a.statutPaiement === filterStatutPaiement)
+      );
+    })
+    .sort((a, b) => `${a.nom} ${a.prenom}`.localeCompare(`${b.nom} ${b.prenom}`, "fr"));
+
+  const histCount = activeAthletes.filter((a) => a.regime === "HISTORIQUE").length;
+  const nouvCount = activeAthletes.filter((a) => a.regime === "STANDARD").length;
+
+  const inputCls = "text-sm border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white";
 
   return (
     <div className="p-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#0A0A0A]">Athlètes</h1>
-          <p className="text-gray-500 text-sm mt-1">{athletes.length} athlètes enregistrés</p>
+          <h1 className="text-3xl font-bold" style={{ color: "#0F172A" }}>Athlètes</h1>
+          <p className="text-sm mt-1" style={{ color: "#64748B" }}>{activeAthletes.length} actifs</p>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setShowInviteModal(true)}
-            className="flex items-center gap-2 border border-[#E6007E] text-[#E6007E] hover:bg-[#E6007E]/5 px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
-          >
-            <Mail size={16} />
-            Inviter un athlète
+          <button onClick={() => setShowInviteModal(true)}
+            className="flex items-center gap-2 border border-[#E6007E] text-[#E6007E] hover:bg-[#E6007E]/5 px-4 py-2.5 rounded-xl font-medium text-sm transition-colors">
+            <Mail size={16} /> Inviter
           </button>
-          <button
-            onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
-          >
-            <Plus size={16} />
-            Nouvel athlète
+          <button onClick={() => setShowModal(true)}
+            className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors">
+            <Plus size={16} /> Nouvel athlète
           </button>
         </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex gap-1 mb-4 bg-white border border-slate-200 rounded-2xl p-1 w-fit">
+        {([
+          { key: "historique", label: "Historiques", count: histCount },
+          { key: "nouveau", label: "Nouvelles formules", count: nouvCount },
+        ] as const).map(({ key, label, count }) => (
+          <button key={key} onClick={() => setTab(key)}
+            className="px-5 py-2 rounded-xl text-sm font-semibold transition-all"
+            style={tab === key
+              ? { backgroundColor: "#E6007E", color: "#fff" }
+              : { color: "#64748B" }}>
+            {label}
+            <span className="ml-2 px-1.5 py-0.5 rounded-full text-xs"
+              style={tab === key ? { backgroundColor: "rgba(255,255,255,0.25)" } : { backgroundColor: "#F1F5F9" }}>
+              {count}
+            </span>
+          </button>
+        ))}
       </div>
 
       {/* Filtres */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-4 flex flex-wrap gap-3 items-center">
+      <div className="bg-white rounded-2xl p-4 border border-slate-200 mb-4 flex flex-wrap gap-3 items-center"
+        style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
         <div className="flex-1 min-w-[200px] relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
-          <input
-            type="text"
-            placeholder="Rechercher un athlète..."
-            value={search}
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+          <input type="text" placeholder="Rechercher..." value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
-          />
+            className={`w-full pl-9 pr-4 py-2 ${inputCls}`} />
         </div>
-        <div className="flex items-center gap-2 flex-wrap">
-          <Filter size={14} className="text-gray-500" />
-          <select value={filterDiscipline} onChange={(e) => setFilterDiscipline(e.target.value as Discipline | "")}
-            className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
-            <option value="">Toutes les disciplines</option>
-            <option value="triathlon">Triathlon</option>
-            <option value="cyclisme">Cyclisme</option>
-            <option value="course_a_pied">Course à pied</option>
+        <select value={filterCoach} onChange={(e) => setFilterCoach(e.target.value)} className={inputCls}>
+          <option value="">Tous les entraîneurs</option>
+          {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom}</option>)}
+        </select>
+        {tab === "nouveau" && (
+          <select value={filterCanal} onChange={(e) => setFilterCanal(e.target.value as Canal | "")} className={inputCls}>
+            <option value="">Tous les canaux</option>
+            <option value="ORGANIQUE">Organique</option>
+            <option value="GROWTH_OPERATOR">Growth operator</option>
           </select>
-          <select value={filterCoach} onChange={(e) => setFilterCoach(e.target.value)}
-            className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
-            <option value="">Tous les coachs</option>
-            {coaches.map((c) => (
-              <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>
-            ))}
-          </select>
-          <select value={filterStatut} onChange={(e) => setFilterStatut(e.target.value as StatutAthlete | "")}
-            className="text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
-            <option value="">Tous les statuts</option>
-            <option value="actif">Actif</option>
-            <option value="pause">En pause</option>
-            <option value="arret">Arrêt</option>
-            <option value="archive">Archivé</option>
-            <option value="en_attente">En attente</option>
-          </select>
-        </div>
+        )}
+        <select value={filterStatutPaiement} onChange={(e) => setFilterStatutPaiement(e.target.value as StatutPaiement | "")} className={inputCls}>
+          <option value="">Tous les paiements</option>
+          <option value="OK">OK</option>
+          <option value="EN_ATTENTE">En attente</option>
+          <option value="EN_RETARD">En retard</option>
+        </select>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden"
+        style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100 bg-gray-50">
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Athlète</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Email</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Coach</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Discipline</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Statut</th>
-                <th className="text-left px-4 py-3 font-semibold text-gray-600">Formule</th>
-                <th className="w-10 px-2 py-3" />
+              <tr className="border-b border-slate-100 bg-slate-50 text-xs uppercase tracking-wide" style={{ color: "#475569" }}>
+                <th className="text-left px-4 py-3 font-medium">Nom</th>
+                <th className="text-left px-4 py-3 font-medium">Coach</th>
+                <th className="text-left px-4 py-3 font-medium">Discipline</th>
+                <th className="text-right px-4 py-3 font-medium">Prix/mois</th>
+                {tab === "nouveau" && <th className="text-left px-4 py-3 font-medium">Canal</th>}
+                {tab === "nouveau" && <th className="text-left px-4 py-3 font-medium">Engagement</th>}
+                {tab === "nouveau" && <th className="text-left px-4 py-3 font-medium">Début</th>}
+                {tab === "nouveau" && <th className="text-left px-4 py-3 font-medium">Fin</th>}
+                <th className="text-left px-4 py-3 font-medium">Paiement</th>
               </tr>
             </thead>
             <tbody>
               {filtered.length === 0 ? (
-                <tr>
-                  <td colSpan={7} className="text-center py-12 text-gray-500">Aucun athlète trouvé</td>
-                </tr>
-              ) : (
-                filtered.map((athlete) => {
-                  const currentStatut = localStatuts[athlete.id] ?? athlete.statut;
-                  const isToggling = togglingId === athlete.id;
-                  const coachColor = getCoach(athlete.coachId)?.couleur || "#999";
-
-                  const currentService = localServices[athlete.id] ?? athlete.service;
-
-                  return (
-                    <tr
-                      key={athlete.id}
-                      className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer transition-colors"
-                      onClick={() => router.push(`/athletes/${athlete.id}`)}
-                    >
-                      {/* Nom */}
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-3">
-                          <div
-                            className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                            style={{ backgroundColor: coachColor }}
-                          >
-                            {athlete.prenom.charAt(0)}{athlete.nom.charAt(0)}
-                          </div>
-                          <div>
-                            <p className="font-semibold text-[#0A0A0A]">{athlete.prenom} {athlete.nom}</p>
-                            <p className="text-xs text-gray-500">{athlete.telephone}</p>
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Email */}
-                      <td className="px-4 py-3 text-gray-600 text-xs">{athlete.email || "—"}</td>
-
-                      {/* Coach */}
-                      <td className="px-4 py-3">
-                        <span className="text-sm font-medium">{getCoachName(athlete.coachId)}</span>
-                      </td>
-
-                      {/* Discipline */}
-                      <td className="px-4 py-3">
-                        <Badge value={athlete.discipline} type="discipline" />
-                      </td>
-
-                      {/* Statut — badge cliquable */}
-                      <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
-                        {currentStatut === "en_attente" ? (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
-                            <Clock size={10} />
-                            En attente
+                <tr><td colSpan={9} className="text-center py-12 text-sm" style={{ color: "#64748B" }}>Aucun athlète</td></tr>
+              ) : filtered.map((a) => {
+                const coach = getCoach(a.coachId);
+                const daysLeft = daysUntil(a.dateFinEngagement);
+                return (
+                  <tr key={a.id}
+                    onClick={() => router.push(`/athletes/${a.id}`)}
+                    className="border-b border-slate-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                    <td className="px-4 py-3 font-semibold" style={{ color: "#0F172A" }}>
+                      {a.prenom} {a.nom}
+                    </td>
+                    <td className="px-4 py-3" style={{ color: "#64748B" }}>
+                      {coach ? (
+                        <span className="inline-flex items-center gap-1.5">
+                          <span className="w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-white text-[9px] font-bold"
+                            style={{ backgroundColor: coach.couleur }}>
+                            {coach.prenom.charAt(0)}
                           </span>
-                        ) : (
-                          <button
-                            onClick={(e) => handleToggleStatut(e, athlete)}
-                            disabled={isToggling || currentStatut === "archive" || currentStatut === "arret"}
-                            title={
-                              currentStatut === "archive" ? "Archivé"
-                                : currentStatut === "arret" ? "Arrêt — utiliser le menu (...) pour changer"
-                                : currentStatut === "actif" ? "Cliquer pour mettre en pause"
-                                : "Cliquer pour réactiver"
-                            }
-                            className={`rounded transition-opacity ${isToggling ? "opacity-40" : "hover:opacity-75"} ${currentStatut !== "archive" && currentStatut !== "arret" ? "cursor-pointer" : "cursor-default"}`}
-                          >
-                            <Badge value={currentStatut} type="statut_athlete" />
-                          </button>
-                        )}
+                          {coach.prenom}
+                        </span>
+                      ) : "—"}
+                    </td>
+                    <td className="px-4 py-3 capitalize" style={{ color: "#64748B" }}>
+                      {a.discipline?.replace("_", " ") ?? "—"}
+                    </td>
+                    <td className="px-4 py-3 text-right font-semibold" style={{ color: "#0F172A" }}>
+                      {a.prixMensuel ? `${a.prixMensuel} €` : "—"}
+                    </td>
+                    {tab === "nouveau" && (
+                      <td className="px-4 py-3" style={{ color: "#64748B" }}>
+                        {a.canal ? CANAL_LABELS[a.canal] : "—"}
                       </td>
-
-                      {/* Formule — dropdown inline */}
-                      <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
-                        <div className="relative">
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.nativeEvent.stopImmediatePropagation();
-                              setOpenServiceMenuId((prev) => prev === athlete.id ? null : athlete.id);
-                            }}
-                            className="rounded hover:opacity-75 transition-opacity cursor-pointer"
-                            title="Changer la formule"
-                          >
-                            <Badge value={currentService} type="service" />
-                          </button>
-                          {openServiceMenuId === athlete.id && (
-                            <div
-                              className="absolute left-0 top-8 z-30 w-52 bg-white rounded-xl shadow-lg border border-gray-100 py-1"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              {SERVICE_ORDER.map((svc) => {
-                                const info = serviceMap[svc as Service];
-                                const defaultPrix = SERVICE_TARIFS[svc] ?? 0;
-                                return (
-                                  <button
-                                    key={svc}
-                                    onClick={(e) => handleChangeService(e, athlete, svc as Service)}
-                                    className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${currentService === svc ? "font-semibold" : "font-normal text-gray-700"}`}
-                                  >
-                                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${info.class}`}>
-                                      {SERVICE_LABELS[svc]}
-                                    </span>
-                                    {defaultPrix > 0 && (
-                                      <span className="text-xs text-gray-500 ml-auto">{defaultPrix} €</span>
-                                    )}
-                                    {currentService === svc && <span className="text-[#E6007E] text-xs">✓</span>}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
-                        </div>
+                    )}
+                    {tab === "nouveau" && (
+                      <td className="px-4 py-3" style={{ color: "#64748B" }}>
+                        {a.engagement ? ENGAGEMENT_LABELS[a.engagement] ?? a.engagement : "—"}
                       </td>
-
-
-                      {/* Menu "..." */}
-                      <td className="px-2 py-3" onClick={(e) => e.stopPropagation()}>
-                        <div className="relative">
-                          <button
-                            onClick={(e) => toggleMenu(e, athlete.id)}
-                            className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-600"
-                          >
-                            <MoreHorizontal size={15} />
-                          </button>
-
-                          {openMenuId === athlete.id && (
-                            <div
-                              className="absolute right-0 top-9 z-30 w-52 bg-white rounded-xl shadow-lg border border-gray-100 py-1"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              {/* Voir la fiche */}
-                              <button
-                                onClick={() => router.push(`/athletes/${athlete.id}`)}
-                                className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                              >
-                                <Eye size={14} className="text-gray-500 flex-shrink-0" />
-                                Voir la fiche
-                              </button>
-
-                              {/* Changer le statut */}
-                              {currentStatut !== "archive" && currentStatut !== "en_attente" && (
-                                <>
-                                  {currentStatut !== "pause" && (
-                                    <button
-                                      onClick={(e) => handleSetStatut(e, athlete, "pause")}
-                                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                                    >
-                                      <PauseCircle size={14} className="text-amber-500 flex-shrink-0" /> Mettre en pause
-                                    </button>
-                                  )}
-                                  {currentStatut !== "arret" && (
-                                    <button
-                                      onClick={(e) => handleSetStatut(e, athlete, "arret")}
-                                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                                    >
-                                      <PauseCircle size={14} className="text-red-500 flex-shrink-0" /> Arrêt
-                                    </button>
-                                  )}
-                                  {currentStatut !== "actif" && (
-                                    <button
-                                      onClick={(e) => handleSetStatut(e, athlete, "actif")}
-                                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                                    >
-                                      <PlayCircle size={14} className="text-emerald-500 flex-shrink-0" /> Réactiver
-                                    </button>
-                                  )}
-                                </>
-                              )}
-
-                              <div className="my-1 border-t border-gray-100" />
-
-                              {/* Supprimer */}
-                              <button
-                                onClick={() => { setDeleteTarget(athlete); setOpenMenuId(null); }}
-                                className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
-                              >
-                                <Trash2 size={14} className="flex-shrink-0" />
-                                Supprimer
-                              </button>
-                            </div>
-                          )}
-                        </div>
+                    )}
+                    {tab === "nouveau" && (
+                      <td className="px-4 py-3 text-xs" style={{ color: "#64748B" }}>
+                        {a.dateDebut ? new Date(a.dateDebut).toLocaleDateString("fr-FR") : "—"}
                       </td>
-                    </tr>
-                  );
-                })
-              )}
+                    )}
+                    {tab === "nouveau" && (
+                      <td className="px-4 py-3 text-xs" style={{ color: "#64748B" }}>
+                        {a.dateFinEngagement
+                          ? <>{new Date(a.dateFinEngagement).toLocaleDateString("fr-FR")}<EngagementFinBadge dateFinEngagement={a.dateFinEngagement} /></>
+                          : "—"}
+                      </td>
+                    )}
+                    <td className="px-4 py-3">
+                      <StatutBadge
+                        statut={statutOverrides[a.id]?.statut ?? a.statutPaiement ?? "EN_ATTENTE"}
+                        moisPaiement={statutOverrides[a.id]?.mois ?? a.moisPaiement}
+                        athleteId={a.id}
+                        onUpdate={handleStatutUpdate}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
       </div>
 
-      {/* ── Modale invitation ── */}
-      {showInviteModal && (
-        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-            {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 bg-[#E6007E]/10 rounded-xl flex items-center justify-center">
-                  <Mail size={16} className="text-[#E6007E]" />
-                </div>
-                <h2 className="font-bold text-[#0A0A0A]">Inviter un athlète</h2>
-              </div>
-              <button onClick={closeInviteModal} className="text-gray-500 hover:text-gray-600 transition-colors">
-                <X size={20} />
-              </button>
-            </div>
+      {/* Modal nouvel athlète */}
+      {showModal && (
+        <NewAthleteModal coaches={coaches} onClose={() => { setShowModal(false); router.refresh(); }} onCreated={() => { setShowModal(false); router.refresh(); }} />
+      )}
 
+      {/* Modal invitation */}
+      {showInviteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.4)" }}>
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold" style={{ color: "#0F172A" }}>Inviter un athlète</h2>
+              <button onClick={closeInviteModal}><X size={20} className="text-gray-400" /></button>
+            </div>
             {inviteResult ? (
-              /* Success state */
-              <div className="p-6 text-center">
-                <div className="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail size={24} className="text-emerald-600" />
+              <div className="space-y-4">
+                <p className="text-sm text-green-700 bg-green-50 rounded-xl p-3">Invitation envoyée à {inviteResult.prenom} !</p>
+                <div className="bg-slate-50 rounded-xl p-3">
+                  <p className="text-xs text-gray-500 mb-1">Lien du formulaire</p>
+                  <p className="text-sm font-mono break-all text-[#E6007E]">{inviteResult.formUrl}</p>
                 </div>
-                <h3 className="font-bold text-[#0A0A0A] mb-1">Invitation envoyée !</h3>
-                <p className="text-gray-500 text-sm mb-4">
-                  {inviteResult.prenom} a reçu un email avec son lien d'inscription.
-                </p>
-                <div className="bg-gray-50 rounded-xl p-3 mb-4 text-left">
-                  <p className="text-xs text-gray-500 mb-1">Lien de secours :</p>
-                  <p className="text-xs text-[#E6007E] break-all font-mono">{inviteResult.formUrl}</p>
-                </div>
-                <button
-                  onClick={closeInviteModal}
-                  className="w-full py-2.5 bg-[#E6007E] text-white rounded-xl text-sm font-semibold hover:bg-[#C00069] transition-colors"
-                >
-                  Fermer
-                </button>
+                <button onClick={closeInviteModal} className="w-full bg-[#E6007E] text-white rounded-xl py-2.5 font-semibold text-sm">Fermer</button>
               </div>
             ) : (
-              /* Form */
-              <form onSubmit={handleInvite} className="p-6 space-y-4">
-                {inviteError && (
-                  <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-sm text-red-600">{inviteError}</div>
-                )}
+              <form onSubmit={handleInvite} className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-600 mb-1">Prénom *</label>
-                    <input required type="text" value={inviteForm.prenom}
-                      onChange={(e) => setInviteForm((f) => ({ ...f, prenom: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-600 mb-1">Nom *</label>
-                    <input required type="text" value={inviteForm.nom}
-                      onChange={(e) => setInviteForm((f) => ({ ...f, nom: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
-                    />
-                  </div>
+                  <input placeholder="Prénom *" value={inviteForm.prenom} onChange={(e) => setInviteForm(f => ({ ...f, prenom: e.target.value }))}
+                    className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+                  <input placeholder="Nom *" value={inviteForm.nom} onChange={(e) => setInviteForm(f => ({ ...f, nom: e.target.value }))}
+                    className="border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
                 </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-600 mb-1">Email *</label>
-                  <input required type="email" value={inviteForm.email}
-                    onChange={(e) => setInviteForm((f) => ({ ...f, email: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-600 mb-1">Coach assigné *</label>
-                  <select required value={inviteForm.coachId}
-                    onChange={(e) => setInviteForm((f) => ({ ...f, coachId: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white"
-                  >
-                    <option value="">Sélectionner un coach</option>
-                    {coaches.map((c) => (
-                      <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>
-                    ))}
-                  </select>
-                </div>
-                <p className="text-xs text-gray-500">
-                  Un email sera envoyé depuis contact@3nergy.be avec le lien vers le formulaire d'inscription (valable 7 jours).
-                </p>
-                <div className="flex gap-3 pt-1">
-                  <button type="button" onClick={closeInviteModal}
-                    className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
-                    Annuler
-                  </button>
-                  <button type="submit" disabled={inviting}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#E6007E] text-white rounded-xl text-sm font-semibold hover:bg-[#C00069] transition-colors disabled:opacity-60">
-                    {inviting ? <><Loader2 size={14} className="animate-spin" /> Envoi...</> : <><Mail size={14} /> Envoyer l'invitation</>}
-                  </button>
-                </div>
+                <input placeholder="Email *" type="email" value={inviteForm.email} onChange={(e) => setInviteForm(f => ({ ...f, email: e.target.value }))}
+                  className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+                <select value={inviteForm.coachId} onChange={(e) => setInviteForm(f => ({ ...f, coachId: e.target.value }))}
+                  className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white">
+                  {coaches.map((c) => <option key={c.id} value={c.id}>{c.prenom} {c.nom}</option>)}
+                </select>
+                {inviteError && <p className="text-sm text-red-600">{inviteError}</p>}
+                <button type="submit" disabled={inviting}
+                  className="w-full bg-[#E6007E] hover:bg-[#C00069] text-white rounded-xl py-2.5 font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-50">
+                  {inviting && <Loader2 size={16} className="animate-spin" />}
+                  Envoyer l'invitation
+                </button>
               </form>
             )}
           </div>
         </div>
       )}
 
-      {/* Modale nouvel athlète */}
-      {showModal && (
-        <NewAthleteModal
-          coaches={coaches}
-          onClose={() => setShowModal(false)}
-          onCreated={() => { setShowModal(false); router.refresh(); }}
-        />
-      )}
-
-      {/* Modale confirmation suppression */}
+      {/* Confirm delete */}
       {deleteTarget && (
-        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl">
-            <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center mb-4">
-              <Trash2 className="w-6 h-6 text-red-600" />
-            </div>
-            <h3 className="font-bold text-lg mb-1 text-[#0A0A0A]">
-              Supprimer {deleteTarget.prenom} {deleteTarget.nom} ?
-            </h3>
-            <p className="text-gray-500 text-sm mb-5">
-              Êtes-vous sûr de vouloir supprimer cet athlète ? Cette action est irréversible.
-            </p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ backgroundColor: "rgba(0,0,0,0.4)" }}>
+          <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
+            <h2 className="text-lg font-bold mb-2" style={{ color: "#0F172A" }}>Supprimer {deleteTarget.prenom} {deleteTarget.nom} ?</h2>
+            <p className="text-sm mb-4" style={{ color: "#64748B" }}>Cette action est irréversible.</p>
             <div className="flex gap-3">
-              <button
-                onClick={() => setDeleteTarget(null)}
-                className="flex-1 px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
-              >
-                Annuler
-              </button>
-              <button
-                onClick={handleDelete}
-                disabled={deleting}
-                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition-colors disabled:opacity-50"
-              >
-                {deleting ? "Suppression..." : "Supprimer"}
+              <button onClick={() => setDeleteTarget(null)} className="flex-1 border border-slate-200 rounded-xl py-2.5 text-sm font-medium">Annuler</button>
+              <button onClick={handleDelete} disabled={deleting}
+                className="flex-1 bg-red-600 text-white rounded-xl py-2.5 text-sm font-semibold flex items-center justify-center gap-2">
+                {deleting && <Loader2 size={14} className="animate-spin" />} Supprimer
               </button>
             </div>
           </div>

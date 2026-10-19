@@ -24,6 +24,8 @@ enum AthleteStatut {
 }
 
 enum Service {
+  indiv_300
+  indiv_200
   basic
   performance
   pro
@@ -87,6 +89,38 @@ enum InvitationStatut {
   expired
 }
 
+enum Canal {
+  ORGANIQUE
+  GROWTH_OPERATOR
+}
+
+enum Regime {
+  HISTORIQUE
+  STANDARD
+}
+
+enum Formule {
+  BASIC
+  PERFORMANCE
+  PRO
+  F200
+  F300
+}
+
+enum Engagement {
+  SANS_ENGAGEMENT
+  M3
+  M6
+  M9
+  M12
+}
+
+enum StatutPaiement {
+  OK
+  EN_ATTENTE
+  EN_RETARD
+}
+
 // ── Models ───────────────────────────────────────────────────────────────────
 
 model Coach {
@@ -122,11 +156,22 @@ model Athlete {
   createdAt      DateTime      @default(now())
   service        Service       @default(performance)
   prixMensuel    Int           @default(0)
-  nolioId        Int?          @unique
+  nolioId            Int?            @unique
+  canal              Canal?
+  regime             Regime          @default(HISTORIQUE)
+  formule            Formule?
+  engagement         Engagement?
+  dateDebut          DateTime?
+  dateFinEngagement  DateTime?
+  statutPaiement        StatutPaiement  @default(EN_ATTENTE)
+  moisPaiement          String?
+  paiementUnique        Int?
+  /// { "2026-09": "OK", "2026-10": "EN_RETARD" }
+  paiementsHistorique   Json?
   /// Array of Objectif — { id, titre, date, distance, source? }
-  objectifs      Json?
+  objectifs          Json?
   /// Performances record — { natation, cyclisme, cap, triathlon, custom? }
-  performances   Json?
+  performances       Json?
 
   events      CalendarEvent[]
   taches      Tache[]

@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Athlete, Coach } from "@/lib/types";
-import { NolioEntry } from "./page";
+import { NolioEntry } from "../page";
 
 interface Props {
   nolioAthletes: NolioEntry[];
@@ -169,7 +169,7 @@ export default function NolioTable({
                           >
                             {crm.prenom.charAt(0)}{crm.nom.charAt(0)}
                           </div>
-                          <span className="text-sm font-semibold text-[#0A0A0A] group-hover:text-[#E6007E] transition-colors">
+                          <span className="text-sm font-semibold text-[#0F172A] group-hover:text-[#E6007E] transition-colors">
                             {crm.prenom} {crm.nom}
                           </span>
                         </Link>
@@ -240,7 +240,7 @@ export default function NolioTable({
             {/* Modal header */}
             <div className="flex items-start justify-between p-5 border-b border-gray-100 flex-shrink-0">
               <div>
-                <h2 className="font-bold text-[#0A0A0A] text-base">Lier à un athlète CRM</h2>
+                <h2 className="font-bold text-[#0F172A] text-base">Lier à un athlète CRM</h2>
                 <div className="flex items-center gap-2 mt-1.5">
                   <code className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-mono text-xs font-bold">
                     {modal.nolio_id}
@@ -297,7 +297,7 @@ export default function NolioTable({
                       {/* Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <p className="text-sm font-semibold text-[#0A0A0A] truncate">
+                          <p className="text-sm font-semibold text-[#0F172A] truncate">
                             {a.prenom} {a.nom}
                           </p>
                           {isAlreadyLinked && (

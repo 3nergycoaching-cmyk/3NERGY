@@ -77,7 +77,7 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#0A0A0A]">Projets</h1>
+          <h1 className="text-3xl font-bold text-[#0F172A]">Projets</h1>
           <p className="text-gray-500 text-sm mt-1">{projets.filter(p => p.statut === "en_cours").length} projets en cours</p>
         </div>
         <button
@@ -92,7 +92,7 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
       {showForm && (
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold text-[#0A0A0A]">Nouveau projet</h2>
+            <h2 className="font-bold text-[#0F172A]">Nouveau projet</h2>
             <button onClick={() => setShowForm(false)} className="text-gray-500 hover:text-gray-600"><X size={18} /></button>
           </div>
           <form onSubmit={handleCreate} className="space-y-4">
@@ -147,7 +147,7 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
             <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center mb-4">
               <Trash2 className="w-6 h-6 text-red-600" />
             </div>
-            <h3 className="font-bold text-lg mb-1 text-[#0A0A0A]">
+            <h3 className="font-bold text-lg mb-1 text-[#0F172A]">
               Supprimer &quot;{deleteTarget.nom}&quot; ?
             </h3>
             <p className="text-gray-500 text-sm mb-5">
@@ -183,7 +183,7 @@ export default function ProjetsClient({ projets: initialProjets, coaches, taches
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1">
-                    <h3 className="text-lg font-bold text-[#0A0A0A]">{projet.nom}</h3>
+                    <h3 className="text-lg font-bold text-[#0F172A]">{projet.nom}</h3>
                     <Badge value={projet.statut} type="statut_projet" />
                   </div>
                   <p className="text-sm text-gray-500">{projet.description}</p>

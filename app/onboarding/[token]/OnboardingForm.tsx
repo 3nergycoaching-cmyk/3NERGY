@@ -63,7 +63,7 @@ const emptyData = (): OnboardingData => ({
 
 function FieldLabel({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
-    <label className="block text-sm font-semibold text-[#0A0A0A] mb-1.5">
+    <label className="block text-sm font-semibold text-[#0F172A] mb-1.5">
       {children}
       {required && <span className="text-[#E6007E] ml-0.5">*</span>}
     </label>
@@ -143,7 +143,7 @@ function RadioCard({
         {checked && <div className="w-2 h-2 rounded-full bg-[#E6007E]" />}
       </div>
       <input type="radio" checked={checked} onChange={onChange} className="sr-only" />
-      <span className="text-sm text-[#0A0A0A] leading-relaxed">{children}</span>
+      <span className="text-sm text-[#0F172A] leading-relaxed">{children}</span>
     </label>
   );
 }
@@ -180,8 +180,8 @@ function CheckCard({
       </div>
       <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="sr-only" />
       <div className="flex-1">
-        <span className="text-sm text-[#0A0A0A] leading-relaxed">{children}</span>
-        {note && <div className="mt-2 p-3 bg-[#FAFAFA] rounded-lg border border-[#E4E4E7] text-xs text-[#E6007E] font-medium">{note}</div>}
+        <span className="text-sm text-[#0F172A] leading-relaxed">{children}</span>
+        {note && <div className="mt-2 p-3 bg-[#F8FAFC] rounded-lg border border-[#E2E8F0] text-xs text-[#E6007E] font-medium">{note}</div>}
       </div>
     </label>
   );
@@ -189,7 +189,7 @@ function CheckCard({
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-lg font-bold text-[#0A0A0A] mb-5 flex items-center gap-2">
+    <h2 className="text-lg font-bold text-[#0F172A] mb-5 flex items-center gap-2">
       <span className="w-1 h-5 bg-[#E6007E] rounded-full inline-block" />
       {children}
     </h2>
@@ -341,7 +341,7 @@ export default function OnboardingForm({ token }: { token: string }) {
       <div className="flex flex-col items-center justify-center min-h-screen p-6">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 max-w-md w-full text-center">
           <AlertCircle className="w-12 h-12 text-[#E6007E] mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-[#0A0A0A] mb-2">Lien invalide</h2>
+          <h2 className="text-xl font-bold text-[#0F172A] mb-2">Lien invalide</h2>
           <p className="text-gray-500 text-sm">{error}</p>
         </div>
       </div>
@@ -355,7 +355,7 @@ export default function OnboardingForm({ token }: { token: string }) {
           <div className="w-16 h-16 bg-[#E6007E]/10 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle2 className="w-9 h-9 text-[#E6007E]" />
           </div>
-          <h1 className="text-2xl font-bold text-[#0A0A0A] mb-3">Dossier envoyé !</h1>
+          <h1 className="text-2xl font-bold text-[#0F172A] mb-3">Dossier envoyé !</h1>
           <p className="text-gray-500 text-sm leading-relaxed mb-2">
             Merci {data.prenom}, ton dossier d'inscription a bien été transmis à l'équipe 3NERGY.
           </p>
@@ -379,7 +379,7 @@ export default function OnboardingForm({ token }: { token: string }) {
         <div className="inline-flex items-center justify-center w-14 h-14 bg-[#E6007E] rounded-2xl mb-4">
           <span className="text-white font-bold text-xl tracking-tight">3N</span>
         </div>
-        <h1 className="text-2xl font-bold text-[#0A0A0A]">Dossier d'inscription</h1>
+        <h1 className="text-2xl font-bold text-[#0F172A]">Dossier d'inscription</h1>
         <p className="text-gray-500 text-sm mt-1">Coaching sportif en ligne · 3NERGY ASBL</p>
       </div>
 
@@ -731,8 +731,8 @@ export default function OnboardingForm({ token }: { token: string }) {
             <SectionTitle>Validation finale</SectionTitle>
 
             {/* Summary */}
-            <div className="bg-[#FAFAFA] rounded-xl border border-[#E4E4E7] p-5 space-y-2 text-sm">
-              <h3 className="font-semibold text-[#0A0A0A] mb-3">Récapitulatif</h3>
+            <div className="bg-[#F8FAFC] rounded-xl border border-[#E2E8F0] p-5 space-y-2 text-sm">
+              <h3 className="font-semibold text-[#0F172A] mb-3">Récapitulatif</h3>
               <div className="flex justify-between"><span className="text-gray-500">Athlète</span><span className="font-semibold">{data.prenom} {data.nom}</span></div>
               <div className="flex justify-between"><span className="text-gray-500">Discipline</span><span className="font-semibold capitalize">{data.discipline.replace("_", " ").replace("course a pied", "Course à pied")}</span></div>
               <div className="flex justify-between"><span className="text-gray-500">Formule</span>

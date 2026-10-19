@@ -140,11 +140,11 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
             <input
               value={projetForm.nom}
               onChange={(e) => setProjetForm({ ...projetForm, nom: e.target.value })}
-              className="text-2xl font-bold text-[#0A0A0A] border-b-2 border-[#E6007E] bg-transparent focus:outline-none w-full"
+              className="text-2xl font-bold text-[#0F172A] border-b-2 border-[#E6007E] bg-transparent focus:outline-none w-full"
             />
           ) : (
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-[#0A0A0A]">{projet.nom}</h1>
+              <h1 className="text-2xl font-bold text-[#0F172A]">{projet.nom}</h1>
               <Badge value={projet.statut} type="statut_projet" />
             </div>
           )}
@@ -240,7 +240,7 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
       {/* Tasks */}
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold text-[#0A0A0A]">Tâches</h2>
+          <h2 className="font-bold text-[#0F172A]">Tâches</h2>
           <button
             onClick={() => setShowNewTache(true)}
             className="flex items-center gap-2 px-3 py-2 text-sm bg-[#E6007E]/10 text-[#E6007E] rounded-xl hover:bg-[#E6007E]/20 transition-colors font-medium"
@@ -329,7 +329,7 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
                   >
                     {isDone && <Check size={11} />}
                   </button>
-                  <p className={`text-sm flex-1 ${isDone ? "line-through text-gray-500" : "text-[#0A0A0A]"}`}>{todo.titre}</p>
+                  <p className={`text-sm flex-1 ${isDone ? "line-through text-gray-500" : "text-[#0F172A]"}`}>{todo.titre}</p>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-violet-100 text-violet-700 flex-shrink-0">
                     <ListTodo size={9} /> To-Do
                   </span>
@@ -377,7 +377,7 @@ export default function ProjetDetailClient({ projet: initialProjet, taches: init
                   </div>
                 ) : (
                   <div className="flex-1 flex items-center gap-3">
-                    <p className={`text-sm flex-1 ${tache.statut === "termine" ? "line-through text-gray-500" : "text-[#0A0A0A]"}`}>{tache.titre}</p>
+                    <p className={`text-sm flex-1 ${tache.statut === "termine" ? "line-through text-gray-500" : "text-[#0F172A]"}`}>{tache.titre}</p>
                     <Badge value={tache.priorite} type="priorite" />
                     <Badge value={tache.statut} type="statut_tache" />
                     <span className="text-xs text-gray-500">{getCoachName(tache.responsable).split(" ")[0]}</span>

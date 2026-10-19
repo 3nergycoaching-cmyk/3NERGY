@@ -49,6 +49,8 @@ export async function POST(req: NextRequest) {
       prixMensuel: SERVICE_TARIFS["basic"],
       notes: "",
       createdAt: new Date().toISOString(),
+      regime: "HISTORIQUE",
+      statutPaiement: "EN_ATTENTE",
     };
 
     await createAthlete(newAthlete);

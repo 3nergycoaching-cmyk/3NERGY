@@ -71,7 +71,7 @@ export default function NolioConnectionActions({ isConnected, hasError }: Props)
           </span>
         )}
         <a
-          href="/api/auth/nolio?returnTo=/equipe/nolio"
+          href="/api/auth/nolio?returnTo=/equipe"
           className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors"
         >
           <Wifi size={15} />

@@ -316,7 +316,7 @@ export default function MembresClient({ athletes, coaches, youngAthletes, initia
                               className="group flex items-center justify-end gap-1.5 ml-auto hover:bg-gray-100 px-2 py-1 rounded-lg transition-colors"
                               title="Modifier le prix"
                             >
-                              <span className={`text-sm font-semibold ${prix > 0 ? "text-[#0A0A0A]" : "text-gray-500"}`}>
+                              <span className={`text-sm font-semibold ${prix > 0 ? "text-[#0F172A]" : "text-gray-500"}`}>
                                 {prix > 0 ? `${prix} €` : "—"}
                               </span>
                               <Edit2 size={11} className="text-gray-500 group-hover:text-gray-500 transition-colors flex-shrink-0" />

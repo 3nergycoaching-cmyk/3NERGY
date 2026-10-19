@@ -63,11 +63,11 @@ export default async function NolioAthletesPage() {
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
           <Link href="/equipe" className="hover:text-[#E6007E] transition-colors">Équipe</Link>
           <span>/</span>
-          <span className="text-[#0A0A0A] font-medium">Athlètes Nolio</span>
+          <span className="text-[#0F172A] font-medium">Athlètes Nolio</span>
         </div>
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-[#0A0A0A] flex items-center gap-3">
+            <h1 className="text-3xl font-bold text-[#0F172A] flex items-center gap-3">
               <Wifi className="w-7 h-7 text-[#E6007E]" />
               Athlètes Nolio
             </h1>

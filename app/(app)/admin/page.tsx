@@ -33,7 +33,7 @@ export default async function AdminPage() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-[#0A0A0A]">Administration</h1>
+        <h1 className="text-3xl font-bold text-[#0F172A]">Administration</h1>
         <p className="text-gray-500 text-sm mt-1">Vue d&apos;ensemble des contrats et de l&apos;équipe</p>
       </div>
 
@@ -80,7 +80,7 @@ export default async function AdminPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {/* Répartition services */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h2 className="font-bold text-[#0A0A0A] mb-4">Répartition des services (actifs)</h2>
+          <h2 className="font-bold text-[#0F172A] mb-4">Répartition des services (actifs)</h2>
           <div className="space-y-3">
             <ServiceBar label="Pro" count={totalPro} total={activeAthletes.length} color="bg-[#E6007E]" />
             <ServiceBar label="Performance" count={totalPerformance} total={activeAthletes.length} color="bg-indigo-500" />
@@ -92,7 +92,7 @@ export default async function AdminPage() {
 
         {/* Répartition par coach */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h2 className="font-bold text-[#0A0A0A] mb-4">Charge par coach</h2>
+          <h2 className="font-bold text-[#0F172A] mb-4">Charge par coach</h2>
           <div className="space-y-3">
             {coachStats.map(({ coach, total, actifs }) => (
               <div key={coach.id} className="flex items-center gap-3">
@@ -128,7 +128,7 @@ export default async function AdminPage() {
       {/* Tous les athlètes */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-6 border-b border-gray-100">
-          <h2 className="font-bold text-[#0A0A0A]">Tous les athlètes actifs</h2>
+          <h2 className="font-bold text-[#0F172A]">Tous les athlètes actifs</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">

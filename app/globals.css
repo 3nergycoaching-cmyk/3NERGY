@@ -6,14 +6,14 @@
   --font-bricolage: "Bricolage Grotesque", sans-serif;
 
   /* Palette 3NERGY CRM */
-  --background:     #FFFFFF;
-  --surface:        #FAFAFA;
-  --foreground:     #0A0A0A;
-  --muted:          #52525B;
-  --border:         #E4E4E7;
+  --background:     #F1F5F9;
+  --surface:        #FFFFFF;
+  --foreground:     #0F172A;
+  --muted:          #64748B;
+  --border:         #E2E8F0;
   --accent:         #E6007E;
   --accent-hover:   #C00069;
-  --accent-subtle:  #FDF2F8;
+  --accent-subtle:  #FFF0F7;
 }
 
 html,
@@ -39,14 +39,14 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F4F4F5;
+  background: #F1F5F9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E4E4E7;
+  background: #CBD5E1;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #E6007E;
+  background: #94A3B8;
 }
 
 @layer utilities {

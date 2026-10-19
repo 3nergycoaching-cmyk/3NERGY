@@ -21,7 +21,7 @@ export default function SignUpPage() {
             elements: {
               rootBox: "w-full",
               card: "shadow-xl border border-[#e8e0dc] rounded-2xl bg-white",
-              headerTitle: "text-[#0A0A0A] font-bold",
+              headerTitle: "text-[#0F172A] font-bold",
               headerSubtitle: "text-gray-500",
               formButtonPrimary:
                 "bg-[#E6007E] hover:bg-[#C00069] transition-colors text-white rounded-lg",

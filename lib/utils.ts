@@ -37,8 +37,12 @@ export function isExpired(dateStr: string): boolean {
 }
 
 export function getLast14Days(): string[] {
+  return getLastNDays(14);
+}
+
+export function getLastNDays(n: number): string[] {
   const days: string[] = [];
-  for (let i = 13; i >= 0; i--) {
+  for (let i = n - 1; i >= 0; i--) {
     const d = new Date();
     d.setDate(d.getDate() - i);
     days.push(d.toISOString().split("T")[0]);

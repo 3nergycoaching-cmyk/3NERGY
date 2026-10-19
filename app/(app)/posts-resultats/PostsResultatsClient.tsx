@@ -156,7 +156,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
             <div className="w-9 h-9 bg-[#E6007E] rounded-xl flex items-center justify-center">
               <ImageIcon size={18} className="text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-[#0A0A0A]">Posts Résultats</h1>
+            <h1 className="text-3xl font-bold text-[#0F172A]">Posts Résultats</h1>
           </div>
           <p className="text-gray-500 text-sm ml-12">
             Sélectionne des compétitions et génère un visuel Instagram/Facebook 1080×1080
@@ -197,7 +197,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                           {isSel ? <CheckSquare size={18} /> : <Square size={18} className="text-gray-500" />}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-[#0A0A0A] text-sm truncate">{comp.titre}</p>
+                          <p className="font-semibold text-[#0F172A] text-sm truncate">{comp.titre}</p>
                           <p className="text-xs text-gray-500 mt-0.5">
                             {formatDate(comp.dateDebut)}
                             {comp.athleteNom && <> · <span className="text-gray-500">{comp.athleteNom}</span></>}
@@ -258,7 +258,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <div className="px-4 py-3 border-b border-gray-50 flex items-center gap-2">
                 <Pencil size={14} className="text-[#E6007E]" />
-                <p className="text-sm font-semibold text-[#0A0A0A]">Titres des bandeaux</p>
+                <p className="text-sm font-semibold text-[#0F172A]">Titres des bandeaux</p>
                 <p className="text-xs text-gray-500 ml-1">Modifiables avant génération</p>
               </div>
               <div className="divide-y divide-gray-50">
@@ -271,7 +271,7 @@ export default function PostsResultatsClient({ competitions }: Props) {
                         onChange={(e) =>
                           setTitleOverrides((prev) => ({ ...prev, [g.key]: e.target.value }))
                         }
-                        className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-[#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
+                        className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm font-medium text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                         placeholder="Titre du bandeau…"
                       />
                       {g.athletes.length > 0 && (

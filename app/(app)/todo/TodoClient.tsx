@@ -206,7 +206,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
       <div className="px-8 pt-6 pb-0 flex-shrink-0">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-[#0A0A0A]">To-do</h1>
+            <h1 className="text-3xl font-bold text-[#0F172A]">To-do</h1>
             <p className="text-gray-500 text-sm mt-0.5">
               {doneCount}/{filtered.length} tâches terminées
               {filtered.length > 0 && (
@@ -243,7 +243,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
             className="bg-white rounded-2xl border border-[#E6007E]/20 shadow-md p-5 mb-4 space-y-3"
           >
             <div className="flex items-center justify-between mb-1">
-              <h3 className="font-semibold text-[#0A0A0A] text-sm">Nouvelle tâche</h3>
+              <h3 className="font-semibold text-[#0F172A] text-sm">Nouvelle tâche</h3>
               <button type="button" onClick={() => setShowAddForm(false)} className="text-gray-500 hover:text-gray-600">
                 <X size={16} />
               </button>
@@ -518,7 +518,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
                     {/* Title */}
                     <span
                       className={`flex-1 min-w-0 text-sm font-medium truncate ${
-                        isDone ? "line-through text-gray-500" : "text-[#0A0A0A]"
+                        isDone ? "line-through text-gray-500" : "text-[#0F172A]"
                       }`}
                     >
                       {todo.titre}
@@ -615,7 +615,7 @@ export default function TodoClient({ initialTodos, coaches, projets }: Props) {
             <div className="w-11 h-11 bg-red-100 rounded-2xl flex items-center justify-center mb-4">
               <Trash2 className="w-5 h-5 text-red-600" />
             </div>
-            <h3 className="font-bold text-[#0A0A0A] mb-1">Supprimer cette tâche ?</h3>
+            <h3 className="font-bold text-[#0F172A] mb-1">Supprimer cette tâche ?</h3>
             <p className="text-gray-500 text-sm mb-5 truncate">{deleteTarget.titre}</p>
             <div className="flex gap-3">
               <button

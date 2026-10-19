@@ -132,7 +132,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
 
       {/* Empty state */}
       {objectifs.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-14 bg-white rounded-2xl border border-gray-100 shadow-sm">
+        <div className="flex flex-col items-center justify-center py-14 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <Trophy className="w-10 h-10 text-gray-200 mb-3" />
           <p className="text-gray-500 text-sm font-medium">Aucune course définie</p>
           <p className="text-gray-500 text-xs mt-1">Ajoute des courses ou synchronise Nolio</p>
@@ -149,7 +149,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
           return (
             <div
               key={obj.id}
-              className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center gap-4"
+              className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex items-center gap-4"
             >
               {/* Countdown orb */}
               <div className={`w-14 h-14 rounded-2xl flex flex-col items-center justify-center flex-shrink-0 ${
@@ -169,7 +169,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
               <div className="flex-1 min-w-0">
                 {/* Titre — complet, sans truncate */}
                 <div className="flex items-center gap-2 flex-wrap">
-                  <p className="font-bold text-[#0A0A0A] text-base leading-snug">{obj.titre}</p>
+                  <p className="font-bold text-[#0F172A] text-base leading-snug">{obj.titre}</p>
                   {isNolio && (
                     <span className="inline-flex items-center gap-1 text-xs font-semibold bg-[#E6007E] text-white px-2 py-0.5 rounded-full flex-shrink-0">
                       <Wifi size={9} />
@@ -217,8 +217,8 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
       {modal && (
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-            <div className="flex items-center justify-between p-6 border-b border-gray-100">
-              <h2 className="font-bold text-[#0A0A0A]">
+            <div className="flex items-center justify-between p-6 border-b border-slate-200">
+              <h2 className="font-bold text-[#0F172A]">
                 {modal === "add" ? "Ajouter une course" : "Modifier la course"}
               </h2>
               <button onClick={() => setModal(null)} className="text-gray-500 hover:text-gray-600">
@@ -234,7 +234,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
                   value={form.titre}
                   onChange={(e) => setForm({ ...form, titre: e.target.value })}
                   placeholder="ex: Ironman Nice, Marathon de Paris..."
-                  className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -245,7 +245,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
                     type="date"
                     value={form.date}
                     onChange={(e) => setForm({ ...form, date: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]"
                   />
                 </div>
                 <div>
@@ -253,7 +253,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
                   <select
                     value={form.distance}
                     onChange={(e) => setForm({ ...form, distance: e.target.value as DistanceObjectif })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white"
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E] bg-white"
                   >
                     {DISTANCES.map((d) => <option key={d} value={d}>{d}</option>)}
                   </select>
@@ -263,7 +263,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
                 <button
                   type="button"
                   onClick={() => setModal(null)}
-                  className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-4 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-slate-50 transition-colors"
                 >
                   Annuler
                 </button>
@@ -290,7 +290,7 @@ export default function ObjectifsPanel({ athleteId, initialObjectifs }: Props) {
             <div className="flex gap-3">
               <button
                 onClick={() => setDeleteId(null)}
-                className="flex-1 px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border border-slate-200 rounded-xl text-sm font-medium hover:bg-slate-50"
               >
                 Annuler
               </button>

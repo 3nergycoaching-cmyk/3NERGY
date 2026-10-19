@@ -4,15 +4,36 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Coach, Athlete } from "@/lib/types";
 import Badge from "@/components/Badge";
-import { Plus, X, Edit2, Save, UserCheck } from "lucide-react";
+import { Plus, X, Edit2, Save, UserCheck, Users, Database } from "lucide-react";
+import NolioTable from "./nolio/NolioTable";
+import NolioConnectionActions from "./nolio/NolioConnectionActions";
+import { NolioEntry } from "./page";
 
 interface Props {
   coaches: Coach[];
   athletes: Athlete[];
+  nolioAthletes: NolioEntry[];
+  fetchError: string | null;
+  isConnected: boolean;
+  hasError: boolean;
+  initialLinks: Record<number, string>;
+  emailLinks: Record<string, string>;
 }
 
-export default function EquipeClient({ coaches: initialCoaches, athletes }: Props) {
+type Tab = "coachs" | "nolio";
+
+export default function EquipeClient({
+  coaches: initialCoaches,
+  athletes,
+  nolioAthletes,
+  fetchError,
+  isConnected,
+  hasError,
+  initialLinks,
+  emailLinks,
+}: Props) {
   const router = useRouter();
+  const [tab, setTab] = useState<Tab>("coachs");
   const [coaches, setCoaches] = useState(initialCoaches);
   const [showNewCoach, setShowNewCoach] = useState(false);
   const [editingCoach, setEditingCoach] = useState<string | null>(null);
@@ -69,182 +90,250 @@ export default function EquipeClient({ coaches: initialCoaches, athletes }: Prop
     router.refresh();
   };
 
+  const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
+    { id: "coachs", label: "Entraîneurs", icon: <Users size={15} /> },
+    { id: "nolio", label: "Nolio", icon: <Database size={15} /> },
+  ];
+
   return (
     <div className="p-8">
+      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#0A0A0A]">Équipe</h1>
-          <p className="text-gray-500 text-sm mt-1">{coaches.length} coachs dans l&apos;équipe</p>
+          <h1 className="text-3xl font-bold" style={{ color: "#0F172A" }}>Équipe</h1>
+          <p className="text-sm mt-1" style={{ color: "#64748B" }}>
+            {coaches.length} entraîneurs · {nolioAthletes.length} athlètes Nolio
+          </p>
         </div>
-        <button
-          onClick={() => setShowNewCoach(true)}
-          className="flex items-center gap-2 bg-[#E6007E] hover:bg-[#C00069] text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
-        >
-          <Plus size={16} />
-          Ajouter un coach
-        </button>
+        {tab === "coachs" && (
+          <button
+            onClick={() => setShowNewCoach(true)}
+            className="flex items-center gap-2 text-white px-4 py-2.5 rounded-xl font-medium text-sm transition-colors"
+            style={{ backgroundColor: "#E6007E" }}
+            onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#C00069")}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#E6007E")}
+          >
+            <Plus size={16} />
+            Ajouter un entraîneur
+          </button>
+        )}
+        {tab === "nolio" && (
+          <NolioConnectionActions isConnected={isConnected} hasError={hasError} />
+        )}
       </div>
 
-      {showNewCoach && (
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold">Nouveau coach</h2>
-            <button onClick={() => setShowNewCoach(false)} className="text-gray-500 hover:text-gray-600"><X size={18} /></button>
-          </div>
-          <form onSubmit={handleCreate} className="space-y-4">
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Prénom *</label>
-                <input required value={newForm.prenom} onChange={(e) => setNewForm({ ...newForm, prenom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+      {/* Tabs */}
+      <div className="flex gap-1 mb-6 bg-slate-100 rounded-xl p-1 w-fit">
+        {tabs.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setTab(t.id)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+            style={
+              tab === t.id
+                ? { backgroundColor: "#fff", color: "#E6007E", boxShadow: "0 1px 3px rgba(0,0,0,0.08)" }
+                : { color: "#64748B" }
+            }
+          >
+            {t.icon}
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Tab: Coachs ────────────────────────────────────────────────────── */}
+      {tab === "coachs" && (
+        <>
+          {showNewCoach && (
+            <div className="bg-white rounded-2xl p-6 border mb-6" style={{ borderColor: "#E2E8F0", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-bold" style={{ color: "#0F172A" }}>Nouvel entraîneur</h2>
+                <button onClick={() => setShowNewCoach(false)} style={{ color: "#64748B" }}><X size={18} /></button>
               </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Nom *</label>
-                <input required value={newForm.nom} onChange={(e) => setNewForm({ ...newForm, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Rôle</label>
-                <input value={newForm.role} onChange={(e) => setNewForm({ ...newForm, role: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Email *</label>
-                <input required type="email" value={newForm.email} onChange={(e) => setNewForm({ ...newForm, email: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Téléphone</label>
-                <input value={newForm.telephone} onChange={(e) => setNewForm({ ...newForm, telephone: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Couleur</label>
-                <div className="flex items-center gap-2">
-                  <input type="color" value={newForm.couleur} onChange={(e) => setNewForm({ ...newForm, couleur: e.target.value })} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
-                  <span className="text-xs text-gray-500">{newForm.couleur}</span>
+              <form onSubmit={handleCreate} className="space-y-4">
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-medium mb-1" style={{ color: "#64748B" }}>Prénom *</label>
+                    <input required value={newForm.prenom} onChange={(e) => setNewForm({ ...newForm, prenom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1" style={{ color: "#64748B" }}>Nom *</label>
+                    <input required value={newForm.nom} onChange={(e) => setNewForm({ ...newForm, nom: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1" style={{ color: "#64748B" }}>Rôle</label>
+                    <input value={newForm.role} onChange={(e) => setNewForm({ ...newForm, role: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+                  </div>
                 </div>
-              </div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-medium mb-1" style={{ color: "#64748B" }}>Email *</label>
+                    <input required type="email" value={newForm.email} onChange={(e) => setNewForm({ ...newForm, email: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1" style={{ color: "#64748B" }}>Téléphone</label>
+                    <input value={newForm.telephone} onChange={(e) => setNewForm({ ...newForm, telephone: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium mb-1" style={{ color: "#64748B" }}>Couleur</label>
+                    <div className="flex items-center gap-2">
+                      <input type="color" value={newForm.couleur} onChange={(e) => setNewForm({ ...newForm, couleur: e.target.value })} className="w-10 h-10 rounded-xl border border-gray-200 cursor-pointer" />
+                      <span className="text-xs" style={{ color: "#64748B" }}>{newForm.couleur}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-3 justify-end">
+                  <button type="button" onClick={() => setShowNewCoach(false)} className="px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium transition-colors" style={{ color: "#64748B" }}>Annuler</button>
+                  <button type="submit" disabled={loading} className="px-4 py-2 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50" style={{ backgroundColor: "#E6007E" }}>
+                    {loading ? "Création..." : "Créer l'entraîneur"}
+                  </button>
+                </div>
+              </form>
             </div>
-            <div className="flex gap-3 justify-end">
-              <button type="button" onClick={() => setShowNewCoach(false)} className="px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Annuler</button>
-              <button type="submit" disabled={loading} className="px-4 py-2 bg-[#E6007E] hover:bg-[#C00069] text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50">
-                {loading ? "Création..." : "Créer le coach"}
-              </button>
-            </div>
-          </form>
-        </div>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {coaches.map((coach) => {
+              const coachAthletes = getCoachAthletes(coach.id);
+              const isEditing = editingCoach === coach.id;
+
+              return (
+                <div key={coach.id} className="bg-white rounded-2xl p-6 border" style={{ borderColor: "#E2E8F0", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: coach.couleur }}>
+                        {coach.prenom.charAt(0)}{coach.nom.charAt(0)}
+                      </div>
+                      <div>
+                        {isEditing ? (
+                          <div className="space-y-1">
+                            <div className="flex gap-2">
+                              <input value={editForm.prenom || ""} onChange={(e) => setEditForm({ ...editForm, prenom: e.target.value })} placeholder="Prénom" className="px-2 py-1 border border-gray-200 rounded-lg text-sm w-24 focus:outline-none focus:border-[#E6007E]" />
+                              <input value={editForm.nom || ""} onChange={(e) => setEditForm({ ...editForm, nom: e.target.value })} placeholder="Nom" className="px-2 py-1 border border-gray-200 rounded-lg text-sm w-24 focus:outline-none focus:border-[#E6007E]" />
+                            </div>
+                            <input value={editForm.role || ""} onChange={(e) => setEditForm({ ...editForm, role: e.target.value })} placeholder="Rôle" className="px-2 py-1 border border-gray-200 rounded-lg text-xs w-full focus:outline-none focus:border-[#E6007E]" />
+                          </div>
+                        ) : (
+                          <>
+                            <p className="font-bold" style={{ color: "#0F172A" }}>{coach.prenom} {coach.nom}</p>
+                            <p className="text-xs" style={{ color: "#64748B" }}>{coach.role}</p>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      {isEditing ? (
+                        <>
+                          <button onClick={() => handleSaveCoach(coach.id)} className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors" disabled={loading}><Save size={14} /></button>
+                          <button onClick={() => setEditingCoach(null)} className="p-2 rounded-xl transition-colors" style={{ color: "#64748B" }}><X size={14} /></button>
+                        </>
+                      ) : (
+                        <button
+                          onClick={() => { setEditingCoach(coach.id); setEditForm({ ...coach }); }}
+                          className="p-2 rounded-xl transition-colors hover:bg-gray-100"
+                          style={{ color: "#64748B" }}
+                        >
+                          <Edit2 size={14} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {isEditing && (
+                    <div className="grid grid-cols-2 gap-3 mb-4">
+                      <div>
+                        <label className="block text-xs mb-1" style={{ color: "#64748B" }}>Email</label>
+                        <input value={editForm.email || ""} onChange={(e) => setEditForm({ ...editForm, email: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#E6007E]" />
+                      </div>
+                      <div>
+                        <label className="block text-xs mb-1" style={{ color: "#64748B" }}>Téléphone</label>
+                        <input value={editForm.telephone || ""} onChange={(e) => setEditForm({ ...editForm, telephone: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#E6007E]" />
+                      </div>
+                    </div>
+                  )}
+
+                  {!isEditing && (
+                    <div className="flex gap-4 text-xs mb-4" style={{ color: "#64748B" }}>
+                      <span>{coach.email}</span>
+                    </div>
+                  )}
+
+                  <div className="border-t pt-4" style={{ borderColor: "#F1F5F9" }}>
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-medium" style={{ color: "#64748B" }}>Athlètes assignés</p>
+                      <span className="text-xs font-bold" style={{ color: coach.couleur }}>{coachAthletes.length}</span>
+                    </div>
+                    <div className="space-y-2">
+                      {coachAthletes.length === 0 ? (
+                        <p className="text-xs" style={{ color: "#94A3B8" }}>Aucun athlète assigné</p>
+                      ) : (
+                        coachAthletes.map((athlete) => (
+                          <div key={athlete.id} className="flex items-center justify-between p-2 rounded-xl" style={{ backgroundColor: "#F8FAFC" }}>
+                            <div className="flex items-center gap-2">
+                              <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: coach.couleur }}>
+                                {athlete.prenom.charAt(0)}
+                              </div>
+                              <p className="text-sm font-medium" style={{ color: "#0F172A" }}>{athlete.prenom} {athlete.nom}</p>
+                              <Badge value={athlete.discipline} type="discipline" />
+                            </div>
+                            <button
+                              onClick={() => setReassignModal({ coachId: coach.id, athleteId: athlete.id })}
+                              className="p-1 transition-colors hover:text-[#E6007E]"
+                              style={{ color: "#64748B" }}
+                              title="Réassigner"
+                            >
+                              <UserCheck size={13} />
+                            </button>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {reassignModal && (
+            <ReassignModal
+              athleteId={reassignModal.athleteId}
+              currentCoachId={reassignModal.coachId}
+              coaches={coaches}
+              athletes={athletes}
+              onClose={() => setReassignModal(null)}
+              onReassign={handleReassign}
+            />
+          )}
+        </>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {coaches.map((coach) => {
-          const coachAthletes = getCoachAthletes(coach.id);
-          const isEditing = editingCoach === coach.id;
-
-          return (
-            <div key={coach.id} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg"
-                    style={{ backgroundColor: coach.couleur }}
-                  >
-                    {coach.prenom.charAt(0)}{coach.nom.charAt(0)}
-                  </div>
-                  <div>
-                    {isEditing ? (
-                      <div className="space-y-1">
-                        <div className="flex gap-2">
-                          <input value={editForm.prenom || ""} onChange={(e) => setEditForm({ ...editForm, prenom: e.target.value })} placeholder="Prénom" className="px-2 py-1 border border-gray-200 rounded-lg text-sm w-24 focus:outline-none focus:border-[#E6007E]" />
-                          <input value={editForm.nom || ""} onChange={(e) => setEditForm({ ...editForm, nom: e.target.value })} placeholder="Nom" className="px-2 py-1 border border-gray-200 rounded-lg text-sm w-24 focus:outline-none focus:border-[#E6007E]" />
-                        </div>
-                        <input value={editForm.role || ""} onChange={(e) => setEditForm({ ...editForm, role: e.target.value })} placeholder="Rôle" className="px-2 py-1 border border-gray-200 rounded-lg text-xs w-full focus:outline-none focus:border-[#E6007E]" />
-                      </div>
-                    ) : (
-                      <>
-                        <p className="font-bold text-[#0A0A0A]">{coach.prenom} {coach.nom}</p>
-                        <p className="text-xs text-gray-500">{coach.role}</p>
-                      </>
-                    )}
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  {isEditing ? (
-                    <>
-                      <button onClick={() => handleSaveCoach(coach.id)} className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-xl transition-colors" disabled={loading}><Save size={14} /></button>
-                      <button onClick={() => setEditingCoach(null)} className="p-2 text-gray-500 hover:bg-gray-100 rounded-xl transition-colors"><X size={14} /></button>
-                    </>
-                  ) : (
-                    <button
-                      onClick={() => { setEditingCoach(coach.id); setEditForm({ ...coach }); }}
-                      className="p-2 text-gray-500 hover:text-[#E6007E] hover:bg-gray-100 rounded-xl transition-colors"
-                    >
-                      <Edit2 size={14} />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {isEditing && (
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">Email</label>
-                    <input value={editForm.email || ""} onChange={(e) => setEditForm({ ...editForm, email: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#E6007E]" />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">Téléphone</label>
-                    <input value={editForm.telephone || ""} onChange={(e) => setEditForm({ ...editForm, telephone: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#E6007E]" />
-                  </div>
-                </div>
-              )}
-
-              {!isEditing && (
-                <div className="flex gap-4 text-xs text-gray-500 mb-4">
-                  <span>{coach.email}</span>
-                </div>
-              )}
-
-              <div className="border-t border-gray-100 pt-4">
-                <div className="flex items-center justify-between mb-2">
-                  <p className="text-sm font-medium text-gray-600">Athlètes assignés</p>
-                  <span className="text-xs font-bold" style={{ color: coach.couleur }}>{coachAthletes.length}</span>
-                </div>
-                <div className="space-y-2">
-                  {coachAthletes.length === 0 ? (
-                    <p className="text-xs text-gray-500">Aucun athlète assigné</p>
-                  ) : (
-                    coachAthletes.map((athlete) => (
-                      <div key={athlete.id} className="flex items-center justify-between p-2 rounded-xl bg-gray-50">
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{ backgroundColor: coach.couleur }}>
-                            {athlete.prenom.charAt(0)}
-                          </div>
-                          <p className="text-sm font-medium">{athlete.prenom} {athlete.nom}</p>
-                          <Badge value={athlete.discipline} type="discipline" />
-                        </div>
-                        <button
-                          onClick={() => setReassignModal({ coachId: coach.id, athleteId: athlete.id })}
-                          className="p-1 text-gray-500 hover:text-[#E6007E] transition-colors"
-                          title="Réassigner"
-                        >
-                          <UserCheck size={13} />
-                        </button>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
+      {/* ── Tab: Nolio ─────────────────────────────────────────────────────── */}
+      {tab === "nolio" && (
+        <>
+          {fetchError && !isConnected && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700">
+              {fetchError}
             </div>
-          );
-        })}
-      </div>
-
-      {reassignModal && (
-        <ReassignModal
-          athleteId={reassignModal.athleteId}
-          currentCoachId={reassignModal.coachId}
-          coaches={coaches}
-          athletes={athletes}
-          onClose={() => setReassignModal(null)}
-          onReassign={handleReassign}
-        />
+          )}
+          {!isConnected && !hasError && (
+            <div className="flex flex-col items-center justify-center py-20 text-center">
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style={{ backgroundColor: "#F1F5F9" }}>
+                <Database size={28} style={{ color: "#94A3B8" }} />
+              </div>
+              <p className="font-semibold mb-1" style={{ color: "#0F172A" }}>Nolio non connecté</p>
+              <p className="text-sm mb-6" style={{ color: "#64748B" }}>Connecte ton compte Nolio pour synchroniser les athlètes.</p>
+            </div>
+          )}
+          {(isConnected || nolioAthletes.length > 0) && (
+            <NolioTable
+              nolioAthletes={nolioAthletes}
+              crmAthletes={athletes}
+              coaches={coaches}
+              initialLinks={initialLinks}
+              emailLinks={emailLinks}
+            />
+          )}
+        </>
       )}
     </div>
   );
@@ -272,10 +361,10 @@ function ReassignModal({
     <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold text-[#0A0A0A]">Réassigner l&apos;athlète</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-600"><X size={18} /></button>
+          <h2 className="font-bold" style={{ color: "#0F172A" }}>Réassigner l&apos;athlète</h2>
+          <button onClick={onClose} style={{ color: "#64748B" }}><X size={18} /></button>
         </div>
-        {athlete && <p className="text-sm text-gray-600 mb-4">{athlete.prenom} {athlete.nom}</p>}
+        {athlete && <p className="text-sm mb-4" style={{ color: "#64748B" }}>{athlete.prenom} {athlete.nom}</p>}
         <div className="space-y-2 mb-4">
           {coaches.map((c) => (
             <button
@@ -288,18 +377,19 @@ function ReassignModal({
               </div>
               <div className="text-left">
                 <p className="text-sm font-medium">{c.prenom} {c.nom}</p>
-                <p className="text-xs text-gray-500">{c.role}</p>
+                <p className="text-xs" style={{ color: "#64748B" }}>{c.role}</p>
               </div>
-              {c.id === currentCoachId && <span className="ml-auto text-xs text-gray-500">Actuel</span>}
+              {c.id === currentCoachId && <span className="ml-auto text-xs" style={{ color: "#64748B" }}>Actuel</span>}
             </button>
           ))}
         </div>
         <div className="flex gap-3">
-          <button onClick={onClose} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors">Annuler</button>
+          <button onClick={onClose} className="flex-1 px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium transition-colors" style={{ color: "#64748B" }}>Annuler</button>
           <button
             onClick={() => onReassign(athleteId, selectedCoach)}
             disabled={selectedCoach === currentCoachId}
-            className="flex-1 px-4 py-2 bg-[#E6007E] text-white rounded-xl text-sm font-medium hover:bg-[#C00069] transition-colors disabled:opacity-50"
+            className="flex-1 px-4 py-2 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+            style={{ backgroundColor: "#E6007E" }}
           >
             Réassigner
           </button>

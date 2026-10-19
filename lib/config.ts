@@ -6,10 +6,14 @@
  *   basic       69 €  — Plan d'entrée
  *   performance 99 €  — Coaching performance
  *   pro        109 €  — Coaching pro complet
+ *   indiv_200  200 €  — Formule individuelle 200€/mois (growth operator)
+ *   indiv_300  300 €  — Formule individuelle 300€/mois (growth operator)
  *   autre        0 €  — Prix libre / personnalisé
  *   gratuit      0 €  — Gratuit (fixe)
  */
 export const SERVICE_TARIFS: Record<string, number> = {
+  indiv_300:   300,
+  indiv_200:   200,
   pro:         109,
   performance:  99,
   basic:        69,
@@ -19,6 +23,8 @@ export const SERVICE_TARIFS: Record<string, number> = {
 
 /** Labels d'affichage pour les services */
 export const SERVICE_LABELS: Record<string, string> = {
+  indiv_300:   "Individuel 300€",
+  indiv_200:   "Individuel 200€",
   pro:         "Pro",
   performance: "Performance",
   basic:       "Basic",
@@ -27,4 +33,4 @@ export const SERVICE_LABELS: Record<string, string> = {
 };
 
 /** Ordre d'affichage pour les listes */
-export const SERVICE_ORDER = ["pro", "performance", "basic", "gratuit", "autre"] as const;
+export const SERVICE_ORDER = ["indiv_300", "indiv_200", "pro", "performance", "basic", "gratuit", "autre"] as const;

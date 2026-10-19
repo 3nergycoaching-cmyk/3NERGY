@@ -72,7 +72,7 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
 
   if (editing) {
     return (
-      <tr className="border-b border-gray-100 bg-[#E6007E]/5">
+      <tr className="border-b border-slate-200 bg-[#E6007E]/5">
         <td className="px-4 py-2.5 text-sm font-semibold text-[#E6007E] whitespace-nowrap w-44">{label}</td>
         <td className="px-4 py-2">
           <input
@@ -91,14 +91,14 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
             value={form.date}
             onChange={(e) => setForm({ ...form, date: e.target.value })}
             onKeyDown={handleKey}
-            className="px-2 py-1.5 border border-gray-200 rounded-lg text-xs w-36 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
+            className="px-2 py-1.5 border border-slate-200 rounded-lg text-xs w-36 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20"
           />
         </td>
         <td className="px-4 py-2">
           <select
             value={form.contexte}
             onChange={(e) => setForm({ ...form, contexte: e.target.value as Chrono["contexte"] })}
-            className="px-2 py-1.5 border border-gray-200 rounded-lg text-xs bg-white focus:outline-none"
+            className="px-2 py-1.5 border border-slate-200 rounded-lg text-xs bg-white focus:outline-none"
           >
             <option value="competition">Compétition</option>
             <option value="entrainement">Entraînement</option>
@@ -121,12 +121,12 @@ function EditableRow({ label, hint, unit, chrono, onSave, onClear }: EditableRow
   return (
     <tr
       onClick={open}
-      className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer group transition-colors"
+      className="border-b border-gray-50 hover:bg-slate-50 cursor-pointer group transition-colors"
     >
       <td className="px-4 py-2.5 text-sm font-medium text-gray-700 whitespace-nowrap w-44">{label}</td>
       <td className="px-4 py-2.5">
         {chrono ? (
-          <span className="text-sm font-bold text-[#0A0A0A]">
+          <span className="text-sm font-bold text-[#0F172A]">
             {chrono.valeur}{unit ? <span className="text-xs font-normal text-gray-500 ml-1">{unit}</span> : null}
           </span>
         ) : (
@@ -196,15 +196,15 @@ function PerfSection({ title, icon: Icon, color, children }: {
   title: string; icon: React.ElementType; color: string; children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-      <div className={`px-5 py-3.5 border-b border-gray-100 flex items-center gap-2 ${color}`}>
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className={`px-5 py-3.5 border-b border-slate-200 flex items-center gap-2 ${color}`}>
         <Icon size={16} />
         <h3 className="font-semibold text-sm">{title}</h3>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-50 bg-gray-50/50">
+            <tr className="border-b border-gray-50 bg-slate-50/50">
               <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600 w-44">Distance / Effort</th>
               <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Valeur</th>
               <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Date</th>
@@ -253,8 +253,8 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
   const handleDelete = (id: string) => onChange(entries.filter((e) => e.id !== id));
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-      <div className="px-5 py-3.5 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
         <div className="flex items-center gap-2 text-gray-600">
           <Plus size={15} />
           <h3 className="font-semibold text-sm">Entrées personnalisées</h3>
@@ -269,36 +269,36 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
 
       {/* Add form */}
       {adding && (
-        <div className="px-5 py-4 border-b border-gray-100 bg-[#E6007E]/5">
+        <div className="px-5 py-4 border-b border-slate-200 bg-[#E6007E]/5">
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Discipline</label>
-              <input type="text" value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value })} placeholder="ex: Natation, Running..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+              <input type="text" value={form.discipline} onChange={(e) => setForm({ ...form, discipline: e.target.value })} placeholder="ex: Natation, Running..." className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Distance / Effort</label>
-              <input type="text" value={form.distance} onChange={(e) => setForm({ ...form, distance: e.target.value })} placeholder="ex: 1000m TT, Hill climb..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+              <input type="text" value={form.distance} onChange={(e) => setForm({ ...form, distance: e.target.value })} placeholder="ex: 1000m TT, Hill climb..." className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-3">
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Valeur</label>
-              <input type="text" value={form.valeur} onChange={(e) => setForm({ ...form, valeur: e.target.value })} placeholder="ex: 3:45, 280W..." className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+              <input type="text" value={form.valeur} onChange={(e) => setForm({ ...form, valeur: e.target.value })} placeholder="ex: 3:45, 280W..." className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Date</label>
-              <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
+              <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#E6007E]/20 focus:border-[#E6007E]" />
             </div>
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Contexte</label>
-              <select value={form.contexte} onChange={(e) => setForm({ ...form, contexte: e.target.value as CustomEntry["contexte"] })} className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none bg-white">
+              <select value={form.contexte} onChange={(e) => setForm({ ...form, contexte: e.target.value as CustomEntry["contexte"] })} className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none bg-white">
                 <option value="competition">Compétition</option>
                 <option value="entrainement">Entraînement</option>
               </select>
             </div>
           </div>
           <div className="flex gap-2 mt-3 justify-end">
-            <button onClick={() => setAdding(false)} className="px-4 py-2 text-sm border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors">Annuler</button>
+            <button onClick={() => setAdding(false)} className="px-4 py-2 text-sm border border-slate-200 rounded-xl text-gray-600 hover:bg-slate-50 transition-colors">Annuler</button>
             <button onClick={handleAdd} disabled={!form.discipline.trim() || !form.distance.trim() || !form.valeur.trim()} className="flex items-center gap-2 px-4 py-2 bg-[#E6007E] text-white text-sm rounded-xl hover:bg-[#C00069] transition-colors disabled:opacity-40">
               <Check size={14} /> Enregistrer
             </button>
@@ -313,7 +313,7 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-50 bg-gray-50/50">
+              <tr className="border-b border-gray-50 bg-slate-50/50">
                 <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Discipline</th>
                 <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Distance / Effort</th>
                 <th className="text-left px-4 py-2 text-xs font-semibold text-gray-600">Valeur</th>
@@ -327,10 +327,10 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
                 editId === entry.id ? (
                   <tr key={entry.id} className="border-b border-gray-50 bg-[#E6007E]/5">
                     <td className="px-4 py-2"><input autoFocus value={editForm.discipline} onChange={(e) => setEditForm({ ...editForm, discipline: e.target.value })} className="w-full px-2 py-1.5 border border-[#E6007E]/30 rounded-lg text-sm focus:outline-none" /></td>
-                    <td className="px-4 py-2"><input value={editForm.distance} onChange={(e) => setEditForm({ ...editForm, distance: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none" /></td>
-                    <td className="px-4 py-2"><input value={editForm.valeur} onChange={(e) => setEditForm({ ...editForm, valeur: e.target.value })} className="w-full px-2 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none" /></td>
-                    <td className="px-4 py-2"><input type="date" value={editForm.date} onChange={(e) => setEditForm({ ...editForm, date: e.target.value })} className="px-2 py-1.5 border border-gray-200 rounded-lg text-xs w-32 focus:outline-none" /></td>
-                    <td className="px-4 py-2"><select value={editForm.contexte} onChange={(e) => setEditForm({ ...editForm, contexte: e.target.value as CustomEntry["contexte"] })} className="px-2 py-1.5 border border-gray-200 rounded-lg text-xs bg-white focus:outline-none"><option value="competition">Compétition</option><option value="entrainement">Entraînement</option></select></td>
+                    <td className="px-4 py-2"><input value={editForm.distance} onChange={(e) => setEditForm({ ...editForm, distance: e.target.value })} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-sm focus:outline-none" /></td>
+                    <td className="px-4 py-2"><input value={editForm.valeur} onChange={(e) => setEditForm({ ...editForm, valeur: e.target.value })} className="w-full px-2 py-1.5 border border-slate-200 rounded-lg text-sm focus:outline-none" /></td>
+                    <td className="px-4 py-2"><input type="date" value={editForm.date} onChange={(e) => setEditForm({ ...editForm, date: e.target.value })} className="px-2 py-1.5 border border-slate-200 rounded-lg text-xs w-32 focus:outline-none" /></td>
+                    <td className="px-4 py-2"><select value={editForm.contexte} onChange={(e) => setEditForm({ ...editForm, contexte: e.target.value as CustomEntry["contexte"] })} className="px-2 py-1.5 border border-slate-200 rounded-lg text-xs bg-white focus:outline-none"><option value="competition">Compétition</option><option value="entrainement">Entraînement</option></select></td>
                     <td className="px-4 py-2">
                       <div className="flex gap-1">
                         <button onClick={() => handleEdit(entry.id)} className="w-7 h-7 flex items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 hover:bg-emerald-200"><Check size={12} /></button>
@@ -339,10 +339,10 @@ function CustomSection({ entries, onChange }: CustomSectionProps) {
                     </td>
                   </tr>
                 ) : (
-                  <tr key={entry.id} onClick={() => { setEditForm({ discipline: entry.discipline, distance: entry.distance, valeur: entry.valeur, date: entry.date, contexte: entry.contexte }); setEditId(entry.id); }} className="border-b border-gray-50 hover:bg-gray-50 cursor-pointer group transition-colors">
+                  <tr key={entry.id} onClick={() => { setEditForm({ discipline: entry.discipline, distance: entry.distance, valeur: entry.valeur, date: entry.date, contexte: entry.contexte }); setEditId(entry.id); }} className="border-b border-gray-50 hover:bg-slate-50 cursor-pointer group transition-colors">
                     <td className="px-4 py-2.5 text-sm font-medium text-gray-700">{entry.discipline}</td>
                     <td className="px-4 py-2.5 text-sm text-gray-600">{entry.distance}</td>
-                    <td className="px-4 py-2.5 text-sm font-bold text-[#0A0A0A]">{entry.valeur}</td>
+                    <td className="px-4 py-2.5 text-sm font-bold text-[#0F172A]">{entry.valeur}</td>
                     <td className="px-4 py-2.5 text-xs text-gray-500">{fmtDate(entry.date)}</td>
                     <td className="px-4 py-2.5">
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${entry.contexte === "competition" ? "bg-[#E6007E]/10 text-[#E6007E]" : "bg-gray-100 text-gray-500"}`}>

@@ -53,7 +53,7 @@ export default function CoursesClient({ events, overrides }: Props) {
       {/* Header */}
       <div className="flex items-start justify-between mb-6 gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-[#0A0A0A]">Courses & Événements</h1>
+          <h1 className="text-3xl font-bold text-[#0F172A]">Courses & Événements</h1>
           <p className="text-gray-500 text-sm mt-1">
             {upcomingEvents.length} à venir · {totalParticipants} inscriptions
             {pastEvents.length > 0 && (
@@ -86,7 +86,7 @@ export default function CoursesClient({ events, overrides }: Props) {
             <Flag className="w-5 h-5 text-[#E6007E]" />
           </div>
           <div>
-            <p className="text-2xl font-bold text-[#0A0A0A]">{upcomingEvents.length}</p>
+            <p className="text-2xl font-bold text-[#0F172A]">{upcomingEvents.length}</p>
             <p className="text-xs text-gray-500">Courses à venir</p>
           </div>
         </div>
@@ -95,7 +95,7 @@ export default function CoursesClient({ events, overrides }: Props) {
             <Calendar className="w-5 h-5 text-emerald-600" />
           </div>
           <div>
-            <p className="text-2xl font-bold text-[#0A0A0A]">
+            <p className="text-2xl font-bold text-[#0F172A]">
               {upcomingEvents.length > 0
                 ? Math.ceil((new Date(upcomingEvents[0].date + "T00:00:00").getTime() - Date.now()) / 86400000)
                 : "—"}
@@ -108,7 +108,7 @@ export default function CoursesClient({ events, overrides }: Props) {
             <Users className="w-5 h-5 text-blue-600" />
           </div>
           <div>
-            <p className="text-2xl font-bold text-[#0A0A0A]">{totalParticipants}</p>
+            <p className="text-2xl font-bold text-[#0F172A]">{totalParticipants}</p>
             <p className="text-xs text-gray-500">Inscriptions à venir</p>
           </div>
         </div>
@@ -320,7 +320,7 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
                       if (e.key === "Enter") saveName();
                       if (e.key === "Escape") { setIsEditing(false); setEditValue(titre); }
                     }}
-                    className="text-lg font-bold text-[#0A0A0A] border-b-2 border-[#E6007E] bg-transparent focus:outline-none w-64"
+                    className="text-lg font-bold text-[#0F172A] border-b-2 border-[#E6007E] bg-transparent focus:outline-none w-64"
                   />
                   <button onClick={saveName} disabled={saving} className="text-emerald-600 hover:text-emerald-700 p-1">
                     <Check size={16} />
@@ -331,7 +331,7 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
                 </div>
               ) : (
                 <div className="flex items-center gap-1.5">
-                  <h2 className="font-bold text-[#0A0A0A] text-lg">{titre}</h2>
+                  <h2 className="font-bold text-[#0F172A] text-lg">{titre}</h2>
                   {hasCustomName && (
                     <button
                       onClick={resetName}
@@ -454,7 +454,7 @@ function EventCard({ entry, isPast, siblings, overrides }: EventCardProps) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1">
-                    <p className="text-xs font-semibold text-[#0A0A0A] truncate group-hover:text-[#E6007E] transition-colors">
+                    <p className="text-xs font-semibold text-[#0F172A] truncate group-hover:text-[#E6007E] transition-colors">
                       {athlete.prenom} {athlete.nom}
                     </p>
                     {isLinked && (

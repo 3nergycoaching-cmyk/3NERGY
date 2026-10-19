@@ -26,7 +26,7 @@ export default function DashboardCharts({ data }: { data: ChartData[] }) {
             <stop offset="95%" stopColor="#E6007E" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <CartesianGrid strokeDasharray="3 3" stroke="#E4E4E7" />
+        <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
         <XAxis
           dataKey="label"
           tick={{ fontSize: 11, fill: "#9ca3af" }}
@@ -42,7 +42,7 @@ export default function DashboardCharts({ data }: { data: ChartData[] }) {
         <Tooltip
           contentStyle={{
             background: "#fff",
-            border: "1px solid #E4E4E7",
+            border: "1px solid #E2E8F0",
             borderRadius: "10px",
             fontSize: "12px",
           }}

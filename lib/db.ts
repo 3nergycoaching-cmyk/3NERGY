@@ -50,6 +50,11 @@ function mapAthlete(p: {
   lienNolio: string; notes: string; createdAt: Date; service: string;
   prixMensuel: number; nolioId: number | null;
   objectifs: unknown; performances: unknown;
+  canal: string | null; regime: string; formule: string | null;
+  engagement: string | null; dateDebut: Date | null; dateFinEngagement: Date | null;
+  statutPaiement: string; moisPaiement: string | null;
+  paiementUnique: number | null;
+  paiementsHistorique: unknown;
 }): Athlete {
   return {
     id: p.id,
@@ -72,6 +77,16 @@ function mapAthlete(p: {
     nolioId: p.nolioId ?? undefined,
     objectifs: (p.objectifs as Objectif[] | null) ?? undefined,
     performances: (p.performances as Performances | null) ?? undefined,
+    canal: (p.canal as Athlete["canal"]) ?? undefined,
+    regime: (p.regime as Athlete["regime"]) ?? "HISTORIQUE",
+    formule: (p.formule as Athlete["formule"]) ?? undefined,
+    engagement: (p.engagement as Athlete["engagement"]) ?? undefined,
+    dateDebut: p.dateDebut ? p.dateDebut.toISOString() : undefined,
+    dateFinEngagement: p.dateFinEngagement ? p.dateFinEngagement.toISOString() : undefined,
+    statutPaiement: (p.statutPaiement as Athlete["statutPaiement"]) ?? "EN_ATTENTE",
+    moisPaiement: p.moisPaiement ?? undefined,
+    paiementUnique: p.paiementUnique ?? undefined,
+    paiementsHistorique: (p.paiementsHistorique as Athlete["paiementsHistorique"]) ?? undefined,
   };
 }
 
@@ -396,6 +411,15 @@ export async function createAthlete(athlete: Athlete): Promise<Athlete> {
       nolioId:        athlete.nolioId ?? null,
       objectifs:      athlete.objectifs  as never ?? undefined,
       performances:   athlete.performances as never ?? undefined,
+      canal:              athlete.canal          ? (athlete.canal as never) : undefined,
+      regime:             (athlete.regime        ?? "STANDARD") as never,
+      formule:            athlete.formule        ? (athlete.formule as never) : undefined,
+      engagement:         athlete.engagement     ? (athlete.engagement as never) : undefined,
+      dateDebut:          athlete.dateDebut      ? new Date(athlete.dateDebut) : undefined,
+      dateFinEngagement:  athlete.dateFinEngagement ? new Date(athlete.dateFinEngagement) : undefined,
+      statutPaiement:     (athlete.statutPaiement ?? "EN_ATTENTE") as never,
+      moisPaiement:       athlete.moisPaiement   ?? null,
+      paiementUnique:     athlete.paiementUnique ?? null,
     },
   });
   return mapAthlete(row);
@@ -421,9 +445,26 @@ export async function updateAthlete(id: string, data: Partial<Athlete>): Promise
     if (data.notes          !== undefined) payload.notes          = data.notes;
     if (data.service        !== undefined) payload.service        = data.service;
     if (data.prixMensuel    !== undefined) payload.prixMensuel    = data.prixMensuel;
-    if (data.nolioId        !== undefined) payload.nolioId        = data.nolioId ?? null;
-    if (data.objectifs      !== undefined) payload.objectifs      = data.objectifs ?? null;
-    if (data.performances   !== undefined) payload.performances   = data.performances ?? null;
+    if (data.nolioId            !== undefined) payload.nolioId            = data.nolioId ?? null;
+    if (data.objectifs          !== undefined) payload.objectifs          = data.objectifs ?? null;
+    if (data.performances       !== undefined) payload.performances       = data.performances ?? null;
+    if (data.canal              !== undefined) payload.canal              = data.canal ?? null;
+    if (data.regime             !== undefined) payload.regime             = data.regime;
+    if (data.formule            !== undefined) payload.formule            = data.formule ?? null;
+    if (data.engagement         !== undefined) payload.engagement         = data.engagement ?? null;
+    if (data.dateDebut          !== undefined) payload.dateDebut          = data.dateDebut ?? null;
+    if (data.dateFinEngagement  !== undefined) payload.dateFinEngagement  = data.dateFinEngagement ?? null;
+    if (data.statutPaiement     !== undefined) payload.statutPaiement     = data.statutPaiement;
+    if (data.moisPaiement       !== undefined) payload.moisPaiement       = data.moisPaiement ?? null;
+    if (data.paiementUnique     !== undefined) payload.paiementUnique     = data.paiementUnique ?? null;
+
+    // Écrire dans l'historique quand on définit un statut pour un mois donné
+    if (data.moisPaiement && data.statutPaiement) {
+      const current = await prisma.athlete.findUnique({ where: { id }, select: { paiementsHistorique: true } });
+      const hist = (current?.paiementsHistorique as Record<string, string> | null) ?? {};
+      hist[data.moisPaiement] = data.statutPaiement;
+      payload.paiementsHistorique = hist;
+    }
 
     const row = await prisma.athlete.update({ where: { id }, data: payload });
     return mapAthlete(row);

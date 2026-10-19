@@ -132,7 +132,7 @@ export default function AcquisitionClient({ leads: initialLeads, coaches }: Prop
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-[#0A0A0A]">Acquisition</h1>
+          <h1 className="text-3xl font-bold text-[#0F172A]">Acquisition</h1>
           <p className="text-gray-500 text-sm mt-1">{activeLeads.length} leads actifs dans le pipeline</p>
         </div>
         <button
@@ -311,7 +311,7 @@ function LeadCard({
     >
       <div className="flex items-start justify-between mb-2">
         <div className="flex-1 min-w-0 pr-2">
-          <p className="font-semibold text-sm text-[#0A0A0A] truncate">{lead.prenom} {lead.nom}</p>
+          <p className="font-semibold text-sm text-[#0F172A] truncate">{lead.prenom} {lead.nom}</p>
           <p className="text-xs text-gray-500 truncate">{lead.email}</p>
         </div>
         <div className="relative flex-shrink-0">

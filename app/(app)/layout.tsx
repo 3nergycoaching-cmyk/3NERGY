@@ -3,8 +3,8 @@ import Sidebar from "@/components/Sidebar";
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="flex flex-row h-screen overflow-hidden bg-white"
-      style={{ display: "flex", flexDirection: "row", height: "100dvh", width: "100%", overflow: "hidden" }}
+      className="flex flex-row overflow-hidden"
+      style={{ display: "flex", flexDirection: "row", height: "100dvh", width: "100%", overflow: "hidden", backgroundColor: "#F1F5F9" }}
     >
       <Sidebar />
       <main
